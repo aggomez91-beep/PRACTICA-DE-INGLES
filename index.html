@@ -917,6 +917,32 @@ table{border-radius:16px}
   .dcon-f .dbtn.go{margin-left:0}
 }
 /* DICT-V3-END */
+
+/* ---- Module 6 · Top 100 words ---- */
+.w1grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:10px}
+@media(max-width:520px){.w1grid{grid-template-columns:1fr}}
+.w1{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px 14px 14px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:7px}
+.w1-top{display:flex;align-items:center;gap:8px}
+.w1-n{min-width:28px;height:28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:var(--acc2);color:var(--acc-d);font-weight:800;font-size:12px;flex:none}
+.w1-w{margin:0;font-size:26px;line-height:1.1;letter-spacing:-.3px;flex:1;color:var(--fg);overflow-wrap:anywhere}
+.w1-ty{font-size:11.5px;font-weight:700;color:var(--mut);text-align:right}
+.w1-ty .es{display:block;font-size:10.5px;font-weight:500;margin:0}
+.w1-pr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.w1-ipa{font-family:"Segoe UI","Noto Sans","Arial Unicode MS",Arial,sans-serif;font-size:16px;color:var(--acc-d);font-weight:600}
+.w1-rs{font-weight:800;font-size:16px;color:var(--fg);background:var(--acc2);border-radius:10px;padding:2px 10px}
+.w1-rs .es{display:inline;margin:0 0 0 8px;font-size:10.5px;font-weight:500}
+.w1-sp{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.w1-sp small{color:var(--mut);font-weight:700}
+.w1-sp small .es{display:inline;margin-left:6px}
+.w1-sp b{letter-spacing:1px;font-size:15px;font-family:ui-monospace,Consolas,monospace;color:var(--fg)}
+.w1-mean{font-weight:800;font-size:16px;color:var(--acc-d)}
+.w1-ex{font-size:14.5px}
+.w1-ex .es{display:block}
+:root[data-theme=dark] .w1-ipa,:root[data-theme=dark] .w1-mean,:root[data-theme=dark] .w1-n{color:var(--acc)}
+.w1steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:8px 0 14px}
+.w1step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:3px;box-shadow:var(--shadow)}
+.w1sn{position:absolute;right:10px;top:8px;width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--accfg);font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+.w1se{font-size:28px}
 </style>
 </head>
 <body>
@@ -1026,8 +1052,8 @@ function profileOf(id){return PROFILES.filter(function(p){return p.id===id;})[0]
 function teachers(){return PROFILES.filter(function(p){return p.role==='teacher';});}
 function students(){return PROFILES.filter(function(p){return p.role!=='teacher';});}
 
-var TOPICS={alphabet:'Alphabet',listening:'Listening',pron:'Speaking',nat:'Nationalities',numbers:'Numbers',vowels:'Vowels',be:'Verb BE',poss:'Possessives',simple:'Present Simple',vocab:'Vocabulary',plural:'Plurals',demo:'Demonstratives',wh:'Wh- questions'};
-var TOPICS_ES={alphabet:'Alfabeto',listening:'Comprensión auditiva',pron:'Pronunciación',nat:'Nacionalidades',numbers:'Números',vowels:'Vocales',be:'Verbo BE',poss:'Posesivos',simple:'Presente simple',vocab:'Vocabulario',plural:'Plurales',demo:'Demostrativos',wh:'Preguntas Wh-'};
+var TOPICS={alphabet:'Alphabet',listening:'Listening',pron:'Speaking',nat:'Nationalities',numbers:'Numbers',vowels:'Vowels',be:'Verb BE',poss:'Possessives',simple:'Present Simple',vocab:'Vocabulary',plural:'Plurals',demo:'Demonstratives',wh:'Wh- questions',top100:'Top 100 words'};
+var TOPICS_ES={alphabet:'Alfabeto',listening:'Comprensión auditiva',pron:'Pronunciación',nat:'Nacionalidades',numbers:'Números',vowels:'Vocales',be:'Verbo BE',poss:'Posesivos',simple:'Presente simple',vocab:'Vocabulario',plural:'Plurales',demo:'Demostrativos',wh:'Preguntas Wh-',top100:'Top 100 palabras'};
 
 /* ============================================================
    CLASS DATA
@@ -1224,7 +1250,7 @@ function lev(a,b){
   return d[m][n];
 }
 function sim(a,b){var L=Math.max(a.length,b.length);return L?1-lev(a,b)/L:1;}
-function tokens(s){return normText(s,'num').split(' ').filter(Boolean);}
+function tokens(s){var t=normText(s,'num').split(' ').filter(Boolean);return t.length?t:normText(s).split(' ').filter(Boolean);}
 function scoreSpeech(target,alts,accept){
   var tt=tokens(target),best={score:0,marks:tt.map(function(w){return {w:w,ok:false};}),heard:alts[0]||''};
   for(var a=0;a<alts.length;a++){
@@ -1677,7 +1703,7 @@ def('pr_vocab','🐾','Animals & colors|Animales y colores','Say pets, farm anim
   var it=pick(ANIMALS.concat(COLORS));return speakQ(it.en,it.es,{tip:it.em||''});
 });
 def('pr_poss','👤','Possessives|Posesivos','Say sentences with my, your, his, her…|Pronuncia frases con my, your, his, her…','pron',function(){
-  var s=pick([['My dog is called Max.','Mi perro se llama Max.'],['Your cat is black.','Tu gato es negro.'],['His parrot is green.','Su loro (de él) es verde.'],['Her fish is called Nemo.','Su pez (de ella) se llama Nemo.'],['Our rabbit is white.','Nuestro conejo es blanco.'],['Their horse is brown.','Su caballo (de ellos) es café.']]);
+  var s=pick([['My dog is called Max.','Mi perro se llama Max.'],['Your cat is black.','Tu gato es negro.'],['His parrot is green.','Su loro (de él) es verde.'],['Her fish is called Nemo.','Su pez (de ella) se llama Nemo.'],['Its tail is long.','Su cola es larga.'],['Our rabbit is white.','Nuestro conejo es blanco.'],['Their horse is brown.','Su caballo (de ellos) es café.']]);
   return speakQ(s[0],s[1]);
 });
 
@@ -1820,18 +1846,23 @@ def('be_contr','✂️','Contractions|Contracciones','isn’t, aren’t, am not.
 });
 
 /* ---------- POSSESSIVES ---------- */
-var POSS=[['I','my'],['you','your'],['he','his'],['she','her'],['we','our'],['they','their']];
+var POSS=[['I','my'],['you','your'],['he','his'],['she','her'],['it','its'],['we','our'],['they','their']];
+function possLine(p,n){
+  if(p[1]==='its')return '____ '+pick(['tail is long','fur is soft','ears are big','name is '+pick(PETNAMES)])+'.';
+  return '____ '+n+' is called '+pick(PETNAMES)+'.';
+}
 var PNOUNS=['dog','cat','parrot','rabbit','fish','hedgehog','lizard','guinea pig','horse','cow'];
-def('po_fill','👤','Possessive adjectives|Adjetivos posesivos','my, your, his, her, our, their.|my, your, his, her, our, their.','poss',function(){
+def('po_fill','👤','Possessive adjectives|Adjetivos posesivos','my, your, his, her, its, our, their.|my, your, his, her, its, our, their.','poss',function(){
   var p=pick(POSS),n=pick(PNOUNS);
-  return {kind:'mc',prompt:I('Complete with the possessive:','Completa con el posesivo:')+'<span class="big">('+p[0]+') ____ '+n+' is called '+pick(PETNAMES)+'.</span>',options:POSS.map(function(x){return x[1];}),answer:p[1],explain:I('<b>'+p[0]+' → '+p[1]+'</b>. I–my · you–your · he–his · she–her · we–our · they–their.','')};
+  return {kind:'mc',prompt:I('Complete with the possessive:','Completa con el posesivo:')+'<span class="big">('+p[0]+') '+possLine(p,n)+'</span>',options:POSS.map(function(x){return x[1];}),answer:p[1],explain:I('<b>'+p[0]+' → '+p[1]+'</b>. I–my · you–your · he–his · she–her · it–its · we–our · they–their.','')};
 });
 var POSS_CTX=[
  ['Anna is my friend. ____ dog is white.','her','Anna es mi amiga. Su perro es blanco.'],['Tom is my brother. ____ cat is black.','his','Tom es mi hermano. Su gato es negro.'],
  ['Anna and Tom are my friends. ____ parrot is green.','their','Anna y Tom son mis amigos. Su loro es verde.'],['My sister and I have a rabbit. ____ rabbit is called Coco.','our','Mi hermana y yo tenemos un conejo. Nuestro conejo se llama Coco.'],
  ['You have a horse. ____ horse is brown.','your','Tú tienes un caballo. Tu caballo es café.'],['I have a fish. ____ fish is orange.','my','Tengo un pez. Mi pez es naranja.'],
  ['Mia is from Chile. ____ cat is called Luna.','her','Mia es de Chile. Su gato se llama Luna.'],['Ben and Eli are Canadian. ____ dog is called Rex.','their','Ben y Eli son canadienses. Su perro se llama Rex.'],
- ['Noah is thirty-two. ____ hedgehog is small.','his','Noah tiene treinta y dos años. Su erizo es pequeño.'],['We have a goat. ____ goat is white.','our','Tenemos una cabra. Nuestra cabra es blanca.']
+ ['Noah is thirty-two. ____ hedgehog is small.','his','Noah tiene treinta y dos años. Su erizo es pequeño.'],['We have a goat. ____ goat is white.','our','Tenemos una cabra. Nuestra cabra es blanca.'],
+ ['The dog is happy. ____ tail is long.','its','El perro está feliz. Su cola es larga.'],['This is my cat. ____ name is Luna.','its','Este es mi gato. Su nombre es Luna.']
 ];
 def('po_ctx','📖','Possessive in context|Posesivo según el contexto','Work out who the owner is.|Elige quién es el dueño.','poss',function(){
   var it=pick(POSS_CTX);
@@ -1839,7 +1870,7 @@ def('po_ctx','📖','Possessive in context|Posesivo según el contexto','Work ou
 });
 def('po_type','⌨️','Type the possessive|Escribe el posesivo','No choices: you type it.|Sin opciones: tú lo escribes.','poss',function(){
   var p=pick(POSS),n=pick(PNOUNS);
-  return {kind:'type',prompt:I('Type the possessive for <b>'+p[0]+'</b>:','Escribe el posesivo de <b>'+p[0]+'</b>:')+'<span class="big">____ '+n+' is called '+pick(PETNAMES)+'.</span>',answer:p[1],explain:I(p[0]+' → <b>'+p[1]+'</b>','')};
+  return {kind:'type',prompt:I('Type the possessive for <b>'+p[0]+'</b>:','Escribe el posesivo de <b>'+p[0]+'</b>:')+'<span class="big">'+possLine(p,n)+'</span>',answer:p[1],explain:I(p[0]+' → <b>'+p[1]+'</b>','')};
 });
 def('po_persona','🧑‍🤝‍🧑','Grammatical person|Persona gramatical','1st, 2nd or 3rd person (singular / plural).|1ª, 2ª o 3ª persona (singular / plural).','poss',function(){
   var items=[['I','1st person singular'],['you','2nd person (singular or plural)'],['he','3rd person singular'],['she','3rd person singular'],['it','3rd person singular'],['we','1st person plural'],['they','3rd person plural']];
@@ -1910,7 +1941,7 @@ def('vb_spell','🔤','Spell the animal|Deletrea el animal','You hear the spelli
   return {kind:'type',cmp:'letters',prompt:I('Listen to the spelling and type the word.','Escucha el deletreo y escribe la palabra.'),audio:{spell:a.en},answer:a.en,hint:I(a.en.length+' characters',a.en.length+' caracteres'),explain:I('It was <b>'+a.en+'</b>.','Era <b>'+a.en+'</b> ('+a.es+').')};
 });
 def('vb_called','🏷️','My pet is called…|Mi mascota se llama…','Complete sentences about pets.|Completa frases sobre mascotas.','vocab',function(){
-  var a=pick(PETS),nm=pick(PETNAMES),p=pick(POSS);
+  var a=pick(PETS),nm=pick(PETNAMES),p=pick(POSS.filter(function(x){return x[1]!=='its';}));
   return {kind:'type',prompt:I('Complete with <b>is called</b> and the possessive for <b>'+p[0]+'</b>:','Completa con <b>is called</b> y el posesivo de <b>'+p[0]+'</b>:')+'<span class="big">____ '+a.en+' ____ '+nm+'.</span>',answer:p[1]+' '+a.en+' is called '+nm+'.',explain:I('<b>'+cap(p[1])+' '+a.en+' is called '+nm+'.</b>','')};
 });
 
@@ -2160,11 +2191,245 @@ var M5_POOL=['m5_punct','m5_spell','m5_names','m5_be_build','m5_be_types','m5_wh
 var M1_POOL=['vb_color','li_colors','be_fill','be_neg','be_q','be_order','be_contr','ps_verb','ps_use','po_persona'];
 var M2_POOL=['al_listen','al_pron','al_spell','al_email','al_speak','vw_ls','vw_pairs','vw_vowel','vw_short','vw_pattern','nt_flag','nt_flag2c','nt_flagtype','nt_hearflag','nt_c2n','nt_n2c','nt_fill','nt_suffix','nt_odd','nt_spell','nt_trans','nt_speak','nm_pairs','nm_w2n','nm_n2w','nm_math','li_numbers','li_nat','pr_letters','pr_nat','pr_numbers','pr_vowels'];
 var M3_POOL=['al_spell','li_ages','nm_age','gr_age','po_fill','po_ctx','po_type','gr_called','vb_called','vb_emoji','vb_en_es','vb_es_en','vb_spell','pr_poss','pr_vocab'];
+
+/* ============================================================
+   MODULE 6 · THE 100 MOST COMMON ENGLISH WORDS
+   listen · spell · repeat · meaning
+   ============================================================ */
+var W_TYPES={art:['article','artículo'],verb:['verb','verbo'],pron:['pronoun','pronombre'],prep:['preposition','preposición'],conj:['conjunction','conjunción'],adj:['adjective','adjetivo'],adv:['adverb','adverbio'],noun:['noun','sustantivo'],det:['determiner','determinante'],mod:['modal verb','verbo modal'],num:['number','número']};
+/* [word, IPA, how it sounds (Spanish spelling), type, meaning, example, example in Spanish, extra spoken variants] */
+var W100=[
+ ['the','ðə','da / di','art','el, la, los, las','The book is on the table.','El libro está sobre la mesa.',['thee','duh','da']],
+ ['be','bi','bi','verb','ser, estar','I want to be happy.','Quiero ser feliz.',['bee','b']],
+ ['to','tu','tu / ta','prep','a, para, hacia','I go to school.','Voy a la escuela.',['too','two','tu']],
+ ['of','ʌv','av','prep','de (posesión, material)','A cup of coffee.','Una taza de café.',['off','uv','ov']],
+ ['and','ænd','and / en','conj','y','Tom and Anna are friends.','Tom y Anna son amigos.',['an','end']],
+ ['a','ə','e / ei','art','un, una','I have a dog.','Tengo un perro.',['uh','ay','eh','hey','eight']],
+ ['in','ɪn','in','prep','en, dentro de','She is in the house.','Ella está en la casa.',['inn']],
+ ['that','ðæt','dat','det','eso, ese, aquel; que','That is my car.','Ese es mi auto.',['dat']],
+ ['have','hæv','jav','verb','tener, haber','I have two sisters.','Tengo dos hermanas.',['half']],
+ ['I','aɪ','ai','pron','yo','I am from Chile.','Soy de Chile.',['eye','hi','ai','aye']],
+ ['it','ɪt','it','pron','ello, eso (cosas y animales)','It is a big house.','Es una casa grande.',[]],
+ ['for','fɔr','for','prep','para, por','This gift is for you.','Este regalo es para ti.',['four','fore']],
+ ['not','nɑt','not','adv','no (negación)','I am not tired.','No estoy cansado.',['knot','nut']],
+ ['on','ɑn','on','prep','sobre, en (una superficie)','The phone is on the table.','El teléfono está sobre la mesa.',['own']],
+ ['with','wɪð','uid','prep','con','I live with my family.','Vivo con mi familia.',['width','wit']],
+ ['he','hi','ji','pron','él','He is my brother.','Él es mi hermano.',['hee']],
+ ['as','æz','as','conj','como, mientras','He works as a nurse.','Él trabaja como enfermero.',['has','is']],
+ ['you','ju','iu','pron','tú, usted, ustedes','You are my friend.','Tú eres mi amigo.',['u','ewe','yew']],
+ ['do','du','du','verb','hacer (y verbo auxiliar)','I do my homework.','Hago mi tarea.',['due','dew','to']],
+ ['at','æt','at','prep','en, a (lugar u hora)','I am at home.','Estoy en casa.',['it']],
+ ['this','ðɪs','dis','det','esto, este, esta','This is my bag.','Esta es mi bolsa.',['dis']],
+ ['but','bʌt','bat','conj','pero','I like tea, but I love coffee.','Me gusta el té, pero amo el café.',['butt','bot']],
+ ['his','hɪz','jis','det','su (de él)','His dog is black.','Su perro es negro.',['hiss','is']],
+ ['by','baɪ','bai','prep','por, junto a, en (medio de transporte)','I go to work by bus.','Voy al trabajo en bus.',['buy','bye']],
+ ['from','frʌm','fram','prep','de, desde (origen)','I am from Chile.','Soy de Chile.',['frum']],
+ ['they','ðeɪ','dei','pron','ellos, ellas','They are students.','Ellos son estudiantes.',['day','the']],
+ ['we','wi','ui','pron','nosotros, nosotras','We are friends.','Somos amigos.',['wee','whee']],
+ ['say','seɪ','sei','verb','decir','Please say your name.','Por favor, di tu nombre.',['sei']],
+ ['her','hɜr','jer','det','su (de ella); la, le','Her cat is white.','Su gato es blanco.',['hur','hr','hurr']],
+ ['she','ʃi','shi','pron','ella','She is a nurse.','Ella es enfermera.',['shee']],
+ ['or','ɔr','or','conj','o','Tea or coffee?','¿Té o café?',['oar','ore']],
+ ['an','æn','an','art','un, una (antes de vocal)','I have an apple.','Tengo una manzana.',['ann','and']],
+ ['will','wɪl','uil','mod','futuro: voy a… / -ré','I will call you tomorrow.','Te llamaré mañana.',['wil']],
+ ['my','maɪ','mai','det','mi, mis','My name is Ana.','Mi nombre es Ana.',['mai']],
+ ['one','wʌn','uan','num','uno (el número 1)','I have one brother.','Tengo un hermano.',['won']],
+ ['all','ɔl','ol','det','todo, todos, toda','We are all here.','Todos estamos aquí.',['awl','ol']],
+ ['would','wʊd','ud','mod','condicional: -ría (me gustaría…)','I would like a coffee.','Me gustaría un café.',['wood']],
+ ['there','ðɛr','der','adv','allí, ahí; there is / there are = hay','There is a dog in the garden.','Hay un perro en el jardín.',['their','they are','dare']],
+ ['their','ðɛr','der','det','su (de ellos / ellas)','Their house is big.','Su casa es grande.',['there','they are']],
+ ['what','wʌt','uat','pron','qué, cuál','What is your name?','¿Cuál es tu nombre?',['wat','watt']],
+ ['so','soʊ','sou','adv','así que, tan, muy','I am so happy.','Estoy muy feliz.',['sew','sow']],
+ ['up','ʌp','ap','adv','arriba, hacia arriba','Stand up, please.','Ponte de pie, por favor.',['app']],
+ ['out','aʊt','aut','adv','fuera, afuera','The cat is out.','El gato está afuera.',['owt']],
+ ['if','ɪf','if','conj','si (condición)','If it rains, I stay home.','Si llueve, me quedo en casa.',[]],
+ ['about','əˈbaʊt','a-BAUT','prep','sobre, acerca de; aproximadamente','Tell me about your day.','Cuéntame sobre tu día.',['a boat','abbott']],
+ ['who','hu','ju','pron','quién, quiénes','Who is she?','¿Quién es ella?',['hoo','hu']],
+ ['get','gɛt','guet','verb','obtener, conseguir, llegar','I get up at seven.','Me levanto a las siete.',['got','gate']],
+ ['which','wɪtʃ','uich','pron','cuál, cuáles; que','Which color do you like?','¿Qué color te gusta?',['witch']],
+ ['go','goʊ','gou','verb','ir','I go to work every day.','Voy al trabajo todos los días.',['goo']],
+ ['me','mi','mi','pron','me, mí','Give me the keys.','Dame las llaves.',['mee']],
+ ['when','wɛn','uen','adv','cuándo, cuando','When is the meeting?','¿Cuándo es la reunión?',['wen']],
+ ['make','meɪk','meik','verb','hacer, fabricar, preparar','I make breakfast.','Preparo el desayuno.',['mate']],
+ ['can','kæn','kan','mod','poder (capacidad)','I can swim.','Puedo nadar.',['con','khan']],
+ ['like','laɪk','laik','verb','gustar; como (semejanza)','I like pizza.','Me gusta la pizza.',['lake']],
+ ['time','taɪm','taim','noun','tiempo, hora, vez','What time is it?','¿Qué hora es?',['thyme']],
+ ['no','noʊ','nou','adv','no; ningún','No, thank you.','No, gracias.',['know','nope']],
+ ['just','dʒʌst','yast','adv','solo, justo, recién','I just arrived.','Acabo de llegar.',['jus']],
+ ['him','hɪm','jim','pron','lo, le, a él','I know him.','Lo conozco.',['hymn','them']],
+ ['know','noʊ','nou','verb','saber, conocer','I know your name.','Sé tu nombre.',['no']],
+ ['take','teɪk','teik','verb','tomar, llevar','Take your umbrella.','Lleva tu paraguas.',['tape']],
+ ['people','ˈpipəl','PI-pol','noun','gente, personas','Many people live here.','Mucha gente vive aquí.',['peeple']],
+ ['into','ˈɪntu','IN-tu','prep','hacia dentro, en (movimiento)','She goes into the room.','Ella entra en la habitación.',['in to']],
+ ['year','jɪr','yir','noun','año','This year I study English.','Este año estudio inglés.',['ear','here']],
+ ['your','jʊr','yor','det','tu, tus; su (de usted)','Your cat is black.','Tu gato es negro.',['you are','yore','you']],
+ ['good','gʊd','gud','adj','bueno, buena','This is a good book.','Este es un buen libro.',['could','gud']],
+ ['some','sʌm','sam','det','algunos, algunas; algo de','I have some friends.','Tengo algunos amigos.',['sum']],
+ ['could','kʊd','kud','mod','podría, pudo','Could you help me?','¿Podrías ayudarme?',['good','cud']],
+ ['them','ðɛm','dem','pron','los, las, les; a ellos','I see them.','Los veo.',['dem','then']],
+ ['see','si','si','verb','ver','I see a bird.','Veo un pájaro.',['sea','c']],
+ ['other','ˈʌðər','A-der','adj','otro, otra','The other bag is mine.','La otra bolsa es mía.',['utter','another']],
+ ['than','ðæn','dan','conj','que (en comparaciones)','She is taller than me.','Ella es más alta que yo.',['then','dan']],
+ ['then','ðɛn','den','adv','entonces, luego, después','First eat, then study.','Primero come, luego estudia.',['than','ten','den']],
+ ['now','naʊ','nau','adv','ahora','I am busy now.','Estoy ocupado ahora.',['no']],
+ ['look','lʊk','luk','verb','mirar','Look at the board.','Mira la pizarra.',['luck']],
+ ['only','ˈoʊnli','OUN-li','adv','solo, único','I have only one pen.','Solo tengo un lápiz.',['lonely']],
+ ['come','kʌm','kam','verb','venir','Come here, please.','Ven aquí, por favor.',['calm','cum']],
+ ['its','ɪts','its','det','su (de una cosa o animal)','The dog wags its tail.','El perro mueve su cola.',['it is']],
+ ['over','ˈoʊvər','OU-ver','prep','sobre, encima de; terminado','The game is over.','El juego terminó.',['ova']],
+ ['think','θɪŋk','zink (th)','verb','pensar, creer','I think it is good.','Creo que es bueno.',['sink','thing','fink']],
+ ['also','ˈɔlsoʊ','OL-sou','adv','también','I also like music.','A mí también me gusta la música.',['all so']],
+ ['back','bæk','bak','adv','de vuelta, atrás; espalda','I will be back soon.','Vuelvo pronto.',['bag']],
+ ['after','ˈæftər','AF-ter','prep','después de','Call me after lunch.','Llámame después del almuerzo.',['aft']],
+ ['use','juz','ius','verb','usar','I use my phone every day.','Uso mi celular todos los días.',['youse','yes']],
+ ['two','tu','tu','num','dos (el número 2)','I have two cats.','Tengo dos gatos.',['to','too']],
+ ['how','haʊ','jau','adv','cómo','How are you?','¿Cómo estás?',['hao']],
+ ['our','ˈaʊər','AU-er','det','nuestro, nuestra, nuestros','Our house is small.','Nuestra casa es pequeña.',['hour','are']],
+ ['work','wɜrk','uerk','verb','trabajar; trabajo','I work in Santiago.','Trabajo en Santiago.',['walk','werk']],
+ ['first','fɜrst','ferst','adj','primero, primera','This is my first class.','Esta es mi primera clase.',['fast','fürst']],
+ ['well','wɛl','uel','adv','bien; pozo','She speaks English well.','Ella habla bien inglés.',["we'll",'will']],
+ ['way','weɪ','uei','noun','camino, manera, forma','This is the way.','Este es el camino.',['weigh','whey']],
+ ['even','ˈivən','I-ven','adv','incluso, hasta, aun','Even I know that.','Hasta yo sé eso.',['evan','eve in']],
+ ['new','nu','niu','adj','nuevo, nueva','I have a new phone.','Tengo un celular nuevo.',['knew','gnu']],
+ ['want','wɑnt','uant','verb','querer','I want a coffee.','Quiero un café.',['won\'t','wont']],
+ ['because','bɪˈkɔz','bi-KOS','conj','porque','I study because I like it.','Estudio porque me gusta.',['cause','becuz','because of']],
+ ['any','ˈɛni','E-ni','det','algún, alguno; cualquier','Do you have any questions?','¿Tienes alguna pregunta?',['ennie','many']],
+ ['these','ðiz','diis','det','estos, estas','These are my keys.','Estas son mis llaves.',['threes','tease']],
+ ['give','gɪv','guiv','verb','dar','Give me your phone, please.','Dame tu teléfono, por favor.',['gift','gif']],
+ ['day','deɪ','dei','noun','día','Today is a good day.','Hoy es un buen día.',['they','date']],
+ ['most','moʊst','moust','det','la mayoría, la mayor parte; más','Most people like music.','A la mayoría de la gente le gusta la música.',['mouse','must']],
+ ['us','ʌs','as','pron','nos, a nosotros','Come with us.','Ven con nosotros.',['u s','as']]
+].map(function(r,i){return {n:i+1,w:r[0],ipa:r[1],resp:r[2],type:r[3],es:r[4],ex:r[5],exEs:r[6],alt:r[7]||[]};});
+/* words that sound exactly the same, so both spellings are accepted when you type what you hear */
+var W_HOMO={to:['too','two'],two:['to','too'],be:['bee'],for:['four','fore'],no:['know'],know:['no'],by:['buy','bye'],I:['eye'],see:['sea'],one:['won'],new:['knew'],our:['hour'],way:['weigh'],there:['their','they are'],their:['there','they are'],its:['it is'],your:['you are'],or:['oar','ore'],would:['wood'],so:['sew','sow'],which:['witch'],in:['inn'],all:['awl'],you:['u','ewe','yew'],we:['wee'],do:['due','dew'],not:['knot'],some:['sum'],and:[],that:[]};
+function w1Spell(w){return w.toUpperCase().split('').join(' – ');}
+function w1Acc(o){return uniq([o.w.toLowerCase()].concat(o.alt.map(function(a){return a.toLowerCase();})));}
+function w1Tip(o){return 'sounds like “'+o.resp+'” · /'+o.ipa+'/';}
+var W_STOP=['los','las','una','uno','con','del','que','antes','cosa','cosas','animal','vocal','sonido'];
+function w1Toks(s){return s.toLowerCase().split(/[^a-záéíóúñü]+/).filter(function(t){return t.length>2&&W_STOP.indexOf(t)<0;});}
+/* words whose meaning does not overlap with o (so a wrong option is never also correct) */
+function w1Far(o){var a=w1Toks(o.es);return W100.filter(function(x){return x!==o&&!w1Toks(x.es).some(function(t){return a.indexOf(t)>-1;});});}
+function w1Blank(o){
+  var re=new RegExp('(^|[^A-Za-z\'])('+o.w+')(?![A-Za-z\'])','i');
+  if(!re.test(o.ex))return null;
+  return o.ex.replace(re,function(m,a){return a+'____';});
+}
+var W_FILL=W100.filter(function(o){return !!w1Blank(o);});
+
+def('tw_repeat','🎤','Repeat the word|Repite la palabra','Hear the word and say it with the microphone.|Escucha la palabra y dila con el micrófono.','top100',function(){
+  var o=pick(W100);
+  return speakQ(o.w,o.es,{prompt:I('Listen to the model and <b>repeat the word</b>.','Escucha el modelo y <b>repite la palabra</b>.'),tip:w1Tip(o),accept:w1Acc(o),explain:I('<b>'+o.w+'</b> /'+o.ipa+'/ = '+o.es,'se escribe '+w1Spell(o.w))});
+});
+def('tw_repeat_sent','🗣️','Repeat the sentence|Repite la oración','Say a full sentence with the word.|Di una oración completa con la palabra.','top100',function(){
+  var o=pick(W100);
+  return speakQ(o.ex,o.exEs,{prompt:I('Listen and <b>repeat the sentence</b>.','Escucha y <b>repite la oración</b>.'),tip:'key word: '+o.w+' · “'+o.resp+'”',explain:I('<b>'+o.w+'</b> = '+o.es,'')});
+});
+def('tw_hear_type','👂','Hear it, write it|Escúchala y escríbela','You hear a word and type how it is written.|Oyes una palabra y escribes cómo se escribe.','top100',function(){
+  var o=pick(W100),hm=W_HOMO[o.w]||[];
+  return {kind:'type',prompt:I('Listen and <b>type the word</b> you hear.','Escucha y <b>escribe la palabra</b> que oyes.'),audio:{text:o.w},answer:o.w,accept:hm,hint:I(o.w.length+(o.w.length===1?' letter':' letters'),o.w.length+(o.w.length===1?' letra':' letras'))+(hm.length?I(' · some words sound the same, both spellings count',' · hay palabras que suenan igual, valen ambas'):''),explain:I('<b>'+o.w+'</b> = '+o.es,'se escribe '+w1Spell(o.w))};
+});
+def('tw_hear_spell','🔤','Hear the letters|Escucha las letras','You hear the letters one by one and type the word.|Oyes las letras una por una y escribes la palabra.','top100',function(){
+  var o=pick(W100);
+  return {kind:'type',cmp:'letters',prompt:I('Listen to the <b>spelling</b> and type the word.','Escucha el <b>deletreo</b> y escribe la palabra.'),audio:{spell:o.w},answer:o.w,hint:I(o.w.length+(o.w.length===1?' letter':' letters')+' · means “'+o.es+'”',''),explain:I('<b>'+o.w+'</b> = '+o.es,'se escribe '+w1Spell(o.w))};
+});
+def('tw_meaning','💡','What does it mean?|¿Qué significa?','English word → Spanish meaning.|Palabra en inglés → significado en español.','top100',function(){
+  var o=pick(W100),far=sample(w1Far(o),3).map(function(x){return x.es;});
+  return {kind:'mc',prompt:I('What does <b>“'+o.w+'”</b> mean?','¿Qué significa <b>“'+o.w+'”</b>?')+'<span class="big">'+o.w+'</span>',audio:{text:o.w},options:shuffle([o.es].concat(far)),answer:o.es,explain:I('<b>'+o.w+'</b> /'+o.ipa+'/ = '+o.es+'. '+say_(o.ex),o.exEs)};
+});
+def('tw_en','🔁','Spanish → English|Español → inglés','Choose the English word.|Elige la palabra en inglés.','top100',function(){
+  var o=pick(W100),far=sample(w1Far(o),3).map(function(x){return x.w;});
+  return {kind:'mc',prompt:I('Which English word means <b>“'+o.es+'”</b>?','¿Qué palabra en inglés significa <b>“'+o.es+'”</b>?'),options:shuffle([o.w].concat(far)),answer:o.w,explain:I('<b>'+o.w+'</b> = '+o.es+'. '+say_(o.ex),o.exEs)};
+});
+def('tw_pron','🔈','How does it sound?|¿Cómo suena?','Match the word with its pronunciation.|Une la palabra con su pronunciación.','top100',function(){
+  var o=pick(W100),pool=W100.map(function(x){return x.resp;}).filter(function(r){return r!==o.resp;});
+  return {kind:'mc',prompt:I('How is <b>“'+o.w+'”</b> pronounced? (Spanish spelling)','¿Cómo se pronuncia <b>“'+o.w+'”</b>? (escrito en español)')+'<span class="big">'+o.w+'</span>',audio:{text:o.w},options:mcOpts(o.resp,pool),answer:o.resp,explain:I('<b>'+o.w+'</b> /'+o.ipa+'/ sounds like “'+o.resp+'”.','')};
+});
+def('tw_type_es','⌨️','Write it in English|Escríbela en inglés','You see the Spanish meaning and type the word.|Ves el significado en español y escribes la palabra.','top100',function(){
+  var o=pick(W100.filter(function(x){return ['a','an','one'].indexOf(x.w)<0;}));
+  return {kind:'type',prompt:I('Type the <b>English word</b> for:','Escribe la <b>palabra en inglés</b> de:')+'<span class="big" style="font-size:22px">'+o.es+'</span>',answer:o.w,accept:[],hint:I('starts with “'+o.w.charAt(0).toUpperCase()+'” · '+o.w.length+(o.w.length===1?' letter':' letters'),'empieza con “'+o.w.charAt(0).toUpperCase()+'” · '+o.w.length+(o.w.length===1?' letra':' letras')),explain:I('<b>'+o.w+'</b> = '+o.es+'. '+say_(o.ex),o.exEs)};
+});
+def('tw_fill','🧩','Complete the sentence|Completa la oración','Choose the missing word.|Elige la palabra que falta.','top100',function(){
+  var o=pick(W_FILL),s=w1Blank(o),same=W100.filter(function(x){return x!==o&&x.type===o.type&&w1Far(o).indexOf(x)>-1;});
+  var far=sample(same.length>=3?same:w1Far(o).filter(function(x){return x.type===o.type||x.type!=='num';}),3).map(function(x){return x.w;});
+  return {kind:'mc',prompt:I('Complete the sentence:','Completa la oración:')+'<span class="big" style="font-size:22px">'+s+'</span><span class="es">'+o.exEs+'</span>',options:shuffle([o.w].concat(far)),answer:o.w,explain:I(say_(o.ex)+' · <b>'+o.w+'</b> = '+o.es,o.exEs)};
+});
+def('tw_dict','📝','Sentence dictation|Dictado de oraciones','Type the whole sentence you hear.|Escribe toda la oración que oyes.','top100',function(){
+  var o=pick(W100);
+  return {kind:'type',prompt:I('Listen and <b>type the sentence</b>.','Escucha y <b>escribe la oración</b>.'),audio:{text:o.ex},answer:o.ex,hint:I(o.ex.split(' ').length+' words · key word: “'+o.w+'”',o.ex.split(' ').length+' palabras · palabra clave: “'+o.w+'”'),explain:I('<i>'+o.ex+'</i>',o.exEs)};
+});
+var M6_POOL=['tw_repeat','tw_repeat_sent','tw_hear_type','tw_hear_spell','tw_meaning','tw_en','tw_pron','tw_type_es','tw_fill','tw_dict'];
+
+/* ---------- Module 6 · study screens ---------- */
+function w1Card(o){
+  var pk='top|'+o.w,tl=W_TYPES[o.type]||['',''];
+  var card=h('article',{class:'w1'});
+  var score=h('span',{class:'dscore'});
+  function setScore(){var b=dBest(pk);score.textContent=b?(b>=80?'✅ ':'🎤 ')+b+'%':'';score.className='dscore'+(b>=80?' ok':'')+(b?'':' empty');}
+  setScore();
+  var res=h('div',{class:'dres','aria-live':'polite'});
+  var act=h('div',{class:'dact'},
+    h('button',{type:'button',class:'dbtn','aria-label':'Listen to '+o.w,onclick:function(){playAudio({text:o.w});}},'🔊 ',h('span',null,'Listen',h('span',{class:'es'},'Escuchar'))),
+    h('button',{type:'button',class:'dbtn','aria-label':'Listen slowly to '+o.w,onclick:function(){playAudio({text:o.w},true);}},'🐢'),
+    h('button',{type:'button',class:'dbtn','aria-label':'Hear how '+o.w+' is spelled',onclick:function(){playAudio({spell:o.w});}},'🔤 ',h('span',null,'Spell',h('span',{class:'es'},'Deletrear'))));
+  if(SR){
+    var m1=micBtn('Repeat','Repite');
+    m1.addEventListener('click',function(){dCheck(o.w,w1Acc(o),res,m1,pk,setScore);});
+    act.append(m1);
+  }else{act.append(selfRate(res,pk,setScore));}
+  card.append(
+    h('div',{class:'w1-top'},h('span',{class:'w1-n'},String(o.n)),h('h4',{class:'w1-w'},o.w),h('span',{class:'w1-ty'},tl[0],h('span',{class:'es'},tl[1])),score),
+    h('div',{class:'w1-pr'},h('span',{class:'w1-ipa','title':'IPA'},'/'+o.ipa+'/'),h('span',{class:'w1-rs'},'“'+o.resp+'”',h('span',{class:'es'},'suena así'))),
+    h('div',{class:'w1-sp'},h('small',null,'Spelling',h('span',{class:'es'},'Se escribe')),h('b',null,w1Spell(o.w))),
+    h('div',{class:'w1-mean'},o.es),
+    h('div',{class:'w1-ex',html:say_(o.ex)+'<span class="es">'+esc(o.exEs)+'</span>'}),
+    act,res);
+  return card;
+}
+function w1Grid(from,to){
+  var g=h('div',{class:'w1grid'});
+  W100.slice(from-1,to).forEach(function(o){g.append(w1Card(o));});
+  return g;
+}
+function w1Group(c,from,to){
+  c.append(note('Four steps for each word: 🔊 listen · 🔤 spell · read the meaning · 🎤 repeat it. Your best score is saved.','Cuatro pasos por palabra: 🔊 escucha · 🔤 deletrea · lee el significado · 🎤 repítela. Se guarda tu mejor puntaje.'));
+  c.append(w1Grid(from,to));
+}
+function w1Guide(c){
+  var steps=[['🔊','Listen','Escucha','Tap 🔊 (or 🐢 for slow).','Toca 🔊 (o 🐢 para lento).'],['🔤','Spell','Escribe','Tap 🔤 and follow each letter.','Toca 🔤 y sigue cada letra.'],['💡','Meaning','Significado','Read the Spanish and the example.','Lee el español y el ejemplo.'],['🎤','Repeat','Repite','Tap 🎤 and say the word.','Toca 🎤 y di la palabra.']];
+  c.append(h('div',{class:'w1steps'},steps.map(function(s,i){
+    return h('div',{class:'w1step'},h('span',{class:'w1sn'},String(i+1)),h('span',{class:'w1se'},s[0]),h('b',null,s[1],h('span',{class:'es'},s[2])),h('small',null,s[3],h('span',{class:'es'},s[4])));
+  })));
+  c.append(h('div',{html:
+    '<h3>'+II('How to read the pronunciation','Cómo leer la pronunciación')+'</h3>'+
+    '<p class="muted">'+I('Each word shows the <b>IPA</b> between slashes and a simple version <b>“written the Spanish way”</b>. Capital letters mark the stressed syllable (a-BAUT).','Cada palabra muestra el <b>IPA</b> entre barras y una versión simple <b>“escrita a la española”</b>. Las mayúsculas marcan la sílaba fuerte (a-BAUT).')+'</p>'+
+    tbl(['Sound','How to say it','Words'],[
+      ['<b>th</b> /ð/','Soft “d” with the tongue between the teeth<span class="es">“d” suave con la lengua entre los dientes</span>',say_('the')+' · '+say_('this')+' · '+say_('that')+' · '+say_('they')],
+      ['<b>th</b> /θ/','Like Spanish “z” (Spain) or “s” with the tongue out<span class="es">Como la “z” de España o una “s” sacando la lengua</span>',say_('think')],
+      ['<b>h</b>','A soft “j”, just air<span class="es">Una “j” suave, solo aire</span>',say_('he')+' · '+say_('have')+' · '+say_('how')+' · '+say_('who')],
+      ['<b>w</b>','A quick “u”: ui, uo<span class="es">Una “u” rápida: ui, uo</span>',say_('we')+' · '+say_('with')+' · '+say_('what')+' · '+say_('work')],
+      ['<b>y</b> · <b>j</b>','y = “i” (year) · j = strong “y/ll” (just)<span class="es">y = “i” (year) · j = “y/ll” fuerte (just)</span>',say_('year')+' · '+say_('your')+' · '+say_('just')],
+      ['<b>sh</b>','Like asking for silence “shhh”<span class="es">Como pedir silencio “shhh”</span>',say_('she')],
+      ['<b>Short words</b>','They sound weak inside a sentence: of → “av”, to → “ta”<span class="es">Suenan débiles dentro de una oración: of → “av”, to → “ta”</span>',say_('a cup of tea')+' · '+say_('I go to school.')]
+    ])+
+    '<h3>'+II('Same sound, different spelling','Suenan igual, se escriben distinto')+'</h3>'+
+    tbl(['Words','Meaning'],[
+      [say_('to')+' · '+say_('two')+' · '+say_('too'),'a / 2 / también'],
+      [say_('there')+' · '+say_('their'),'allí, hay / su (de ellos)'],
+      [say_('no')+' · '+say_('know'),'no / saber'],
+      [say_('for')+' · '+say_('four'),'para / 4'],
+      [say_('by')+' · '+say_('buy'),'por / comprar'],
+      [say_('our')+' · '+say_('hour'),'nuestro / hora'],
+      [say_('see')+' · '+say_('sea'),'ver / mar'],
+      [say_('one')+' · '+say_('won'),'uno / ganó']
+    ])+
+    '<div class="callout">'+I('Careful: <b>its</b> (possessive, no apostrophe) ≠ <b>it’s</b> (it is).','Ojo: <b>its</b> (posesivo, sin apóstrofo) ≠ <b>it’s</b> (it is).')+'</div>'
+  }));
+}
 function poolGen(ids){return function(){var d=QZ[pick(ids)],q=d.gen();q.topic=q.topic||d.topic;return q;};}
 
 /* ---------- MIXED EXAM / LIGHTNING ---------- */
 var OLD_POOL=['al_listen','al_pron','al_spell','li_comp','li_dict','li_numbers','li_nat','li_vocab','li_colors','li_ages','nt_flag','nt_flag2c','nt_flagtype','nt_hearflag','nt_c2n','nt_n2c','nt_fill','nt_suffix','nt_odd','nt_spell','nt_trans','nm_pairs','nm_w2n','nm_n2w','nm_age','nm_math','vw_ls','vw_pairs','vw_vowel','vw_short','vw_pattern','be_fill','be_neg','be_q','be_order','be_contr','po_fill','po_ctx','po_type','po_persona','ps_verb','ps_use','gr_called','gr_age','gr_trans','vb_en_es','vb_es_en','vb_emoji','vb_color','vb_spell','vb_called'];
-var EXAM_POOL=OLD_POOL.concat(M4_POOL,M5_POOL);
+var EXAM_POOL=OLD_POOL.concat(M4_POOL,M5_POOL,M6_POOL);
 var LIGHT_POOL=['al_listen','al_pron','li_nat','li_vocab','li_colors','nt_flag','nt_flag2c','nt_hearflag','nt_c2n','nt_n2c','nt_fill','nt_suffix','nt_odd','nm_pairs','nm_w2n','vw_ls','vw_pairs','vw_vowel','vw_short','be_fill','be_contr','po_fill','po_ctx','po_type','po_persona','ps_verb','ps_use','gr_called','gr_age','vb_en_es','vb_es_en','vb_emoji','vb_color'];
 function mixedGen(){var d=QZ[pick(EXAM_POOL)],q=d.gen();q.topic=d.topic;return q;}
 function lightGen(){var d=QZ[pick(LIGHT_POOL)],q=d.gen();q.topic=d.topic;return q;}
@@ -2615,7 +2880,7 @@ function studyListening(c){
   });
 }
 function studyPron(c){
-  c.append(h('div',{class:'notice',html:I('\uD83C\uDFA4 Tap “Speak”, wait for “Speak now…” and say the phrase. It works in Chrome or Edge, needs Internet and asks for the microphone once (choose “Allow”).','Toca “Hablar”, espera el mensaje “Habla ahora…” y di la frase. Funciona en Chrome o Edge, necesita Internet y pide el micrófono una sola vez (elige “Permitir”).')}));
+  c.append(h('div',{class:'notice',html:I('🎤 Tap “Speak”, wait for “Speak now…” and say the phrase. It works in Chrome or Edge, needs Internet and asks for the microphone once (choose “Allow”).','Toca “Hablar”, espera el mensaje “Habla ahora…” y di la frase. Funciona en Chrome o Edge, necesita Internet y pide el micrófono una sola vez (elige “Permitir”).')}));
   c.append(h('h3',{style:'margin-top:0'},bi('Free practice lab','Laboratorio libre')));
   var ta=h('textarea',{'aria-label':'Text to practice'},'Her fish is called Nemo.');
   var res=h('div',{class:'heard','aria-live':'polite'}),tg=h('div',{class:'target'});
@@ -2747,7 +3012,7 @@ function studyGrammar(c){
    [['I','I am','I am not','Am I…?'],['you','You are','You aren\'t','Are you…?'],['he / she / it','He is','He isn\'t','Is he…?'],['we','We are','We aren\'t','Are we…?'],['they','They are','They aren\'t','Are they…?']].map(function(r){return '<tr><td>'+r[0]+'</td><td>'+say_(r[1])+'</td><td>'+say_(r[2])+'</td><td>'+say_(r[3])+'</td></tr>';}).join('')+
    '</table></div>'+
    '<h3>'+E('Possessive adjectives','Adjetivos posesivos')+'</h3><div class="tblwrap"><table><tr><th>Pronoun</th><th>Possessive</th><th>Example</th></tr>'+
-   [['I','my','My dog is called Max.'],['you','your','Your cat is black.'],['he','his','His parrot is green.'],['she','her','Her fish is called Nemo.'],['we','our','Our rabbit is white.'],['they','their','Their horse is brown.']].map(function(r){return '<tr><td>'+r[0]+'</td><td><b>'+r[1]+'</b></td><td>'+say_(r[2])+'</td></tr>';}).join('')+'</table></div>'+
+   [['I','my','My dog is called Max.'],['you','your','Your cat is black.'],['he','his','His parrot is green.'],['she','her','Her fish is called Nemo.'],['it','its','Its tail is long.'],['we','our','Our rabbit is white.'],['they','their','Their horse is brown.']].map(function(r){return '<tr><td>'+r[0]+'</td><td><b>'+r[1]+'</b></td><td>'+say_(r[2])+'</td></tr>';}).join('')+'</table></div>'+
    '<h3>'+E('Present Simple: uses','Present Simple: usos')+'</h3><ul>'+
    '<li><b>Habits:</b> '+say_('I go to the gym every Monday.')+'<span class="es">Hábitos</span></li>'+
    '<li><b>General truths:</b> '+say_('Water boils at 100 degrees.')+'<span class="es">Verdades generales</span></li>'+
@@ -3165,7 +3430,7 @@ var MODULES=[
        '<div class="callout">In English age uses <b>BE</b> (not “have”).'+I('','En inglés la edad se dice con BE, no con “have”.')+'</div>'}));
    }},
    {id:'poss',icon:'👤',t:'Possessive adjectives|Adjetivos posesivos',body:function(c){
-     c.append(h('div',{html:tbl(['Pronoun','Possessive','Example'],[['I','my','My dog is called Max.'],['you','your','Your cat is black.'],['he','his','His parrot is green.'],['she','her','Her fish is called Nemo.'],['we','our','Our rabbit is white.'],['they','their','Their horse is brown.']].map(function(r){return [r[0],'<b>'+r[1]+'</b>',say_(r[2])];}))}));
+     c.append(h('div',{html:tbl(['Pronoun','Possessive','Example'],[['I','my','My dog is called Max.'],['you','your','Your cat is black.'],['he','his','His parrot is green.'],['she','her','Her fish is called Nemo.'],['it','its','Its tail is long.'],['we','our','Our rabbit is white.'],['they','their','Their horse is brown.']].map(function(r){return [r[0],'<b>'+r[1]+'</b>',say_(r[2])];}))}));
    }},
    {id:'pets',icon:'🐾',t:'Pets and farm animals|Mascotas y animales de granja',body:function(c){c.append(vocabTiles('🐾 Pets|Mascotas',PETS),vocabTiles('🚜 Farm animals|Animales de granja',FARM));}},
    {id:'called',icon:'🏷️',t:'“is called” and writing about your pet|“is called” y escribir sobre tu mascota',body:function(c){
@@ -3195,7 +3460,7 @@ var MODULES=[
        '<p class="hint">'+I('Pronunciation from class: '+say_('daughter')+' sounds like “doter”.','Pronunciación de la clase: '+say_('daughter')+' suena como “doter”.')+'</p>'+
        '<h3>'+II('Possessive adjectives','Adjetivos posesivos')+'</h3>'+
        tbl(['Wrong','Correct'],M4_POSSFIX.map(function(r){return ['<span class="fixw">'+r[0]+'</span>',say_(r[1])];}))+
-       '<div class="callout">I → <b>my</b> · you → <b>your</b> · he → <b>his</b> · she → <b>her</b> · we → <b>our</b> · they → <b>their</b></div>'}));
+       '<div class="callout">I → <b>my</b> · you → <b>your</b> · he → <b>his</b> · she → <b>her</b> · it → <b>its</b> · we → <b>our</b> · they → <b>their</b></div>'}));
    }},
    {id:'things',icon:'🎒',t:'Vocabulary: everyday things|Vocabulario: objetos cotidianos',body:function(c){
      c.append(note('Wallet (US) / purse (UK), coins, toothbrush, keys, cellphone, laptop, umbrella, pen, glasses, watch, book and notebook.','Wallet (EE. UU.) / purse (Reino Unido), coins, toothbrush, keys, cellphone, laptop, umbrella, pen, glasses, watch, book y notebook.'),ptTiles(THINGS,false));
@@ -3276,6 +3541,19 @@ var MODULES=[
      var it=[['🎁','These are our presents.'],['🛸','That is a UFO!'],['🔣','Those are symbols.'],['🪙','This is a coin.']];
      c.append(h('div',{html:'<ul class="nolist">'+it.map(function(r){return '<li><span class="dem">'+r[0]+'</span> '+say_(r[1])+'</li>';}).join('')+'</ul>'}),demoGrid());
    }}
+  ]},
+ {id:'m6',num:6,icon:'6️⃣',special:true,short:'Top 100',dateEn:'Vocabulary · the 100 most common words',dateEs:'Vocabulario · las 100 palabras más usadas',
+  title:'Module 6|Módulo 6',head:'Top 100 words · listen, spell, repeat|Top 100 palabras · escucha, escribe, repite',
+  sub:'The 100 most common English words: pronunciation, spelling, meaning and repetition.|Las 100 palabras más comunes del inglés: pronunciación, escritura, significado y repetición.',
+  topics:'100 most common words · pronunciation (IPA + Spanish spelling) · spelling · meaning · repeat with the microphone|las 100 palabras más comunes · pronunciación (IPA + escritura en español) · deletreo · significado · repetir con el micrófono',
+  src:'100 most common English words',pool:M6_POOL,quizzes:M6_POOL,
+  points:[
+   {id:'guide',icon:'🧭',t:'How to study and how to read the sounds|Cómo estudiar y cómo leer los sonidos',body:function(c){w1Guide(c);}},
+   {id:'w1',icon:'1️⃣',t:'Words 1–20|Palabras 1–20',body:function(c){w1Group(c,1,20);}},
+   {id:'w2',icon:'2️⃣',t:'Words 21–40|Palabras 21–40',body:function(c){w1Group(c,21,40);}},
+   {id:'w3',icon:'3️⃣',t:'Words 41–60|Palabras 41–60',body:function(c){w1Group(c,41,60);}},
+   {id:'w4',icon:'4️⃣',t:'Words 61–80|Palabras 61–80',body:function(c){w1Group(c,61,80);}},
+   {id:'w5',icon:'5️⃣',t:'Words 81–100|Palabras 81–100',body:function(c){w1Group(c,81,100);}}
   ]}
 ];
 function modOf(id){return MODULES.filter(function(m){return m.id===id;})[0];}
@@ -3316,7 +3594,7 @@ function modCard(m){
   return h('button',{type:'button',class:'card mcard','aria-label':spl(m.title).en+', '+m.dateEn,onclick:function(){go('module:'+m.id);}},
     h('span',{class:'mnum big'},String(m.num)),
     h('b',null,biS(m.title)),
-    h('span',{class:'chip'},'📅 '+m.dateEn),
+    h('span',{class:'chip'},(m.special?'📚 ':'📅 ')+m.dateEn),
     h('span',{class:'d'},biS(m.sub)),
     h('span',{class:'d'},'📌 '+m.points.length+' points · 🧪 '+m.quizzes.length+' quizzes'),
     barRow('Points reviewed','Puntos repasados',st.rev/st.pts*100,st.rev+'/'+st.pts),
@@ -3325,7 +3603,7 @@ function modCard(m){
 }
 function renderModules(v){
   v.append(h('h2',null,bi('🧭 Modules','Módulos')),
-    h('p',{class:'muted',html:I('One module per class: the points we saw, the date and practice. The General module puts everything together.','Un módulo por clase: los puntos vistos, la fecha y práctica. El módulo General integra todo.')}));
+    h('p',{class:'muted',html:I('One module per class (1–5), plus Module 6 with the 100 most common words. The General module puts everything together.','Un módulo por clase (1–5), más el Módulo 6 con las 100 palabras más comunes. El módulo General integra todo.')}));
   var g=h('div',{class:'grid mgrid',style:'margin-top:12px'});
   MODULES.forEach(function(m){g.append(modCard(m));});
   var gs=genStats(S),totRev=0,totPts=0;
@@ -3384,7 +3662,7 @@ function renderModule(v,id){
   v.append(h('section',{class:'hero',style:'margin-top:8px'},
     h('div',null,h('span',{class:'rolepill s'},m.icon+' '+spl(m.title).en,h('span',{class:'es i'},'· '+spl(m.title).es)),
       h('h1',null,biS(m.head)),
-      h('p',null,'📅 '+m.dateEn,h('span',{class:'es'},m.dateEs)),
+      h('p',null,(m.special?'📚 ':'📅 ')+m.dateEn,h('span',{class:'es'},m.dateEs)),
       h('p',null,biS(m.sub)),
       h('div',{class:'cta'},
         h('button',{class:'btn w',type:'button',onclick:function(){modExam(m);}},bi('▶ Module exam (15)','Examen del módulo (15)')),
@@ -3434,7 +3712,8 @@ var TOPIC_MAP=[
  ['Plurals','Plurales',['M4']],
  ['Demonstratives (this / that / these / those)','Demostrativos',['M4','M5']],
  ['Wh- questions','Preguntas Wh-',['M5']],
- ['Listening: names','Listening: nombres',['M4','M5']]
+ ['Listening: names','Listening: nombres',['M4','M5']],
+ ['Top 100 most common words','Las 100 palabras más usadas',['M6']]
 ];
 function accItem(id,icon,en,es,build,cnt){
   var sec=h('section',{class:'mpoint',id:id}),done=false;
@@ -3465,7 +3744,7 @@ function renderGeneral(v){
   v.append(h('section',{class:'hero',style:'margin-top:8px'},
     h('div',null,h('span',{class:'rolepill s'},'🧭 General module',h('span',{class:'es i'},'· Módulo General')),
       h('h1',null,biS('Everything we have seen, in one place|Todo lo visto, en un solo lugar')),
-      h('p',null,biS('All the material and quizzes from every class: alphabet, listening, speaking, all the flags, numbers, vowels, grammar and vocabulary, plus Modules 4 and 5.|Todo el material y las pruebas de todas las clases: alfabeto, listening, pronunciación, todas las banderas, números, vocales, gramática y vocabulario, más los Módulos 4 y 5.')),
+      h('p',null,biS('All the material and quizzes from every class: alphabet, listening, speaking, all the flags, numbers, vowels, grammar and vocabulary, plus Modules 4 and 5 and the Top 100 words.|Todo el material y las pruebas de todas las clases: alfabeto, listening, pronunciación, todas las banderas, números, vocales, gramática y vocabulario, más los Módulos 4 y 5 y las Top 100 palabras.')),
       h('div',{class:'cta'},
         h('button',{class:'btn w',type:'button',onclick:function(){genExam(20,'General exam','🧭');}},bi('▶ General exam (20)','Examen general (20)')),
         h('button',{class:'btn o',type:'button',onclick:function(){go('dict');}},bi('📖 Dictionary','Diccionario')),
@@ -3479,7 +3758,7 @@ function renderGeneral(v){
   v.append(h('h3',null,bi('📅 Class timeline','Línea de tiempo de clases')));
   var tl=h('div',{class:'tl'});
   MODULES.forEach(function(m){
-    var tp=spl(m.topics),dn=m.dateEn.split(',')[0].slice(0,3)+', '+m.short;
+    var tp=spl(m.topics),dn=m.special?'Extra · '+m.short:m.dateEn.split(',')[0].slice(0,3)+', '+m.short;
     tl.append(h('div',{class:'tli mod'},h('b',null,dn),h('span',{class:'chip'},m.icon+' '+spl(m.title).en),
       h('div',{class:'d'},bi(tp.en,tp.es)),
       h('button',{type:'button',class:'btn sm',onclick:function(){go('module:'+m.id);}},bi('Open '+spl(m.title).en+' →','Abrir '+spl(m.title).es+' →',true))));
@@ -3500,7 +3779,7 @@ function renderGeneral(v){
   v.append(h('div',{html:tbl(['Topic','Seen in'],TOPIC_MAP.map(function(r){
     return ['<b>'+r[0]+'</b><span class="es">'+r[1]+'</span>',r[2].map(function(x){return '<span class="chip">'+x+'</span>';}).join(' ')];
   }))}));
-  v.append(h('p',{class:'hint',html:I('M1 = Module 1 (Nov 2) · M2 = Nov 6 · M3 = Nov 9 · M4 = Nov 13 · M5 = Nov 16.','M1 = Módulo 1 (2 nov) · M2 = 6 nov · M3 = 9 nov · M4 = 13 nov · M5 = 16 nov.')}));
+  v.append(h('p',{class:'hint',html:I('M1 = Module 1 (Nov 2) · M2 = Nov 6 · M3 = Nov 9 · M4 = Nov 13 · M5 = Nov 16 · M6 = Top 100 words.','M1 = Módulo 1 (2 nov) · M2 = 6 nov · M3 = 9 nov · M4 = 13 nov · M5 = 16 nov · M6 = Top 100 palabras.')}));
 
   v.append(h('h3',null,bi('📚 All the material and quizzes (from the earlier version)','Todo el material y las pruebas (de la versión anterior)')));
   v.append(note('Open any block to study and practice. The Nationalities block has all 74 flags.','Abre cualquier bloque para estudiar y practicar. El bloque de Nacionalidades tiene las 74 banderas.'));
@@ -3526,13 +3805,20 @@ function renderGeneral(v){
   acc2.append(accItem('g_m45q','🧪','Quizzes from Modules 4 and 5','Pruebas de los Módulos 4 y 5',function(b){b.append(quizGrid(M4_POOL.concat(M5_POOL),'module:gen'));},String(M4_POOL.length+M5_POOL.length)));
   v.append(acc2);
 
+  v.append(h('h3',null,bi('💬 Added in Module 6: Top 100 words','Agregado en el Módulo 6: Top 100 palabras')));
+  var acc3=h('div'),m6=modOf('m6');
+  m6.points.forEach(function(pt){var t=spl(pt.t);acc3.append(accItem('g_m6_'+pt.id,pt.icon,t.en,t.es,function(b){pt.body(b);},m6.icon));});
+  acc3.append(accItem('g_m6q','🧪','Top 100 quizzes','Pruebas Top 100',function(b){b.append(quizGrid(M6_POOL,'module:gen'));},String(M6_POOL.length)));
+  v.append(acc3);
+
   v.append(h('h3',{id:'gexams'},bi('🧪 General exams','Exámenes generales')));
   var g=h('div',{class:'grid'});
   g.append(
-    card('gold','🧭','General exam (20)|Examen general (20)','Questions from all 5 classes.|Preguntas de las 5 clases.','Start →|Empezar',function(){genExam(20,'General exam','🧭');}),
+    card('gold','🧭','General exam (20)|Examen general (20)','Questions from all 5 classes and the Top 100 words.|Preguntas de las 5 clases y de las Top 100 palabras.','Start →|Empezar',function(){genExam(20,'General exam','🧭');}),
     card('feat','🎯','Full general exam (30)|Examen general completo (30)','30 questions from every class.|30 preguntas de todas las clases.','Start →|Empezar',function(){genExam(30,'Full general exam','🎯');}),
     card('','🏃','Marathon (50)|Maratón (50)','50 questions: everything we have seen.|50 preguntas: todo lo visto.','Start →|Empezar',function(){genExam(50,'General marathon','🏃');}),
     card('','🆕','Latest classes (15)|Últimas clases (15)','Only Modules 4 and 5 (Nov 13 and Nov 16).|Solo Módulos 4 y 5 (13 y 16 nov).','Start →|Empezar',function(){genExam(15,'Modules 4 + 5','🆕',poolGen(M4_POOL.concat(M5_POOL)));}),
+    card('','💬','Top 100 words (15)|Top 100 palabras (15)','Listen, spell, repeat and meaning.|Escucha, escribe, repite y significado.','Start →|Empezar',function(){modExam(modOf('m6'));}),
     card('','🔁','Review mistakes|Repasar errores',S.mistakes.length+' saved question(s).|'+S.mistakes.length+' pregunta(s) guardadas.','Review →|Repasar',reviewMistakes));
   v.append(g);
 }
@@ -3638,7 +3924,11 @@ var DSECS=[
  {id:'words',part:'voc',icon:'📝',tint:'#64748b',t:'More words from class|Más palabras de la clase',
   k:'Words from the class exercises.|Palabras de los ejercicios de clase.',
   c:'Other words from the class exercises: oil, fruit, jam, giraffe, guitar…|Otras palabras de los ejercicios de clase: oil, fruit, jam, giraffe, guitar…',
-  rule:'',ex:'I play the guitar.'}
+  rule:'',ex:'I play the guitar.'},
+ {id:'top100',part:'voc',icon:'💬',tint:'#2563eb',t:'Top 100 words|Las 100 palabras más usadas',
+  k:'The most common English words, with sound and spelling.|Las palabras más comunes del inglés, con sonido y escritura.',
+  c:'The 100 most common English words. Listen, see how each one is spelled, read the meaning and repeat it.|Las 100 palabras más comunes del inglés. Escucha, mira cómo se escribe, lee el significado y repítela.',
+  rule:'listen · spell · meaning · repeat|escucha · escribe · significado · repite',ex:'I want a coffee.'}
 ];
 function dSec(id){return DSECS.filter(function(s){return s.id===id;})[0];}
 function dPart(id){return DPARTS.filter(function(p){return p[0]===id;})[0];}
@@ -3737,6 +4027,7 @@ function dSecFor(e){
     case 'nat':return 'nat';
     case 'num':return 'num';
     case 'abc':return e.sym?'punct':'abc';
+    case 'top':return 'top100';
     default:{
       var lw=w.toLowerCase();
       if(x.indexOf('color')>-1)return 'col';
@@ -3841,6 +4132,12 @@ function buildDict(){
   [['brother','hermano'],['sister','hermana'],['mother','madre'],['grandparents','abuelos'],['friend','amigo / amiga'],['house','casa'],['snake','serpiente']].forEach(function(a){voc(a[0],a[1],['M4'],{extra:'family familia',art:{k:'emoji',v:WORD_EM[a[0]]}});});
   voc('daughter','hija',['M4'],{note:'Pronunciation: sounds like “doter”',noteEs:'Pronunciación: suena como “doter”',art:{k:'emoji',v:'👧'}});
   [['backpack','mochila'],['car','auto'],['mum','mamá'],['meeting','reunión'],['journalist','periodista'],['nurse','enfermero / enfermera'],['singer','cantante'],['student','estudiante'],['football boots','zapatillas de fútbol'],['weekend','fin de semana'],['party','fiesta']].forEach(function(a){voc(a[0],a[1],['M4','M5'],{extra:'words from exercises',art:{k:'emoji',v:WORD_EM[a[0]]}});});
+
+  /* ---- Top 100 words (Module 6) ---- */
+  W100.forEach(function(o){
+    add('top',o.w,o.es,['M6'],{note:'Sounds like “'+o.resp+'” · /'+o.ipa+'/ · '+W_TYPES[o.type][0]+' · spelled '+w1Spell(o.w),noteEs:'Suena como “'+o.resp+'” · se escribe '+w1Spell(o.w),
+      ex:o.ex,exEs:o.exEs,say:o.w,tgt:o.w,acc:w1Acc(o),extra:'top 100 most common words palabras más usadas '+W_TYPES[o.type][0]+' '+W_TYPES[o.type][1],art:{k:'big',v:o.w,sub:'“'+o.resp+'”'}});
+  });
 
   /* ---- Nationalities and flags ---- */
   COUNTRIES.forEach(function(c){
@@ -4581,7 +4878,7 @@ applyTheme();applyEs();renderStats();
   go(ok?'home':'login');
   if(cloudOn())cloudPull().then(function(n){if(n&&cur==='home')go('home');});
 })();
-window.__EP={MODULES:MODULES,M1_POOL:M1_POOL,M2_POOL:M2_POOL,M3_POOL:M3_POOL,M4_POOL:M4_POOL,M5_POOL:M5_POOL,genGen:genGen,poolGen:poolGen,buildDict:buildDict,DS:DS,Mic:Mic,hasSR:!!SR,dArt:dArt,getS:function(){return S;},QZ:QZ,checkType:checkType,scoreSpeech:scoreSpeech,normText:normText,numWords:numWords,COUNTRIES:COUNTRIES,SECTIONS:SECTIONS,EXAM_POOL:EXAM_POOL,
+window.__EP={MODULES:MODULES,M1_POOL:M1_POOL,M2_POOL:M2_POOL,M3_POOL:M3_POOL,M4_POOL:M4_POOL,M5_POOL:M5_POOL,M6_POOL:M6_POOL,W100:W100,W_FILL:W_FILL,QZ:QZ,checkType:checkType,scoreSpeech:scoreSpeech,go:go,genGen:genGen,poolGen:poolGen,buildDict:buildDict,DS:DS,Mic:Mic,hasSR:!!SR,dArt:dArt,getS:function(){return S;},QZ:QZ,checkType:checkType,scoreSpeech:scoreSpeech,normText:normText,numWords:numWords,COUNTRIES:COUNTRIES,SECTIONS:SECTIONS,EXAM_POOL:EXAM_POOL,
   DB:DB,CFG:CFG,Mic:Mic,PROFILES:PROFILES,BADGES:BADGES,FLAGS:FLAGS,setUser:setUser,go:go,startQuiz:startQuiz,mergeUsers:mergeUsers,mixedGen:mixedGen,lightGen:lightGen,teamCSV:teamCSV,
   getS:function(){return S;},getUser:function(){return USER;},alertsList:alertsList,classStats:classStats,dayStreak:dayStreak};
 })();
