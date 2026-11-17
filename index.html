@@ -8,7 +8,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>English Practice · Listening & Speaking</title>
-<style> 
+<style>
 :root{
   --bg:#eef3fb;--card:#fff;--fg:#0f1f3a;--mut:#5a6b86;--line:#d6e1f1;
   --acc:#1456c8;--acc-d:#0b3b91;--accfg:#fff;--acc2:#e7f0fe;--acc3:#cfe0fc;
@@ -479,6 +479,391 @@ body.inquiz #toast{bottom:22px}
 @media(min-width:721px){#toast{bottom:24px}}
 .fire-anim{display:inline-block;animation:flame .9s ease-in-out infinite alternate}
 @keyframes flame{to{transform:scale(1.18) rotate(-6deg)}}
+/* ---------- MODULES ---------- */
+.mgrid{grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+@media(max-width:720px){.mgrid{grid-template-columns:1fr}}
+.mcard{gap:6px}
+.mcard .chip{align-self:flex-start;font-size:12px}
+.mcard.feat .chip{background:rgba(255,255,255,.2);color:#fff}
+.mcard .pbar{grid-template-columns:110px 1fr 54px;margin:2px 0;font-size:12.5px}
+.mcard.feat .pbar .t{background:rgba(255,255,255,.2)}
+.mnum{width:34px;height:34px;border-radius:11px;background:var(--hero);color:#fff;display:grid;place-items:center;font-weight:800;flex:none;box-shadow:0 2px 8px rgba(20,86,200,.25)}
+.mnum.big{width:48px;height:48px;font-size:22px;border-radius:14px}
+.mcard.feat .mnum{background:rgba(255,255,255,.22);box-shadow:none}
+.mpoint{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin:12px 0;overflow:hidden}
+.mpoint.done{border-color:var(--ok)}
+.mhead{display:flex;align-items:stretch}
+.mtoggle{flex:1;display:flex;align-items:center;gap:12px;background:none;border:0;padding:12px 14px;text-align:left;min-width:0}
+.mtoggle:hover{background:var(--acc2)}
+.mtl{display:block;flex:1;min-width:0}
+.mtitle{display:block;font-weight:800;font-size:16px;line-height:1.25}
+.mchev{color:var(--mut);transition:transform .2s;font-size:18px}
+.mtoggle[aria-expanded=false] .mchev{transform:rotate(-90deg)}
+.mchk{border:0;border-left:1px solid var(--line);background:var(--acc2);color:var(--acc-d);padding:6px 12px;font-weight:700;font-size:12px;min-width:104px;max-width:128px;line-height:1.2;text-align:center}
+:root[data-theme=dark] .mchk{color:var(--acc)}
+.mchk .es{display:block;color:inherit;opacity:.8;font-size:10.5px}
+.mpoint.done .mchk{background:var(--okbg);color:var(--ok)}
+.mbody{padding:6px 16px 16px;border-top:1px solid var(--line)}
+.mbody ul{padding-left:20px;margin:8px 0}
+.mbody ul.nolist{list-style:none;padding-left:0}
+.mbody ul.nolist li{margin:8px 0;font-size:17px}
+.mbody h3{font-size:16px}
+.mbody code{background:var(--acc2);border-radius:8px;padding:2px 7px;font-size:13px;font-weight:700;color:var(--acc-d)}
+:root[data-theme=dark] .mbody code{color:#fff}
+.fixw{color:var(--bad);text-decoration:line-through;text-decoration-thickness:1.5px}
+.vrow{display:flex;gap:6px;margin-top:5px}
+.nchips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.nchip{display:inline-flex;align-items:center;gap:2px}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.dcell{border:1px solid var(--line);background:linear-gradient(180deg,var(--acc2),var(--card));border-radius:16px;padding:12px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:var(--shadow);transition:transform .1s,border-color .1s}
+.dcell:hover{transform:translateY(-2px);border-color:var(--acc)}
+.dcell .dem,.dem{font-size:30px;line-height:1.2}
+.dcell b{font-size:19px;color:var(--acc-d)}
+:root[data-theme=dark] .dcell b{color:#fff}
+.dcell small{font-weight:700}
+.punct{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:9px;margin:8px 0}
+.pk{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:9px 4px;display:flex;flex-direction:column;align-items:center;gap:1px;box-shadow:var(--shadow);font-size:12.5px;font-weight:700;transition:transform .1s,border-color .1s}
+.pk:hover{border-color:var(--acc);background:var(--acc2);transform:translateY(-2px)}
+.pk b{font-size:28px;line-height:1.2;color:var(--acc-d);font-family:Arial,sans-serif}
+:root[data-theme=dark] .pk b{color:#fff}
+.pk .es{font-size:10.5px;text-align:center}
+.tl{border-left:3px solid var(--acc3);margin:10px 0 10px 8px;padding-left:18px}
+.tli{position:relative;margin:0 0 16px}
+.tli::before{content:"";position:absolute;left:-26px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--acc3);border:2px solid var(--card)}
+.tli.mod::before{background:var(--acc)}
+.tli .chip{margin-left:8px;font-size:12px}
+.tli .d{margin:4px 0;color:var(--mut);font-size:14px}
+.tli .btn{margin-top:4px}
+td .chip{font-size:11.5px;padding:2px 9px}
+.credit{display:flex;align-items:center;gap:12px;max-width:380px;margin:30px auto 6px;padding:10px 16px 10px 12px;border-radius:18px;background:linear-gradient(135deg,var(--card),var(--acc2));border:1px solid var(--acc3);box-shadow:var(--shadow)}
+.credit .avw .av{box-shadow:0 0 0 3px var(--acc2)}
+.credit .cmid{flex:1;min-width:0;line-height:1.15}
+.credit .cmid small{display:block;font-size:11.5px;font-weight:600}
+.credit .cmid b{font-size:19px;color:var(--acc-d);letter-spacing:.2px}
+:root[data-theme=dark] .credit .cmid b{color:#fff}
+.credit .ctag{font-size:11px;font-weight:800;background:var(--acc);color:var(--accfg);border-radius:99px;padding:3px 10px;white-space:nowrap}
+/* ---------- DICTIONARY ---------- */
+.dsearch{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0 6px;margin:0 -2px}
+.dsrow{display:flex;gap:8px;align-items:center}
+.dsrow input{flex:1;min-width:0;font-size:16px;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--fg)}
+.dsrow input:focus{outline:none;border-color:var(--acc)}
+.dchips{display:flex;gap:7px;overflow-x:auto;padding:8px 2px 4px;scrollbar-width:thin}
+.dchip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:99px;padding:6px 12px;font-weight:700;font-size:13px;line-height:1.15;text-align:center;white-space:nowrap}
+.dchip .es{display:block;font-size:10.5px;font-weight:600}
+.dchip[aria-pressed=true]{background:var(--acc);color:var(--accfg);border-color:var(--acc)}
+.dchip[aria-pressed=true] .es{color:inherit;opacity:.85}
+.dtools{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:6px 0}
+.dseg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.dseg button{border:0;background:var(--card);color:var(--fg);padding:6px 12px;font-weight:700;font-size:13px}
+.dseg button[aria-pressed=true]{background:var(--acc);color:var(--accfg)}
+.daz{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 2px}
+.daz button{border:1px solid var(--line);background:var(--card);color:var(--acc-d);border-radius:8px;min-width:28px;height:28px;font-weight:800;font-size:13px}
+:root[data-theme=dark] .daz button{color:#fff}
+.dgrp{display:flex;align-items:center;gap:10px;margin:18px 0 6px;font-weight:800;font-size:18px;color:var(--acc-d);scroll-margin-top:120px}
+:root[data-theme=dark] .dgrp{color:#fff}
+.dgrp small{font-weight:700;color:var(--mut);font-size:12px}
+.dgrp::after{content:"";flex:1;height:2px;background:var(--acc3);border-radius:2px}
+.dlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px}
+@media(max-width:720px){.dlist{grid-template-columns:1fr}}
+.de{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 12px;box-shadow:var(--shadow)}
+.de .dpl{flex:none;width:40px;height:40px;border-radius:12px;border:0;background:var(--acc2);color:var(--acc-d);font-size:18px}
+.de .dpl:hover{background:var(--acc3)}
+.de .dmain{flex:1;min-width:0}
+.de .dw{font-size:18px;color:var(--fg);overflow-wrap:anywhere}
+.de .dsym{font-family:Arial,sans-serif;font-size:22px;font-weight:800;color:var(--acc);margin-left:6px}
+.de .dfl{margin-right:6px;vertical-align:middle;display:inline-block}
+.de .dcat{display:inline-block;margin-left:8px;font-size:11px;font-weight:800;background:var(--acc2);color:var(--acc-d);border-radius:99px;padding:1px 8px;vertical-align:middle}
+:root[data-theme=dark] .de .dcat{color:#fff}
+.de .dmean{font-weight:700;color:var(--acc-d);margin-top:1px}
+:root[data-theme=dark] .de .dmean{color:var(--acc)}
+.de .dex{font-size:14px;margin-top:5px}
+.de .dnote{font-size:12.5px;color:var(--mut);margin-top:4px}
+.de .dnote .es{font-size:11.5px}
+.de .dmods{margin-top:6px;display:flex;gap:5px;flex-wrap:wrap}
+.de .dmods .chip{font-size:10.5px;padding:1px 8px}
+.dempty{text-align:center;padding:30px 10px;color:var(--mut)}
+.dtable{margin:10px 0}
+.dtable table td,.dtable table th{white-space:nowrap}
+.dtable table td:first-child{font-weight:800}
+.dtable .say{white-space:nowrap}
+@media(max-width:720px){nav.bnav .bi{font-size:10.5px;padding:5px 1px}nav.bnav .bi .e{font-size:20px}.mchk{min-width:84px;padding:6px 8px}.mbody{padding:4px 12px 14px}}
+.dseg button .es{color:inherit;opacity:.8}
+
+/* =========================================================
+   DESIGN REFRESH (v2): softer, more modern, more visual
+   ========================================================= */
+:root{--radius:22px;--shadow:0 1px 2px rgba(15,40,90,.05),0 10px 30px rgba(15,40,90,.09);--glass:rgba(255,255,255,.72)}
+:root[data-theme=dark]{--glass:rgba(18,30,54,.72)}
+body{background:
+  radial-gradient(900px 420px at 8% -6%,rgba(47,128,237,.16),transparent 60%),
+  radial-gradient(800px 380px at 102% 4%,rgba(124,58,237,.10),transparent 60%),
+  var(--bg);background-attachment:fixed}
+:root[data-theme=dark] body{background:
+  radial-gradient(900px 420px at 8% -6%,rgba(47,128,237,.18),transparent 60%),
+  radial-gradient(800px 380px at 102% 4%,rgba(124,58,237,.14),transparent 60%),var(--bg);background-attachment:fixed}
+header.top{background:linear-gradient(120deg,#071d4f 0%,#0f46b0 52%,#2f80ed 100%);box-shadow:0 8px 28px rgba(10,42,107,.35)}
+.logo .lg{border-radius:12px;background:linear-gradient(145deg,#fff,#dbe8fd)}
+nav.tabs{gap:6px;padding-bottom:8px}
+nav.tabs button{border-radius:999px;padding:7px 15px;border-bottom:0}
+nav.tabs button[aria-current=page]{background:#fff;color:var(--acc-d);box-shadow:0 4px 14px rgba(0,0,0,.18)}
+:root[data-theme=dark] nav.tabs button[aria-current=page]{background:var(--card)}
+nav.bnav{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);border-radius:22px 22px 0 0}
+nav.bnav .bi[aria-current=page]{background:linear-gradient(180deg,var(--acc2),transparent)}
+h2{font-size:30px;font-weight:800;letter-spacing:-.6px}
+h3{font-weight:800}
+h3::before{content:"";width:5px;height:20px;border-radius:4px;background:linear-gradient(180deg,#2f80ed,#7c3aed);flex:none}
+.panel{border-radius:var(--radius);background:var(--card)}
+.card{border-radius:var(--radius);padding:17px;border:1px solid transparent;background:linear-gradient(var(--card),var(--card)) padding-box,linear-gradient(135deg,var(--line),var(--line)) border-box}
+.card:hover{background:linear-gradient(var(--card),var(--card)) padding-box,linear-gradient(135deg,#2f80ed,#7c3aed) border-box;box-shadow:0 14px 34px rgba(47,128,237,.2)}
+.card::before{display:none}
+.card .ic{width:50px;height:50px;border-radius:16px;font-size:25px;background:linear-gradient(145deg,var(--acc2),var(--acc3))}
+.card.feat{background:linear-gradient(135deg,#0a2a6b,#1456c8 55%,#7c3aed 130%);border:0}
+.card.feat:hover{background:linear-gradient(135deg,#0a2a6b,#1456c8 55%,#7c3aed 130%)}
+.btn{border-radius:14px}
+.btn.pri,.btn.big{background:linear-gradient(135deg,#2f80ed,#1456c8 60%,#5b3fd1)}
+.hero{border-radius:28px;background:linear-gradient(125deg,#071d4f 0%,#0f46b0 50%,#2f80ed 100%)}
+.hero::before{background:radial-gradient(circle,rgba(255,255,255,.18),rgba(255,255,255,0) 70%);width:340px;height:340px;right:-80px;top:-110px}
+.hero::after{background:radial-gradient(circle,rgba(124,58,237,.35),rgba(124,58,237,0) 70%);width:300px;height:300px;right:80px;bottom:-160px}
+.hs{background:rgba(255,255,255,.12);backdrop-filter:blur(6px);border-radius:16px}
+.mpoint{border-radius:22px}
+.mnum{background:linear-gradient(135deg,#2f80ed,#5b3fd1)}
+table{border-radius:16px}
+.chip{background:linear-gradient(135deg,var(--acc2),var(--acc3))}
+
+/* ---------- ART ---------- */
+.art{display:block;width:100%;height:100%;max-height:150px}
+.art.big{max-height:240px}
+.artt{fill:var(--acc-d)}
+:root[data-theme=dark] .artt{fill:#fff}
+.artb{fill:var(--card);stroke:var(--acc);stroke-width:2}
+.artg{stroke:var(--acc3)}
+.artE{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:62px;line-height:1.05;text-align:center;min-height:120px;width:100%}
+.artE .swatch{width:84px;height:84px;border-radius:50%;border:4px solid var(--card);box-shadow:0 6px 18px rgba(0,0,0,.22),inset 0 0 0 1px rgba(0,0,0,.1)}
+.artE.num b,.artE.big b{font-family:Arial,sans-serif;font-weight:900;font-size:64px;line-height:1;background:linear-gradient(135deg,var(--tint),var(--acc-d));-webkit-background-clip:text;background-clip:text;color:transparent}
+.artE small{font-size:14px;font-weight:800;color:var(--mut);letter-spacing:.4px}
+.artE.flag .fl{transform:scale(1.15)}
+
+/* ---------- DICTIONARY CARDS v2 ---------- */
+.dlist{grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+@media(max-width:720px){.dlist{grid-template-columns:1fr}}
+.de2{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.de2:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(15,40,90,.16)}
+.de2 .dart{position:relative;min-height:138px;padding:14px 12px 10px;display:flex;align-items:center;justify-content:center;background:var(--acc2);background:linear-gradient(135deg,color-mix(in srgb,var(--tint) 24%,var(--card)),color-mix(in srgb,var(--tint) 6%,var(--card)))}
+.de2 .dart .art{height:120px}
+.de2 .dcat{position:absolute;left:12px;top:10px;font-size:11px;font-weight:800;border-radius:99px;padding:2px 10px;background:var(--glass);color:var(--fg);border:1px solid var(--line)}
+.de2 .dbody{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.de2 .dtop{display:flex;align-items:center;gap:8px}
+.de2 .dw{margin:0;font-size:24px;line-height:1.15;letter-spacing:-.3px;color:var(--fg);flex:1;overflow-wrap:anywhere}
+.de2 .dsym{font-family:Arial,sans-serif;font-size:26px;font-weight:800;color:var(--tint);margin-left:10px}
+.dscore{font-size:12px;font-weight:800;border-radius:99px;padding:3px 10px;background:var(--acc2);color:var(--acc-d);white-space:nowrap}
+.dscore.empty{display:none}
+.dscore.ok{background:var(--okbg);color:var(--ok)}
+:root[data-theme=dark] .dscore{color:var(--fg)}
+.de2 .dmean{font-weight:800;font-size:16px;color:var(--tint);filter:brightness(.82)}
+:root[data-theme=dark] .de2 .dmean{filter:none}
+.de2 .dex .dbub{background:var(--acc2);border-radius:14px 14px 14px 4px;padding:8px 12px;font-size:15px;display:inline-block;max-width:100%}
+.de2 .dex .es{margin:4px 0 0 4px}
+.de2 .dnote{font-size:12.5px;color:var(--mut);border-left:3px solid var(--tint);padding-left:9px}
+.de2 .dmods{display:flex;gap:5px;flex-wrap:wrap}
+.de2 .dmods .chip{font-size:10.5px;padding:1px 9px}
+.dact{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.dbtn{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:7px 14px;font-weight:700;font-size:13.5px;display:inline-flex;align-items:center;gap:6px;min-height:38px;line-height:1.1;transition:transform .08s,background .12s,border-color .12s}
+.dbtn .es{font-size:10px;margin:0;color:inherit;opacity:.8}
+.dbtn:hover{border-color:var(--acc);background:var(--acc2)}
+.dbtn:active{transform:scale(.96)}
+.dbtn.mic{background:linear-gradient(135deg,#2f80ed,#5b3fd1);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(91,63,209,.35)}
+.dbtn.mic:hover{filter:brightness(1.08);background:linear-gradient(135deg,#2f80ed,#5b3fd1)}
+.dbtn.mic.live{animation:pulse 1s infinite}
+.dbtn.sm{padding:5px 11px;min-height:34px}
+.dbtn.go{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(239,68,68,.3);padding:10px 18px;font-size:15px}
+.dbtn[disabled]{opacity:.6}
+.dres{font-size:14px}
+.dres:empty{display:none}
+.dres.good,.dres.mid,.dres.low{border-radius:14px;padding:9px 12px;margin-top:4px}
+.dres.good{background:var(--okbg);border:1px solid var(--ok)}
+.dres.mid{background:var(--goldbg);border:1px solid var(--gold)}
+.dres.low{background:var(--badbg);border:1px solid var(--bad)}
+.dr-top{display:flex;align-items:center;gap:10px;font-weight:700}
+.dr-pct{font-size:22px;font-weight:900}
+.dres.good .dr-pct{color:var(--ok)}.dres.mid .dr-pct{color:var(--gold-d)}.dres.low .dr-pct{color:var(--bad)}
+.dr-words{margin-top:4px;font-weight:800;font-size:17px}
+.dr-words .w-ok{color:var(--ok)}
+.dr-words .w-bad{color:var(--bad);text-decoration:underline wavy}
+.dr-heard{font-size:12.5px;color:var(--mut);margin-top:2px}
+.dprog{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px 14px;box-shadow:var(--shadow);margin:6px 0 4px;display:flex;flex-direction:column;gap:8px}
+.dprog-t{display:flex;align-items:center;gap:6px;font-size:14px}
+.dprog .t{height:10px;border-radius:99px;background:var(--acc2);overflow:hidden}
+.dprog .t div{height:100%;border-radius:99px;background:linear-gradient(90deg,#22c55e,#16a34a);transition:width .6s}
+.dprog .dbtn.go{align-self:flex-start}
+.dpr-bar{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap}
+.dpr-nav{margin-left:auto;display:flex;gap:8px}
+.de2.big{max-width:560px;margin:8px auto}
+.de2.big .dart{min-height:230px}
+.de2.big .dart .art{height:200px}
+.de2.big .artE{font-size:100px}
+.de2.big .dw{font-size:34px}
+.de2.big .dmean{font-size:19px}
+.de2.big .dbub{font-size:18px}
+.de2.big .dbtn{font-size:15px;padding:10px 18px}
+
+/* ---------- LABS ---------- */
+.lab{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:6px 16px 18px;margin:14px 0;overflow:hidden;position:relative}
+.lab::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:linear-gradient(90deg,#2f80ed,#7c3aed,#ec4899)}
+.lab-h{margin-top:18px}
+.lab-chips{padding:4px 0 10px;flex-wrap:wrap;overflow:visible}
+.lab-grid{display:grid;grid-template-columns:minmax(220px,1fr) 1.2fr;gap:18px;align-items:center}
+@media(max-width:720px){.lab-grid{grid-template-columns:1fr}}
+.lab-art{background:linear-gradient(135deg,var(--acc2),var(--card));border-radius:20px;padding:12px;display:flex;align-items:center;justify-content:center;min-height:150px}
+.lab-art .art{max-height:200px}
+.lab-row{display:flex;align-items:center;gap:8px;padding:6px 0}
+.lab-k{width:98px;flex:none;font-weight:800;font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+.lab-k .es{text-transform:none;letter-spacing:0}
+.lab-w{flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:8px 14px;font-weight:800;font-size:19px;color:var(--fg);text-align:left}
+.lab-w .ic{font-size:15px;opacity:.7}
+.lab-w:hover{border-color:var(--acc);background:var(--acc2)}
+.t-neg .lab-w{border-color:var(--bad);color:var(--bad)}
+.t-short .lab-w{border-color:var(--warnb)}
+.lab-ctl{display:flex;gap:12px;flex-wrap:wrap;margin:6px 0 12px}
+.lab-ctl .dseg button{padding:8px 16px;font-size:14px}
+.lab-big{font-size:46px;font-weight:900;letter-spacing:-1px;line-height:1.05;background:linear-gradient(135deg,#f59e0b,#ef4444);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lab-rule{font-weight:800;color:var(--mut);margin:2px 0 8px}
+.lab-out .dbub{background:var(--acc2);border-radius:14px 14px 14px 4px;padding:8px 12px;font-size:17px;display:inline-block}
+.dseg button .es{color:inherit;opacity:.8;font-size:10px}
+.dchip{border-radius:999px}
+.dsearch{backdrop-filter:blur(10px);background:linear-gradient(var(--bg),rgba(238,243,251,.85))}
+:root[data-theme=dark] .dsearch{background:linear-gradient(var(--bg),rgba(11,20,38,.85))}
+.dsrow input{border-radius:999px;padding:13px 18px;box-shadow:var(--shadow)}
+.dgrp{font-size:20px;margin-top:22px}
+
+/* ---------- MIC NOTICE ---------- */
+.micnote{display:flex;align-items:flex-start;gap:10px;margin:0 0 12px;font-size:14px}
+.micnote .mn-ic{font-size:20px;line-height:1.2}
+.micnote .mn-tx{flex:1}
+.micstate{display:block;margin-top:2px}
+
+/* =========================================================
+   LOGIN · professional start screen
+   ========================================================= */
+.lg{max-width:1040px;margin:0 auto}
+.lg-hero{position:relative;overflow:hidden;border-radius:32px;padding:34px 34px 30px;color:#fff;display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:center;
+  background:linear-gradient(125deg,#06173f 0%,#0b3b91 48%,#2f80ed 100%);box-shadow:0 24px 60px rgba(10,42,107,.35)}
+.lg-hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.16) 1.2px,transparent 1.4px);background-size:22px 22px;mask-image:linear-gradient(100deg,transparent 30%,#000 100%);-webkit-mask-image:linear-gradient(100deg,transparent 30%,#000 100%);opacity:.55}
+.lg-hero::after{content:"";position:absolute;left:-120px;bottom:-190px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.45),rgba(124,58,237,0) 70%)}
+.lg-hl{position:relative;z-index:2;min-width:0}
+.lg-spark{font-size:15px;padding-left:8px}
+.lg-brand .es{display:inline;color:inherit;opacity:.8;margin:0}
+.lg-brand{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:13.5px;letter-spacing:.3px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 16px 6px 8px;backdrop-filter:blur(6px)}
+.lg-brand em{font-style:normal;font-weight:500;opacity:.85}
+.lg-mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(145deg,#fff,#cfe0fc);color:#0b3b91;display:grid;place-items:center;font-weight:900;font-size:13px;letter-spacing:-.5px}
+.lg-hero h1{margin:16px 0 8px;font-size:42px;line-height:1.08;letter-spacing:-1px;font-weight:800}
+.lg-hero h1 .es{font-size:17px;font-weight:500;margin-top:6px;color:inherit;opacity:.82;letter-spacing:0}
+.lg-hero p{margin:0 0 16px;max-width:520px;opacity:.93;font-size:16.5px}
+.lg-hero p .es{color:inherit;opacity:.8}
+.lg-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.lg-chips>span{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:5px 13px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.lg-chips .es{display:inline;color:inherit;font-size:inherit;margin:0;opacity:.85}
+.lg-chips .es.i::before{content:''}
+.lg-cont{display:inline-flex;align-items:center;gap:12px;border:0;background:#fff;color:#0b3b91;border-radius:999px;padding:7px 22px 7px 8px;box-shadow:0 10px 26px rgba(0,0,0,.28);text-align:left;transition:transform .12s}
+.lg-cont:hover{transform:translateY(-2px)}
+.lg-cont small{display:block;color:#5a6b86;font-size:11px;font-weight:700;line-height:1.1}
+.lg-cont small .es{display:inline;color:inherit;margin:0;font-size:inherit}
+.lg-cont b{font-size:16px;line-height:1.2}
+.lg-hr{position:relative;z-index:1;height:230px}
+.lg-orb{position:absolute;border-radius:50%}
+.lg-orb.o1{width:190px;height:190px;right:10px;top:10px;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.55),rgba(255,255,255,.12) 55%,rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.3)}
+.lg-orb.o2{width:96px;height:96px;left:20px;bottom:6px;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.4),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.25)}
+.lg-card{position:absolute;width:64px;height:64px;border-radius:20px;display:grid;place-items:center;font-size:30px;background:rgba(255,255,255,.95);box-shadow:0 12px 28px rgba(0,0,0,.28);animation:lgfloat 5s ease-in-out infinite}
+.lg-card.c1{left:34px;top:18px;transform:rotate(-8deg)}
+.lg-card.c2{right:22px;top:64px;transform:rotate(7deg);animation-delay:-1.2s}
+.lg-card.c3{left:96px;bottom:14px;transform:rotate(5deg);animation-delay:-2.4s}
+.lg-card.c4{right:96px;bottom:2px;transform:rotate(-6deg);width:54px;height:54px;font-size:25px;animation-delay:-3.6s}
+@keyframes lgfloat{0%,100%{translate:0 0}50%{translate:0 -9px}}
+.lg-q{text-align:center;margin:30px 0 4px}
+.lg-q h2{font-size:30px;margin:0}
+.lg-q p{margin:2px 0 0}
+.lg-sec{display:flex;align-items:center;gap:10px;margin:24px 2px 12px}
+.lg-sec h3{margin:0;flex:1;font-size:19px}
+.lg-sec h3::before{display:none}
+.lg-sec h3::after{display:none}
+.lg-sec .lg-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#2f80ed,#5b3fd1);box-shadow:0 0 0 4px var(--acc2)}
+.lg-sec.t .lg-dot{background:linear-gradient(135deg,#ffd45c,#f5b800);box-shadow:0 0 0 4px var(--goldbg)}
+.lg-sec.t h3{color:var(--gold-d)}
+.lg-sec .cnt{font-size:12px;font-weight:800;background:var(--acc2);color:var(--acc-d);border-radius:99px;padding:2px 11px}
+:root[data-theme=dark] .lg-sec .cnt{color:var(--acc)}
+
+/* avatar with progress ring */
+.rav{position:relative;display:inline-grid;place-items:center;flex:none}
+.rav-svg{position:absolute;inset:0}
+.rav-svg svg{width:100%;height:100%;transform:rotate(-90deg)}
+.rav-t{stroke:rgba(120,150,210,.28)}
+.rav-p{stroke:url(#none);stroke:#2f80ed;transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}
+.rav.t .rav-t{stroke:rgba(255,255,255,.18)}
+.rav.t .rav-p{stroke:var(--gold)}
+.rav .av{box-shadow:0 6px 16px rgba(10,42,107,.3);border:3px solid var(--card)}
+.rav.t .av{border-color:#0b1f4d}
+
+/* teacher card */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.tcard{position:relative;overflow:hidden;text-align:left;border:1px solid rgba(245,184,0,.55);border-radius:28px;padding:22px 24px 20px;color:#fff;display:flex;flex-direction:column;gap:16px;
+  background:linear-gradient(135deg,#050f2b 0%,#0a2a6b 60%,#134a9f 120%);box-shadow:0 18px 44px rgba(5,15,43,.4);animation:viewin .4s ease-out both;transition:transform .15s,box-shadow .15s}
+.tcard:hover{transform:translateY(-4px);box-shadow:0 24px 54px rgba(5,15,43,.5)}
+.tc-glow{position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(245,184,0,.38),rgba(245,184,0,0) 68%)}
+.tc-main{position:relative;display:flex;align-items:center;gap:18px}
+.tc-tx{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:0}
+.tc-name{font-size:28px;line-height:1.1;letter-spacing:-.4px}
+.tc-sub{font-size:13.5px;opacity:.88;max-width:420px}
+.tc-sub .es{color:inherit;opacity:.8}
+.tc-stats{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lgm{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:9px 8px;text-align:center}
+.lgm b{display:block;font-size:22px;line-height:1.1;color:#ffe07a}
+.lgm span{font-size:11.5px;opacity:.92;line-height:1.2;display:block}
+.lgm .es{color:inherit;font-size:10px;opacity:.8}
+.tc-go{position:relative;align-self:flex-start;background:var(--gold);color:#241a00;font-weight:800;border-radius:999px;padding:9px 20px;box-shadow:0 8px 20px rgba(245,184,0,.35)}
+.tc-go .es{color:inherit;opacity:.75}
+
+/* student cards */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(224px,1fr));gap:16px}
+.scard{position:relative;overflow:hidden;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:0 16px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;gap:7px;animation:viewin .4s ease-out both;transition:transform .15s,box-shadow .15s,border-color .15s}
+.scard:hover{transform:translateY(-5px);border-color:transparent;box-shadow:0 22px 46px rgba(20,86,200,.26)}
+.sc-band{align-self:stretch;height:74px;margin:0 -16px;background:var(--pg);position:relative}
+.sc-band::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 0%,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),radial-gradient(rgba(255,255,255,.2) 1.2px,transparent 1.4px) 0 0/16px 16px;opacity:.8}
+.sc-av{position:relative;margin-top:-48px;filter:drop-shadow(0 6px 14px rgba(10,42,107,.22))}
+.sc-av .rav{background:var(--card);border-radius:50%}
+.sc-lv{position:absolute;right:-8px;bottom:0;background:linear-gradient(135deg,#2f80ed,#5b3fd1);color:#fff;font-size:11px;font-weight:800;border-radius:99px;padding:2px 9px;border:2px solid var(--card)}
+.sc-name{font-size:20px;letter-spacing:-.2px}
+.sc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;margin-top:4px}
+.sc-stats>div{background:var(--acc2);border-radius:14px;padding:7px 2px}
+.sc-stats b{display:block;font-size:16px;line-height:1.15;color:var(--acc-d)}
+:root[data-theme=dark] .sc-stats b{color:#fff}
+.sc-stats small{font-size:10.5px;font-weight:700}
+.sc-stats small .es{font-size:9.5px}
+.sc-bar{width:100%;height:6px;background:var(--acc2);border-radius:99px;overflow:hidden}
+.sc-bar div{height:100%;background:linear-gradient(90deg,#2f80ed,#7c3aed);border-radius:99px}
+.sc-last{font-size:11.5px}
+.sc-last .es{font-size:10.5px}
+.sc-go{margin-top:2px;color:var(--acc);font-weight:800;font-size:14px}
+.sc-go .es{display:inline;margin-left:4px;color:inherit;opacity:.7;font-size:11px}
+.sc-crown{position:absolute;left:12px;top:10px;font-size:22px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.3))}
+.lg-foot{text-align:center;margin-top:24px}
+@media(max-width:760px){
+  .lg-hero{grid-template-columns:1fr;padding:22px 20px;border-radius:26px}
+  .lg-hero h1{font-size:31px}
+  .lg-hr{display:none}
+  .lg-chips>span{white-space:normal;font-size:12.5px;padding:4px 11px}
+  .lg-hero p{max-width:none}
+  .lg-q h2{font-size:24px}
+  .tc-main{gap:14px}.tc-name{font-size:23px}
+  .tcard{padding:18px 16px}
+  .tc-stats{gap:6px}.lgm b{font-size:19px}
+  .sgrid{grid-template-columns:1fr 1fr;gap:10px}
+  .scard{border-radius:22px;padding:0 10px 14px}
+  .sc-band{margin:0 -10px;height:60px}
+  .sc-av{margin-top:-40px}
+  .sc-name{font-size:17px}
+  .sc-stats b{font-size:14px}
+}
+@media(max-width:340px){.sgrid{grid-template-columns:1fr}}
+@media(max-width:760px){.scard .rolepill .es{display:none}.scard .rolepill{font-size:11px;padding:2px 10px}}
 </style>
 </head>
 <body>
@@ -574,7 +959,7 @@ var CFG={rate:0.9,voice:'',qn:10,theme:'',lastUser:'',cloudUrl:CLOUD_URL,cloudKe
 var DB={users:{}};
 try{var c0=JSON.parse(localStorage.getItem(CKEY)||'{}');for(var k0 in c0)CFG[k0]=c0[k0];}catch(e){}
 try{var d0=JSON.parse(localStorage.getItem(DKEY)||'{}');if(d0&&d0.users)DB.users=d0.users;}catch(e){}
-function newUser(){return {xp:0,streak:0,best:0,sessions:0,stats:{},mistakes:[],history:[],daily:{},badges:[],first:0,updated:0};}
+function newUser(){return {xp:0,streak:0,best:0,sessions:0,stats:{},mistakes:[],history:[],daily:{},badges:[],first:0,updated:0,mods:{}};}
 PROFILES.forEach(function(p){
   var u=DB.users[p.id]||{},n=newUser();
   for(var k1 in n)if(u[k1]==null)u[k1]=n[k1];
@@ -588,8 +973,8 @@ function profileOf(id){return PROFILES.filter(function(p){return p.id===id;})[0]
 function teachers(){return PROFILES.filter(function(p){return p.role==='teacher';});}
 function students(){return PROFILES.filter(function(p){return p.role!=='teacher';});}
 
-var TOPICS={alphabet:'Alphabet',listening:'Listening',pron:'Speaking',nat:'Nationalities',numbers:'Numbers',vowels:'Vowels',be:'Verb BE',poss:'Possessives',simple:'Present Simple',vocab:'Vocabulary'};
-var TOPICS_ES={alphabet:'Alfabeto',listening:'Comprensión auditiva',pron:'Pronunciación',nat:'Nacionalidades',numbers:'Números',vowels:'Vocales',be:'Verbo BE',poss:'Posesivos',simple:'Presente simple',vocab:'Vocabulario'};
+var TOPICS={alphabet:'Alphabet',listening:'Listening',pron:'Speaking',nat:'Nationalities',numbers:'Numbers',vowels:'Vowels',be:'Verb BE',poss:'Possessives',simple:'Present Simple',vocab:'Vocabulary',plural:'Plurals',demo:'Demonstratives',wh:'Wh- questions'};
+var TOPICS_ES={alphabet:'Alfabeto',listening:'Comprensión auditiva',pron:'Pronunciación',nat:'Nacionalidades',numbers:'Números',vowels:'Vocales',be:'Verbo BE',poss:'Posesivos',simple:'Presente simple',vocab:'Vocabulario',plural:'Plurales',demo:'Demostrativos',wh:'Preguntas Wh-'};
 
 /* ============================================================
    CLASS DATA
@@ -949,66 +1334,108 @@ function micMsg(err){
   return I(x[0],x[1]);
 }
 var Mic={
-  stream:null,rec:null,wanted:false,running:false,win:null,idle:null,restarts:[],
+  /* Design: ask the browser for permission ONCE (then release the stream), and only run a
+     speech-recognition session while the student is actually practicing. After a quiet
+     period the session sleeps by itself, with no background restarts, so the browser has
+     nothing to ask about again. */
+  rec:null,wanted:false,running:false,win:null,idle:null,warmUntil:0,restarts:[],permOK:false,perm:'unknown',_pw:false,
+  WARM:75000,
+  queryPerm:async function(){
+    var m=this;
+    try{
+      if(navigator.permissions&&navigator.permissions.query){
+        var p=await navigator.permissions.query({name:'microphone'});
+        m.perm=p.state;
+        if(!m._pw){m._pw=true;p.onchange=function(){m.perm=p.state;if(p.state==='denied')m.permOK=false;m.chip();};}
+        return p.state;
+      }
+    }catch(e){}
+    return 'unknown';
+  },
+  ensurePermission:async function(){
+    var m=this;
+    if(m.permOK&&m.perm!=='denied')return true;
+    var st=await m.queryPerm();
+    if(st==='denied'){m.chip();throw 'not-allowed';}
+    if(st!=='granted'&&navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
+      var s=null;
+      try{
+        try{if(!localStorage.getItem('ep_micHint')){localStorage.setItem('ep_micHint','1');toast(I('When your browser asks, choose “Allow” (not “this time”) so it does not ask again.','Cuando el navegador pregunte, elige “Permitir” (no “solo esta vez”) para que no vuelva a preguntar.'));}}catch(e0){}
+        s=await navigator.mediaDevices.getUserMedia({audio:true});
+      }catch(e){
+        var n=e&&e.name;
+        if(n==='NotAllowedError'||n==='SecurityError'||n==='PermissionDeniedError'){m.perm='denied';m.chip();}
+        throw (n==='NotFoundError'||n==='DevicesNotFoundError')?'audio-capture':
+              (n==='NotAllowedError'||n==='SecurityError'||n==='PermissionDeniedError')?'not-allowed':'error';
+      }finally{
+        if(s){try{s.getTracks().forEach(function(t){t.stop();});}catch(e2){}}
+      }
+      await m.queryPerm();
+    }
+    m.permOK=true;
+    return true;
+  },
   touch:function(){
-    var m=this;clearTimeout(m.idle);
-    m.idle=setTimeout(function(){if(m.wanted&&!m.win){m.disable();toast(I('Microphone turned off after inactivity.','Micrófono apagado por inactividad.'));}},600000);
+    var m=this;m.warmUntil=Date.now()+m.WARM;clearTimeout(m.idle);
+    m.idle=setTimeout(function(){m.sleep();},m.WARM+500);
+  },
+  sleep:function(){
+    var m=this;
+    if(m.win){m.touch();return;}
+    try{if(m.rec)m.rec.abort();}catch(e){}
+    m.running=false;m.chip();
   },
   chip:function(){
     var b=$('#micChip');if(!b)return;
     if(!SR){b.hidden=true;return;}
-    b.innerHTML='🎙️<span class="lbl">'+(this.wanted?'on':'off')+'</span>';
-    b.classList.toggle('on',!!this.wanted);
+    var denied=this.perm==='denied',lbl=denied?'blocked':(this.wanted?'on':'off');
+    b.innerHTML='\uD83C\uDF99\uFE0F<span class="lbl">'+lbl+'</span>';
+    b.classList.toggle('on',!!this.wanted&&!denied);
     b.setAttribute('aria-pressed',this.wanted?'true':'false');
-    b.setAttribute('aria-label',this.wanted?'Microphone on. Tap to turn off':'Microphone off. Tap to turn on');
+    b.setAttribute('aria-label',denied?'Microphone blocked in the browser':(this.wanted?'Microphone ready. Tap to turn off':'Microphone off. Tap to turn on'));
     var sw=$('#swMic');if(sw)sw.setAttribute('aria-checked',this.wanted?'true':'false');
   },
   enable:async function(){
     var m=this;
     if(!SR)throw 'unsupported';
-    if(m.wanted){m.touch();if(!m.running)m.start();return true;}
-    if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&!m.stream){
-      try{m.stream=await navigator.mediaDevices.getUserMedia({audio:true});}
-      catch(e){
-        var n=e&&e.name;
-        throw (n==='NotFoundError'||n==='DevicesNotFoundError')?'audio-capture':
-              (n==='NotAllowedError'||n==='SecurityError'||n==='PermissionDeniedError')?'not-allowed':'error';
-      }
-    }
-    m.wanted=true;m.restarts=[];m.start();m.touch();m.chip();
+    await m.ensurePermission();
+    m.wanted=true;m.touch();m.chip();
     return true;
-  },
-  release:function(){
-    if(this.stream){try{this.stream.getTracks().forEach(function(t){t.stop();});}catch(e){}this.stream=null;}
   },
   disable:function(){
     var m=this;m.wanted=false;clearTimeout(m.idle);
     try{if(m.rec)m.rec.abort();}catch(e){}
-    m.running=false;m.release();m.closeWin('aborted');m.chip();
+    m.running=false;m.closeWin('aborted');m.chip();
   },
   fail:function(code){
     var m=this;
-    if(!m.wanted){m.release();m.running=false;}
+    m.running=false;
+    if(code==='not-allowed'||code==='audio-capture'){m.wanted=false;m.permOK=false;if(code==='not-allowed')m.perm='denied';}
     m.closeWin(code);m.chip();
   },
   start:function(){
     var m=this;if(!SR||m.running)return;
     var now=Date.now();
     m.restarts=m.restarts.filter(function(t){return now-t<10000;});
-    if(m.restarts.length>=12){m.wanted=false;m.fail('error');return;}
+    if(m.restarts.length>=8){m.fail('error');return;}
     m.restarts.push(now);
     var r=new SR();
     r.lang='en-US';r.continuous=true;r.interimResults=true;r.maxAlternatives=5;
-    r.onresult=function(e){m.result(e);};
+    function ready(){var w=m.win;if(m.rec===r&&w&&!w.ready){w.ready=true;if(w.onReady)w.onReady();}}
+    r.onstart=ready;r.onaudiostart=ready;
+    r.onresult=function(e){if(m.rec===r)m.result(e);};
     r.onerror=function(e){
+      if(m.rec!==r)return;
       var c=e&&e.error;
-      if(c==='not-allowed'||c==='service-not-allowed'){m.wanted=false;m.fail('not-allowed');}
-      else if(c==='audio-capture'){m.wanted=false;m.fail('audio-capture');}
-      else if(c==='network'){m.closeWin('network');}
+      if(c==='not-allowed'||c==='service-not-allowed')m.fail('not-allowed');
+      else if(c==='audio-capture')m.fail('audio-capture');
+      else if(c==='network')m.closeWin('network');
     };
     r.onend=function(){
+      if(m.rec!==r)return;
       m.running=false;
-      if(m.wanted)setTimeout(function(){if(m.wanted&&!m.running)m.start();},250);
+      var need=m.wanted&&(m.win||Date.now()<m.warmUntil);
+      if(need)setTimeout(function(){if(m.wanted&&!m.running&&(m.win||Date.now()<m.warmUntil))m.start();},250);
       else m.chip();
     };
     m.rec=r;
@@ -1032,25 +1459,57 @@ var Mic={
     if(w){this.win=null;w.reject(reason||'aborted');}
   },
   cancel:function(){this.closeWin('aborted');},
-  listen:function(onInterim){
+  listen:function(onInterim,onReady){
     var m=this;m.touch();m.closeWin('aborted');
     return new Promise(function(resolve,reject){
-      var w={interim:null,onInterim:onInterim,finished:false};
+      var w={interim:null,onInterim:onInterim,onReady:onReady,ready:false,finished:false};
       function clear(){clearTimeout(w.silence);clearTimeout(w.max);}
-      w.done=function(a){if(w.finished)return;w.finished=true;clear();if(m.win===w)m.win=null;resolve(a);};
+      w.done=function(a){if(w.finished)return;w.finished=true;clear();if(m.win===w)m.win=null;m.touch();resolve(a);};
       w.reject=function(c){if(w.finished)return;w.finished=true;clear();if(m.win===w)m.win=null;reject(c);};
       w.max=setTimeout(function(){
         if(w.interim&&w.interim[0])w.done(w.interim);else w.reject('no-speech');
-      },9000);
+      },10500);
       m.win=w;
-      if(!m.running&&m.wanted)m.start();
+      if(m.running){w.ready=true;if(onReady)setTimeout(onReady,0);}
+      else m.start();
     });
   },
-  ask:async function(onInterim){
-    await this.enable();
-    return this.listen(onInterim);
+  ask:function(onInterim,onReady){
+    var m=this;
+    if(m.wanted&&m.permOK)return m.listen(onInterim,onReady);   // no awaits: keeps the tap gesture (Safari)
+    return m.enable().then(function(){return m.listen(onInterim,onReady);});
+  },
+  diag:function(){
+    var out=[];
+    if(location.protocol==='file:')out.push({en:'This page is open as a local file, so the browser asks for the microphone every time. Open it from its web address (the GitHub Pages link) and choose “Allow” once.',es:'Esta página está abierta como archivo local, por eso el navegador pide el micrófono cada vez. Ábrela desde su dirección web (el enlace de GitHub Pages) y elige “Permitir” una sola vez.'});
+    else if(location.protocol==='http:'&&!/^(localhost|127\.|\[::1\])/.test(location.hostname))out.push({en:'This page uses http, so the microphone is blocked. Use the https:// address.',es:'Esta página usa http, por eso el micrófono se bloquea. Usa la dirección https://.'});
+    try{if(window.top!==window.self)out.push({en:'The page is inside another page (frame). Open it in its own tab so the microphone permission is remembered.',es:'La página está dentro de otra página (marco). Ábrela en su propia pestaña para que se recuerde el permiso del micrófono.'});}
+    catch(e){out.push({en:'The page is inside another page (frame). Open it in its own tab.',es:'La página está dentro de otra página (marco). Ábrela en su propia pestaña.'});}
+    return out;
   }
 };
+function micNotice(){
+  if(!SR)return null;
+  var d=Mic.diag();if(!d.length)return null;
+  try{if(sessionStorage.getItem('ep_micNoticeOff'))return null;}catch(e){}
+  var box=h('div',{class:'notice micnote',role:'note'},
+    h('span',{class:'mn-ic','aria-hidden':'true'},'\uD83C\uDF99\uFE0F'),
+    h('div',{class:'mn-tx',html:I(d[0].en,d[0].es)}),
+    h('button',{type:'button',class:'btn sm ghost','aria-label':'Dismiss',onclick:function(){try{sessionStorage.setItem('ep_micNoticeOff','1');}catch(e){}box.remove();}},'✕'));
+  return box;
+}
+function micStateRow(){
+  var el=h('small',{id:'micState',class:'micstate'},'…');
+  Mic.queryPerm().then(function(st){
+    var t=st==='granted'?I('✅ Allowed. The browser will not ask again.','✅ Permitido. El navegador no volverá a preguntar.'):
+          st==='denied'?I('⛔ Blocked. Tap the padlock next to the address → Microphone → Allow, then reload.','⛔ Bloqueado. Toca el candado junto a la dirección → Micrófono → Permitir y recarga.'):
+          st==='prompt'?I('It will ask once. Choose “Allow”.','Preguntará una vez. Elige “Permitir”.'):
+          I('Status unknown in this browser.','Estado desconocido en este navegador.');
+    el.innerHTML=t;Mic.chip();
+  });
+  return el;
+}
+
 
 /* ============================================================
    QUESTION GENERATORS  (English first, Spanish help underneath)
@@ -1405,8 +1864,257 @@ def('vb_called','🏷️','My pet is called…|Mi mascota se llama…','Complete
   return {kind:'type',prompt:I('Complete with <b>is called</b> and the possessive for <b>'+p[0]+'</b>:','Completa con <b>is called</b> y el posesivo de <b>'+p[0]+'</b>:')+'<span class="big">____ '+a.en+' ____ '+nm+'.</span>',answer:p[1]+' '+a.en+' is called '+nm+'.',explain:I('<b>'+cap(p[1])+' '+a.en+' is called '+nm+'.</b>','')};
 });
 
+/* ============================================================
+   MODULES · data and quizzes
+   Module 4 = class of Nov 13, 2026 · Module 5 = class of Nov 16, 2026
+   ============================================================ */
+var M4_WORDS=[
+ {en:'oil',es:'aceite',em:'🛢️'},{en:'fruit',es:'fruta',em:'🍎'},{en:'jam',es:'mermelada',em:'🍓'},
+ {en:'giraffe',es:'jirafa',em:'🦒'},{en:'wallet',es:'billetera',em:'👛'},{en:'flag',es:'bandera',em:'🚩'},
+ {en:'guitar',es:'guitarra',em:'🎸'},{en:'beaver',es:'castor',em:'🦫'},{en:'helicopter',es:'helicóptero',em:'🚁'}
+];
+var THINGS=[
+ {en:'wallet',lab:'wallet (US) / purse (UK)',es:'billetera / monedero',em:'👛',acc:['purse']},
+ {en:'coins',es:'monedas',em:'🪙'},{en:'toothbrush',es:'cepillo de dientes',em:'🪥'},{en:'keys',es:'llaves',em:'🔑'},
+ {en:'cellphone',es:'celular',em:'📱'},{en:'laptop',es:'computador portátil',em:'💻'},{en:'umbrella',es:'paraguas',em:'☂️'},
+ {en:'pen',es:'lápiz pasta / bolígrafo',em:'🖊️'},{en:'glasses',es:'lentes / gafas',em:'👓'},{en:'watch',es:'reloj',em:'⌚'},
+ {en:'book',es:'libro',em:'📘'},{en:'notebook',es:'cuaderno',em:'📓'}
+];
+var PLURAL_ONLY=['coins','keys','glasses'];
+var M4_NAMES=['Ben','Nora James','Amir Ansari','Nina Edwards','Lucy','Aman Sharma','Aiden','Keith','Fiona','James Thomas'];
+var M4_NAT=['Ireland','Sweden','Peru','Greece','Norway','India','New Zealand','Germany'];
+function cByEn(n){return COUNTRIES.filter(function(c){return c.en===n;})[0];}
+var M4_BEFIX=[
+ ['Nick are my brother.','Nick is my brother.','is'],
+ ['Duke am our dog.','Duke is our dog.','is'],
+ ['Daisy are her mother.','Daisy is her mother.','is'],
+ ['You is my friend.','You are my friend.','are'],
+ ['I are Daisy’s daughter.','I am Daisy’s daughter.','am'],
+ ['It am our house.','It is our house.','is'],
+ ['They is his grandparents.','They are his grandparents.','are'],
+ ['Farida are their sister.','Farida is their sister.','is']
+];
+var M4_POSSFIX=[
+ ['It is she horse.','It is her horse.','she','her'],['Fido is I dog.','Fido is my dog.','I','my'],
+ ['Cookie is he cat.','Cookie is his cat.','he','his'],['Ziggy is you parrot.','Ziggy is your parrot.','you','your'],
+ ['Hiss is they snake.','Hiss is their snake.','they','their'],['Max is we hedgehog.','Max is our hedgehog.','we','our'],
+ ['Ed is I horse.','Ed is my horse.','I','my'],['Nemo is she fish.','Nemo is her fish.','she','her']
+];
+var PL_WORDS=['book','watch','dictionary','sandwich','pen','toothbrush','coin','cellphone','box','laptop','wallet','notebook','umbrella','fox','church','dish','city','baby','party','country','story','flag','guitar','fruit'];
+function pluralRule(w){return /(x|sh|ch)$/.test(w)?'es':(/[^aeiou]y$/.test(w)?'ies':'s');}
+function pluralOf(w){var r=pluralRule(w);return r==='es'?w+'es':(r==='ies'?w.slice(0,-1)+'ies':w+'s');}
+var PL_RULE_TXT={s:['Most nouns: add -s','La mayoría de los sustantivos: se agrega -s'],es:['Nouns ending in x, sh, ch: add -es','Sustantivos terminados en x, sh, ch: se agrega -es'],ies:['Consonant + y: drop the -y and add -ies','Consonante + y: se quita la -y y se agrega -ies']};
+
+var DEMOS=['this','that','these','those'];
+var DEM_RULE={this:'singular + close',that:'singular + far',these:'plural + close',those:'plural + far'};
+var DEM_RULE_ES={this:'singular + cerca',that:'singular + lejos',these:'plural + cerca',those:'plural + lejos'};
+var M4_DEMO=[
+ ['____ is my bag.','this',true],['____ are Diego’s keys.','these',true],['____ is Olivia’s purse.','this',true],
+ ['____ are my books.','those',false],['____ are my pencils.','these',true],['____ is Anna’s sandwich.','that',false],
+ ['____ is Malik’s phone.','that',false],['____ is my cat.','this',true],['____ are her keys.','these',true],
+ ['____ is your wallet.','that',false],['____ are our laptops.','those',false],['____ are his dogs.','these',true],
+ ['____ are their umbrellas.','these',true]
+];
+var M5_DEMO=[
+ ['____ are our presents.','these',true,'🎁'],['____ is a UFO!','that',false,'🛸'],
+ ['____ are symbols.','those',false,'🔣'],['____ is a coin.','this',true,'🪙']
+];
+var DEMO_TIME=[
+ ['____ party is really fun.','this','We’re at the party now.','Estamos en la fiesta ahora.'],
+ ['____ show we saw last week was so depressing!','that','We saw it last week.','Lo vimos la semana pasada.'],
+ ['I’m really enjoying ____.','this','An experience that’s happening now.','Una experiencia que está ocurriendo ahora.'],
+ ['I really liked ____ cakes.','those','The cakes we ate last week.','Las tortas que comimos la semana pasada.'],
+ ['____ people we met last night were really nice.','those','We met them last night.','Los conocimos anoche.'],
+ ['I’m very busy ____ days.','these','The present or recent period.','El período actual o reciente.'],
+ ['I have an exam ____ week.','this','The current week.','La semana actual.'],
+ ['Do you remember ____ summer in Spain?','that','A distant past summer.','Un verano lejano en el pasado.'],
+ ['Life was different back in ____ days.','those','A distant time in the past.','Un tiempo lejano en el pasado.']
+];
+var PUNCT=[
+ ['dot','punto','.'],['comma','coma',','],['colon','dos puntos',':'],['semicolon','punto y coma',';'],
+ ['tilde','tilde (virgulilla)','~'],['at','arroba','@'],['slash','barra','/'],['backslash','barra invertida','\\'],
+ ['question mark','signo de interrogación','?'],['exclamation mark','signo de exclamación','!'],
+ ['quotation marks','comillas','"'],['apostrophe','apóstrofo',"'"],['hyphen','guion','-'],
+ ['underscore','guion bajo','_'],['angle brackets','paréntesis angulares','<>'],['equals','igual','=']
+];
+var M5_OBJS=['cellphone','toothbrush','sandwiches','umbrella','watch','glasses','laptop','wallet'];
+var M5_NAMES=['Belinda','Lewis','Jessica Adams','Bob','Alice Spencer','Kate Wallace','Saul Jackson','Natalie Lau'];
+var M5_BEBUILD=[
+ ['we / not / be / cold','We aren’t cold.',['We are not cold.']],
+ ['I / not / be / English','I am not English.',[]],
+ ['where / be / John?','Where is John?',[]],
+ ['we / be / German','We are German.',[]],
+ ['he / not / be / a journalist','He isn’t a journalist.',['He is not a journalist.']],
+ ['we / not / be / singers','We aren’t singers.',['We are not singers.']],
+ ['you / be / a nurse?','Are you a nurse?',[]],
+ ['they / be / from Libya','They are from Libya.',[]]
+];
+var M5_BETYPES=[
+ ['I am 25 years old.','Affirmative'],['He is beautiful.','Affirmative'],['You are very old.','Affirmative'],
+ ['I am not English.','Negative'],['She is not a nurse.','Negative'],['She isn’t a nurse.','Negative'],['We aren’t Peruvian.','Negative'],
+ ['Am I good at English?','Yes/No question'],['Is she happy?','Yes/No question'],['Are they students?','Yes/No question']
+];
+var BE_TYPES_ES={'Affirmative':'Afirmativa','Negative':'Negativa','Yes/No question':'Pregunta sí/no'};
+var WH_WORDS=[['How','¿Cómo?'],['Why','¿Por qué?'],['What','¿Qué? / ¿Cuál?'],['Who','¿Quién?'],['When','¿Cuándo?'],['Where','¿Dónde?'],['Whose','¿De quién?']];
+var WH_SENT=[
+ ['How','How are you?','¿Cómo estás?'],['What','What is that?','¿Qué es eso?'],['Why','Why is she happy?','¿Por qué está feliz ella?'],
+ ['When','When is the meeting?','¿Cuándo es la reunión?'],['Where','Where are they?','¿Dónde están ellos?'],['Who','Who is he?','¿Quién es él?']
+];
+var M5_POSS=[
+ ['I’m going to call ____ friend later.','my','Voy a llamar a mi amigo más tarde.'],
+ ['John brought ____ backpack with him.','his','John trajo su mochila con él.'],
+ ['Julie always talks to ____ mum about her problems.','her','Julie siempre habla con su mamá sobre sus problemas.'],
+ ['We want to wash ____ car this weekend.','our','Queremos lavar nuestro auto este fin de semana.'],
+ ['The athletes are waiting for ____ scores.','their','Los atletas esperan sus puntajes.'],
+ ['Lucy can’t find ____ glasses anywhere.','her','Lucy no encuentra sus lentes por ningún lado.'],
+ ['Are these ____ football boots? You really need to clean them.','your','¿Son estas tus zapatillas de fútbol? Realmente necesitas limpiarlas.'],
+ ['The cat stretched ____ paws in the sun.','its','El gato estiró sus patas al sol.']
+];
+var POSS7=['my','your','his','her','its','our','their'];
+
+function demoQ(sent,ans,near,es,em){
+  var cue=near?('📍 '+I('Close to you','Cerca de ti')):('🔭 '+I('Far from you','Lejos de ti'));
+  var shown=sent.indexOf('____')===0?cap(ans):ans;
+  return {kind:'mc',prompt:I('Choose <b>this / that / these / those</b>:','Elige <b>this / that / these / those</b>:')+'<span class="big" style="font-size:24px">'+(em?em+' ':'')+sent+'</span><div class="hint">'+cue+'</div>',
+    options:DEMOS.slice(),answer:ans,
+    explain:I(sent.replace('____','<b>'+shown+'</b>')+' ('+DEM_RULE[ans]+')',(es?es+' · ':'')+DEM_RULE_ES[ans])};
+}
+function demoGenQ(){
+  var near=Math.random()<0.5,plural=Math.random()<0.5,t,noun,sent;
+  if(plural){
+    t=pick(THINGS);noun=PLURAL_ONLY.indexOf(t.en)>-1?t.en:pluralOf(t.en);
+    sent='____ are my '+noun+'.';
+  }else{
+    t=pick(THINGS.filter(function(x){return PLURAL_ONLY.indexOf(x.en)<0;}));
+    sent='____ is my '+t.en+'.';
+  }
+  var ans=plural?(near?'these':'those'):(near?'this':'that');
+  return demoQ(sent,ans,near,'',t.em);
+}
+function demoConcept(){
+  var a=pick(DEMOS),ex={this:'this book',that:'that book',these:'these books',those:'those books'};
+  return {kind:'mc',prompt:I('Which one is <b>'+DEM_RULE[a]+'</b>?','¿Cuál es <b>'+DEM_RULE_ES[a]+'</b>?'),options:DEMOS.slice(),answer:a,
+    explain:I('<b>'+a+'</b> = '+DEM_RULE[a]+' → '+ex[a],'<b>'+a+'</b> = '+DEM_RULE_ES[a])};
+}
+
+/* ---------- MODULE 4 quizzes ---------- */
+def('m4_words','🔤','Spanish → English & spelling|Español → inglés y deletreo','Oil, fruit, jam, giraffe… say it and spell it (Module 4).|Oil, fruit, jam, giraffe… dilo y deletréalo (Módulo 4).','vocab',function(){
+  var w=pick(M4_WORDS),sp=w.en.toUpperCase().split('').join('-');
+  if(Math.random()<0.5)return {kind:'type',prompt:I('How do you say <b>'+w.es+'</b> in English? Type it.','¿Cómo se dice <b>'+w.es+'</b> en inglés? Escríbelo.')+'<b class="big" style="font-size:56px">'+w.em+'</b>',answer:w.en,hint:I(w.en.length+' letters',w.en.length+' letras'),explain:I(w.em+' <b>'+w.en+'</b> = '+sp,w.es+' = <b>'+w.en+'</b>')};
+  return {kind:'type',cmp:'letters',prompt:I('Listen to the spelling and type the word.','Escucha el deletreo y escribe la palabra.'),audio:{spell:w.en},answer:w.en,hint:I(w.en.length+' letters',w.en.length+' letras'),explain:I(w.em+' <b>'+w.en+'</b> = '+sp,w.es)};
+});
+def('m4_things','🎒','Everyday things|Objetos cotidianos','Wallet, keys, cellphone, laptop, umbrella… (Module 4).|Wallet, keys, cellphone, laptop, umbrella… (Módulo 4).','vocab',function(){
+  var t=pick(THINGS),r=Math.random(),lab=t.lab||t.en;
+  if(r<0.34)return {kind:'type',prompt:I('What is this in English?','¿Cómo se dice esto en inglés?')+'<b class="big" style="font-size:56px">'+t.em+'</b>',answer:t.en,accept:t.acc||[],explain:I(t.em+' <b>'+lab+'</b>',t.es)};
+  if(r<0.67){
+    var others=sample(THINGS.filter(function(x){return x!==t;}),3);
+    return {kind:'mc',emojiOnly:true,prompt:I('Listen to the word and choose the <b>picture</b>.','Escucha la palabra y elige el <b>dibujo</b>.'),audio:{text:t.en},options:shuffle([t].concat(others)).map(function(x){return {emoji:x.em,label:'',value:x.en};}),answer:t.en,explain:I(t.em+' <b>'+lab+'</b>',t.es)};
+  }
+  return {kind:'mc',prompt:I('What does this word mean in <b>Spanish</b>?','¿Qué significa esta palabra en <b>español</b>?')+'<b class="big">'+t.en+'</b>',audio:{text:t.en},options:mcOpts(firstEs(t),THINGS.map(firstEs)),answer:firstEs(t),explain:I(t.em+' <b>'+lab+'</b>','<b>'+t.en+'</b> = '+t.es)};
+});
+def('m4_names','🎧','Match the audio with the name|Une el audio con el nombre','Ben, Nora James, Amir Ansari, Aman Sharma… (Module 4).|Ben, Nora James, Amir Ansari, Aman Sharma… (Módulo 4).','listening',function(){
+  var n=pick(M4_NAMES);
+  if(Math.random()<0.6)return {kind:'mc',prompt:I('Listen and choose the <b>name</b> you hear.','Escucha y elige el <b>nombre</b> que oyes.'),audio:{text:n},options:mcOpts(n,M4_NAMES),answer:n,explain:I('It was <b>'+n+'</b>.','Era <b>'+n+'</b>.')};
+  return {kind:'type',cmp:'letters',prompt:I('Listen and <b>write</b> the name.','Escucha y <b>escribe</b> el nombre.'),audio:{text:n},answer:n,explain:I('It was <b>'+n+'</b>.','Era <b>'+n+'</b>.')};
+});
+def('m4_flags','🚩','Flags & nationalities|Banderas y nacionalidades','Irish, Swedish, Peruvian, Greek, Norwegian, Indian, New Zealander, German.|Irish, Swedish, Peruvian, Greek, Norwegian, Indian, New Zealander, German.','nat',function(){
+  var pool=M4_NAT.map(cByEn),c=pick(pool);
+  if(Math.random()<0.6)return {kind:'mc',prompt:I('Match the <b>flag</b> with the <b>nationality</b>.','Une la <b>bandera</b> con la <b>nacionalidad</b>.')+flagBig(c.iso,92),options:mcOpts(c.nat,pool.map(function(x){return x.nat;})),answer:c.nat,explain:I(flagTag(c.iso,28)+' Flag of '+c.en+' → <b>'+c.nat+'</b>.','Bandera de '+c.es+' → <b>'+c.nat+'</b>.')};
+  var others=sample(pool.filter(function(x){return x!==c;}),3);
+  return {kind:'mc',flagsOnly:true,prompt:I('Which <b>flag</b> goes with <b>'+c.nat+'</b>?','¿Qué <b>bandera</b> corresponde a <b>'+c.nat+'</b>?'),options:shuffle([c].concat(others)).map(fOnly),answer:c.en,explain:I(flagTag(c.iso,28)+' <b>'+c.nat+'</b> = from '+c.en+'.','<b>'+c.nat+'</b> = de '+c.es+'.')};
+});
+def('m4_be_fix','🛠️','Fix the verb BE|Corrige el verbo BE','Rewrite the sentences correcting the errors (Module 4).|Reescribe las oraciones corrigiendo los errores (Módulo 4).','be',function(){
+  var it=pick(M4_BEFIX),note=/daughter/.test(it[1])?I('Pronunciation: <i>daughter</i> sounds like “doter”.','Pronunciación: <i>daughter</i> suena “doter”.'):'';
+  if(Math.random()<0.55)return {kind:'type',prompt:I('Rewrite the sentence, <b>correcting the error</b>:','Reescribe la oración <b>corrigiendo el error</b>:')+'<span class="big">'+it[0]+'</span>',answer:it[1],explain:I('<b>'+it[1]+'</b>  I → am · he / she / it → is · you / we / they → are.','')+note};
+  return {kind:'mc',prompt:I('Choose the correct form of <b>BE</b>:','Elige la forma correcta de <b>BE</b>:')+'<span class="big">'+it[1].replace(' '+it[2]+' ',' ____ ')+'</span>',options:['am','is','are'],answer:it[2],explain:I('<b>'+it[1]+'</b>','')+note};
+});
+def('m4_poss_fix','🔧','Fix the possessive|Corrige el posesivo','Replace the pronoun with the possessive adjective (Module 4).|Cambia el pronombre por el adjetivo posesivo (Módulo 4).','poss',function(){
+  var it=pick(M4_POSSFIX);
+  var shown=it[0].replace(new RegExp('\\b'+it[2]+'\\b'),'<b>'+it[2]+'</b>');
+  if(Math.random()<0.5)return {kind:'mc',prompt:I('Which <b>possessive adjective</b> replaces the wrong word?','¿Qué <b>adjetivo posesivo</b> reemplaza la palabra incorrecta?')+'<span class="big">'+shown+'</span>',options:shuffle(['my','your','his','her','our','their']),answer:it[3],explain:I('<b>'+it[1]+'</b>  ('+it[2]+' → '+it[3]+')','')};
+  return {kind:'type',prompt:I('Rewrite the sentence with the <b>correct possessive</b>:','Reescribe la oración con el <b>posesivo correcto</b>:')+'<span class="big">'+it[0]+'</span>',answer:it[1],explain:I('<b>'+it[1]+'</b>  ('+it[2]+' → '+it[3]+')','')};
+});
+def('m4_plural','📚','Plurals|Plurales','Add -s, -es or -ies (Module 4).|Agrega -s, -es o -ies (Módulo 4).','plural',function(){
+  var w=pick(PL_WORDS),r=pluralRule(w),pl=pluralOf(w),rt=PL_RULE_TXT[r];
+  if(Math.random()<0.55)return {kind:'type',prompt:I('Write the <b>plural</b> of:','Escribe el <b>plural</b> de:')+'<b class="big">'+w+'</b>',answer:pl,hint:I('Think about how the word ends','Fíjate en cómo termina la palabra'),explain:I(w+' → <b>'+pl+'</b>. '+rt[0]+'.',rt[1]+'.')};
+  return {kind:'mc',prompt:I('Which ending does the plural of <b>'+w+'</b> take?','¿Qué terminación lleva el plural de <b>'+w+'</b>?'),options:['-s','-es','-ies'],answer:'-'+r,explain:I(w+' → <b>'+pl+'</b>. '+rt[0]+'.',rt[1]+'.')};
+});
+def('m4_demo','👉','this / that / these / those|this / that / these / those','Singular or plural, close or far (Module 4).|Singular o plural, cerca o lejos (Módulo 4).','demo',function(){
+  var r=Math.random();
+  if(r<0.5){var it=pick(M4_DEMO);return demoQ(it[0],it[1],it[2]);}
+  if(r<0.8)return demoGenQ();
+  return demoConcept();
+});
+def('m4_demo_time','⏳','Demonstratives & time|Demostrativos y tiempo','this week, these days, that summer, those years (Module 4).|this week, these days, that summer, those years (Módulo 4).','demo',function(){
+  var it=pick(DEMO_TIME),shown=it[0].indexOf('____')===0?cap(it[1]):it[1];
+  return {kind:'mc',prompt:I('Choose the correct demonstrative:','Elige el demostrativo correcto:')+'<span class="big" style="font-size:24px">'+it[0]+'</span><div class="hint">⏱ '+I(it[2],it[3])+'</div>',options:DEMOS.slice(),answer:it[1],
+    explain:I(it[0].replace('____','<b>'+shown+'</b>')+'  (this = present or upcoming · these = present or recent span · that / those = distant past or future)','')};
+});
+
+/* ---------- MODULE 5 quizzes ---------- */
+def('m5_punct','⌨️','Punctuation marks|Signos de puntuación','Dot, at, slash, hyphen, underscore… (Module 5).|Dot, at, slash, hyphen, underscore… (Módulo 5).','alphabet',function(){
+  var p=pick(PUNCT),r=Math.random(),names=PUNCT.map(function(x){return x[0];}),syms=PUNCT.map(function(x){return x[2];});
+  var ex=I('<b>'+esc(p[2])+'</b> = '+p[0],p[1]);
+  if(r<0.34)return {kind:'mc',prompt:I('What is the name of this symbol?','¿Cómo se llama este símbolo?')+'<b class="big" style="font-size:44px">'+esc(p[2])+'</b>',options:mcOpts(p[0],names),answer:p[0],explain:ex};
+  if(r<0.67)return {kind:'mc',prompt:I('Which symbol is <b>'+p[0]+'</b>?','¿Qué símbolo es <b>'+p[0]+'</b>?'),options:mcOpts(p[2],syms),answer:p[2],explain:ex};
+  return {kind:'mc',prompt:I('Listen and choose the <b>symbol</b>.','Escucha y elige el <b>símbolo</b>.'),audio:{text:p[0]},options:mcOpts(p[2],syms),answer:p[2],explain:ex};
+});
+function rndPhone(){var s='9',i;for(i=0;i<8;i++)s+=rnd(10);return s;}
+def('m5_spell','✍️','Spell names, emails & phone numbers|Deletrea nombres, correos y teléfonos','Warm-up: spell your name, email and phone (Module 5).|Calentamiento: deletrea tu nombre, correo y teléfono (Módulo 5).','alphabet',function(){
+  var r=Math.random();
+  if(r<0.35){var w=pick(M5_OBJS);return {kind:'type',cmp:'letters',prompt:I('Listen to the spelling and type the word.','Escucha el deletreo y escribe la palabra.'),audio:{spell:w},answer:w,hint:I(w.length+' letters',w.length+' letras'),explain:I('It was <b>'+w+'</b> = '+w.toUpperCase().split('').join('-'),'')};}
+  if(r<0.6){var nm=pick(FIRST)+' '+pick(LAST);return {kind:'type',cmp:'letters',prompt:I('Listen to the <b>first and last name</b> and type them.','Escucha el <b>nombre y apellido</b> y escríbelos.'),audio:{spell:nm},answer:nm,explain:I('It was <b>'+nm+'</b>.','Era <b>'+nm+'</b>.')};}
+  if(r<0.8){var e=pick(EMAILS);return {kind:'type',cmp:'email',prompt:I('Type the <b>email address</b> you hear. (<i>at</i> = @, <i>dot</i> = ., <i>dash</i> = -, <i>underscore</i> = _)','Escribe el <b>correo</b> que oyes. (<i>at</i> = @, <i>dot</i> = punto, <i>dash</i> = guion, <i>underscore</i> = guion bajo)'),audio:{spell:e},answer:e,explain:I('The email was <b>'+e+'</b>.','El correo era <b>'+e+'</b>.')};}
+  var ph=rndPhone();
+  return {kind:'type',cmp:'letters',prompt:I('Type the <b>phone number</b> you hear (digits).','Escribe el <b>número de teléfono</b> que oyes (cifras).'),audio:{spell:ph},answer:ph,explain:I('The number was <b>'+ph.charAt(0)+' '+ph.slice(1,5)+' '+ph.slice(5)+'</b>.','El número era <b>'+ph+'</b>.')};
+});
+def('m5_names','📝','Write the name|Escribe el nombre','Belinda, Lewis, Jessica Adams, Kate Wallace… (Module 5).|Belinda, Lewis, Jessica Adams, Kate Wallace… (Módulo 5).','listening',function(){
+  var n=pick(M5_NAMES);
+  if(Math.random()<0.65)return {kind:'type',cmp:'letters',prompt:I('Listen and <b>write</b> the name.','Escucha y <b>escribe</b> el nombre.'),audio:{text:n},answer:n,explain:I('It was <b>'+n+'</b>.','Era <b>'+n+'</b>.')};
+  return {kind:'mc',prompt:I('Listen and choose the <b>name</b> you hear.','Escucha y elige el <b>nombre</b> que oyes.'),audio:{text:n},options:mcOpts(n,M5_NAMES),answer:n,explain:I('It was <b>'+n+'</b>.','Era <b>'+n+'</b>.')};
+});
+def('m5_be_build','🧱','Build the sentence with BE|Arma la oración con BE','(we / not / be / cold) → We aren’t cold. (Module 5).|(we / not / be / cold) → We aren’t cold. (Módulo 5).','be',function(){
+  var it=pick(M5_BEBUILD);
+  return {kind:'type',prompt:I('Make the sentence using <b>be</b> in its correct form:','Forma la oración usando <b>be</b> en su forma correcta:')+'<span class="big">('+it[0]+')</span>',answer:it[1],accept:it[2],hint:I('It can be affirmative, negative or a question','Puede ser afirmativa, negativa o pregunta'),explain:I('<b>'+it[1]+'</b>','')};
+});
+def('m5_be_types','🧩','Affirmative, negative or question?|¿Afirmativa, negativa o pregunta?','Subj + be · Subj + be + not · Be + subj (Module 5).|Subj + be · Subj + be + not · Be + subj (Módulo 5).','be',function(){
+  var opts=['Affirmative','Negative','Yes/No question'].map(function(k){return tOpt(k,BE_TYPES_ES[k]);});
+  if(Math.random()<0.25){
+    var f=pick([['Subj + be + rest of the sentence','Affirmative'],['Subj + be + not + rest of the sentence','Negative'],['Be + subj. + rest of the question','Yes/No question']]);
+    return {kind:'mc',prompt:I('Which kind of sentence uses this formula?','¿Qué tipo de oración usa esta fórmula?')+'<span class="big" style="font-size:22px">'+f[0]+'</span>',options:opts,answer:f[1],explain:I('<b>'+f[1]+'</b>: '+f[0],'<b>'+BE_TYPES_ES[f[1]]+'</b>')};
+  }
+  var it=pick(M5_BETYPES);
+  return {kind:'mc',prompt:I('What kind of sentence is this?','¿Qué tipo de oración es?')+'<span class="big">'+it[0]+'</span>',options:opts,answer:it[1],explain:I('<b>'+it[1]+'</b>','<b>'+BE_TYPES_ES[it[1]]+'</b>')};
+});
+def('m5_wh','❓','Wh- questions with BE|Preguntas Wh- con BE','How, why, what, who, when, where, whose (Module 5).|How, why, what, who, when, where, whose (Módulo 5).','wh',function(){
+  var r=Math.random(),names=WH_WORDS.map(function(x){return x[0];});
+  if(r<0.35){var w=pick(WH_WORDS);return {kind:'mc',prompt:I('Which Wh- word means <b>'+w[1]+'</b>?','¿Qué palabra Wh- significa <b>'+w[1]+'</b>?'),options:names.slice(),answer:w[0],explain:I('<b>'+w[0]+'</b> = '+w[1],'')};}
+  var s=pick(WH_SENT);
+  if(r<0.7){var blank=s[1].replace(s[0],'____');return {kind:'mc',prompt:I('Complete with the correct <b>Wh- word</b>:','Completa con la <b>palabra Wh-</b> correcta:')+'<span class="big">'+blank+'<span class="es">'+s[2]+'</span></span>',options:names.slice(),answer:s[0],explain:I('<b>'+s[1]+'</b>','Wh- + be + subj. + rest of the question.')};}
+  var txt=s[1],words=txt.replace(/[.?]/g,'').split(' '),sh=shuffle(words),tries=0;
+  while(sh.join(' ')===words.join(' ')&&tries++<10)sh=shuffle(words);
+  return {kind:'order',prompt:I('Put the words in order to make a <b>question</b>.','Ordena las palabras para formar una <b>pregunta</b>.')+'<span class="big" style="font-size:18px"><span class="es" style="display:block">'+s[2]+'</span></span>',words:sh,answer:txt,explain:I('<b>'+txt+'</b>  Wh- + be + subj. + rest of the question.','')};
+});
+def('m5_poss','👤','Possessive adjectives in sentences|Adjetivos posesivos en oraciones','my, your, his, her, its, our, their (Module 5).|my, your, his, her, its, our, their (Módulo 5).','poss',function(){
+  var it=pick(M5_POSS);
+  return {kind:'mc',prompt:I('Complete with the correct <b>possessive adjective</b>:','Completa con el <b>adjetivo posesivo</b> correcto:')+'<span class="big" style="font-size:22px">'+it[0]+'<span class="es">'+it[2]+'</span></span>',options:POSS7.slice(),answer:it[1],explain:I(it[0].replace('____','<b>'+it[1]+'</b>'),it[2])};
+});
+def('m5_demo','🎁','this / that / these / those (scenes)|this / that / these / those (escenas)','Presents, UFO, symbols, coin… (Module 5).|Presents, UFO, symbols, coin… (Módulo 5).','demo',function(){
+  if(Math.random()<0.5){var it=pick(M5_DEMO);return demoQ(it[0],it[1],it[2],'',it[3]);}
+  return demoGenQ();
+});
+
+/* ---------- Module pools ---------- */
+var M4_POOL=['m4_words','m4_things','m4_names','m4_flags','m4_be_fix','m4_poss_fix','m4_plural','m4_demo','m4_demo_time'];
+var M5_POOL=['m5_punct','m5_spell','m5_names','m5_be_build','m5_be_types','m5_wh','m5_poss','m5_demo'];
+var M1_POOL=['vb_color','li_colors','be_fill','be_neg','be_q','be_order','be_contr','ps_verb','ps_use','po_persona'];
+var M2_POOL=['al_listen','al_pron','al_spell','al_email','al_speak','vw_ls','vw_pairs','vw_vowel','vw_short','vw_pattern','nt_flag','nt_flag2c','nt_flagtype','nt_hearflag','nt_c2n','nt_n2c','nt_fill','nt_suffix','nt_odd','nt_spell','nt_trans','nt_speak','nm_pairs','nm_w2n','nm_n2w','nm_math','li_numbers','li_nat','pr_letters','pr_nat','pr_numbers','pr_vowels'];
+var M3_POOL=['al_spell','li_ages','nm_age','gr_age','po_fill','po_ctx','po_type','gr_called','vb_called','vb_emoji','vb_en_es','vb_es_en','vb_spell','pr_poss','pr_vocab'];
+function poolGen(ids){return function(){var d=QZ[pick(ids)],q=d.gen();q.topic=q.topic||d.topic;return q;};}
+
 /* ---------- MIXED EXAM / LIGHTNING ---------- */
-var EXAM_POOL=['al_listen','al_pron','al_spell','li_comp','li_dict','li_numbers','li_nat','li_vocab','li_colors','li_ages','nt_flag','nt_flag2c','nt_flagtype','nt_hearflag','nt_c2n','nt_n2c','nt_fill','nt_suffix','nt_odd','nt_spell','nt_trans','nm_pairs','nm_w2n','nm_n2w','nm_age','nm_math','vw_ls','vw_pairs','vw_vowel','vw_short','vw_pattern','be_fill','be_neg','be_q','be_order','be_contr','po_fill','po_ctx','po_type','po_persona','ps_verb','ps_use','gr_called','gr_age','gr_trans','vb_en_es','vb_es_en','vb_emoji','vb_color','vb_spell','vb_called'];
+var OLD_POOL=['al_listen','al_pron','al_spell','li_comp','li_dict','li_numbers','li_nat','li_vocab','li_colors','li_ages','nt_flag','nt_flag2c','nt_flagtype','nt_hearflag','nt_c2n','nt_n2c','nt_fill','nt_suffix','nt_odd','nt_spell','nt_trans','nm_pairs','nm_w2n','nm_n2w','nm_age','nm_math','vw_ls','vw_pairs','vw_vowel','vw_short','vw_pattern','be_fill','be_neg','be_q','be_order','be_contr','po_fill','po_ctx','po_type','po_persona','ps_verb','ps_use','gr_called','gr_age','gr_trans','vb_en_es','vb_es_en','vb_emoji','vb_color','vb_spell','vb_called'];
+var EXAM_POOL=OLD_POOL.concat(M4_POOL,M5_POOL);
 var LIGHT_POOL=['al_listen','al_pron','li_nat','li_vocab','li_colors','nt_flag','nt_flag2c','nt_hearflag','nt_c2n','nt_n2c','nt_fill','nt_suffix','nt_odd','nm_pairs','nm_w2n','vw_ls','vw_pairs','vw_vowel','vw_short','be_fill','be_contr','po_fill','po_ctx','po_type','po_persona','ps_verb','ps_use','gr_called','gr_age','vb_en_es','vb_es_en','vb_emoji','vb_color'];
 function mixedGen(){var d=QZ[pick(EXAM_POOL)],q=d.gen();q.topic=d.topic;return q;}
 function lightGen(){var d=QZ[pick(LIGHT_POOL)],q=d.gen();q.topic=d.topic;return q;}
@@ -1505,14 +2213,15 @@ function navItems(){
   var t=isTeacher();
   return [
     {id:'home',e:'🏠',t:'Home',s:'Inicio'},
-    {id:'topics',e:'📚',t:'Topics',s:'Temas'},
+    {id:'modules',e:'🧭',t:'Modules',s:'Módulos'},
+    {id:'dict',e:'📖',t:'Dictionary',s:'Diccionario'},
     {id:'play',e:'⚡',t:'Play',s:'Jugar'},
     {id:'team',e:t?'🎓':'🏆',t:t?'Panel':'Ranking',s:t?'Panel docente':'Ranking'},
     {id:'progress',e:'👤',t:'Me',s:'Yo'}
   ];
 }
 function navCur(){
-  if(/^topic:/.test(cur))return 'topics';
+  if(/^topic:/.test(cur)||/^module:/.test(cur))return 'modules';
   if(cur==='userview')return 'team';
   return cur;
 }
@@ -1556,7 +2265,7 @@ function startQuiz(id,opts){
     }
   }
   if(!qs.length){toast(I('No questions available.','No hay preguntas disponibles.'));return;}
-  sess={id:id,title:spl(opts.title||d.title).en,icon:opts.icon||d.icon,qs:qs,i:0,score:0,wrong:[],back:opts.back||'home',review:!!opts.review,xp0:S.xp,lv0:lvl(S),timer:opts.timer||0,bonus:0};
+  sess={id:id,title:spl(opts.title||d.title).en,icon:opts.icon||d.icon,qs:qs,i:0,score:0,wrong:[],back:opts.back||'home',review:!!opts.review,xp0:S.xp,lv0:lvl(S),timer:opts.timer||0,bonus:0,gen:opts.gen||null};
   renderQ();
   window.scrollTo(0,0);
 }
@@ -1753,9 +2462,9 @@ function renderQ(){
     if(SR)mic.addEventListener('click',async function(){
       if(answered)return;
       stopAll();mic.classList.add('live');mic.innerHTML=micLabel('live');mic.disabled=true;
-      heard.innerHTML=Mic.wanted?I('Speak now…','Habla ahora…'):I('Allow the microphone when your browser asks (only once).','Permite el micrófono cuando el navegador lo pida (solo esta vez).');
+      heard.innerHTML=Mic.running?I('Speak now…','Habla ahora…'):(Mic.permOK?I('Getting the microphone ready…','Preparando el micrófono…'):I('Choose “Allow” when your browser asks.','Elige “Permitir” cuando el navegador lo pida.'));
       try{
-        var alts=await Mic.ask(function(t){heard.innerHTML=I('I hear you: “'+esc(t)+'”…','Te escucho: “'+esc(t)+'”…');});
+        var alts=await Mic.ask(function(t){heard.innerHTML=I('I hear you: “'+esc(t)+'”…','Te escucho: “'+esc(t)+'”…');},function(){heard.innerHTML=I('Speak now…','Habla ahora…');});
         var r=scoreSpeech(q.target,alts,q.accept);
         $('#tgt').innerHTML=r.marks.map(function(m){return '<span class="'+(m.ok?'w-ok':'w-bad')+'">'+m.w+'</span>';}).join(' ');
         var pc=Math.round(r.score*100);
@@ -1801,7 +2510,7 @@ function renderResult(){
   }
   var again=h('button',{class:'btn pri',type:'button',onclick:function(){
     if(sess.review)startQuiz('review',{list:shuffle(S.mistakes),title:'Review mistakes',icon:'🔁',review:true,back:'progress'});
-    else startQuiz(sess.id,{title:sess.title,icon:sess.icon,back:sess.back,gen:sess.id==='mixed'?mixedGen:(sess.id==='lightning'?lightGen:null),n:sess.qs.length,timer:sess.timer});
+    else startQuiz(sess.id,{title:sess.title,icon:sess.icon,back:sess.back,gen:sess.gen||(sess.id==='mixed'?mixedGen:(sess.id==='lightning'?lightGen:null)),n:sess.qs.length,timer:sess.timer});
   }},bi('🔁 Try again','Repetir'));
   var back=h('button',{class:'btn',type:'button',onclick:function(){go(sess.back);}},bi('← Back','Volver'));
   var prog=h('button',{class:'btn',type:'button',onclick:function(){go('progress');}},bi('👤 My progress','Mi progreso'));
@@ -1869,7 +2578,8 @@ function studyPron(c){
   if(SR)mic.addEventListener('click',async function(){
     stopAll();mic.classList.add('live');mic.innerHTML=micLabel('live');mic.disabled=true;res.textContent='';
     try{
-      var alts=await Mic.ask(function(t){res.innerHTML=I('I hear you: “'+esc(t)+'”…','Te escucho: “'+esc(t)+'”…');});
+      res.innerHTML=Mic.running?I('Speak now…','Habla ahora…'):I('Getting the microphone ready…','Preparando el micrófono…');
+      var alts=await Mic.ask(function(t){res.innerHTML=I('I hear you: “'+esc(t)+'”…','Te escucho: “'+esc(t)+'”…');},function(){res.innerHTML=I('Speak now…','Habla ahora…');});
       var r=scoreSpeech(ta.value,alts);
       tg.innerHTML=r.marks.map(function(m){return '<span class="'+(m.ok?'w-ok':'w-bad')+'">'+m.w+'</span>';}).join(' ');
       var pc=Math.round(r.score*100);
@@ -2008,6 +2718,9 @@ function vocabTiles(title,list,isColor){
 }
 function studyVocab(c){
   c.append(vocabTiles('🎨 Colors|Colores',COLORS,true),vocabTiles('🐾 Pets|Mascotas',PETS),vocabTiles('🚜 Farm animals|Animales de granja',FARM));
+  petWriter(c);
+}
+function petWriter(c){
   c.append(h('h3',null,bi('✍️ Write about your pet (class homework)','Escribe sobre tu mascota (tarea de clase)')));
   var nameI=h('input',{type:'text',value:'Max','aria-label':'Name'});
   var anim=h('select',{'aria-label':'Animal'},ANIMALS.map(function(a){return h('option',{value:a.en},a.en);}));
@@ -2038,14 +2751,15 @@ var SECTIONS=[
  {id:'nat',icon:'🌍',title:'Nationalities|Nacionalidades',topics:['nat'],intro:'74 countries with their flag and nationality: -ish, -an, -ese and more.|74 países con su bandera y su nacionalidad: -ish, -an, -ese y otras.',study:studyNat,quizzes:['nt_flag','nt_flag2c','nt_flagtype','nt_hearflag','nt_c2n','nt_n2c','nt_fill','nt_suffix','nt_odd','nt_spell','nt_trans','nt_speak']},
  {id:'numbers',icon:'🔢',title:'Numbers|Números',topics:['numbers'],intro:'From 0 to 1000, focusing on 13/30, 14/40…|Del 0 al 1000, con foco en 13/30, 14/40…',study:studyNumbers,quizzes:['nm_pairs','nm_w2n','nm_n2w','nm_age','nm_math']},
  {id:'vowels',icon:'🅰️',title:'Vowels|Vocales',topics:['vowels'],intro:'Long and short sounds, and spelling patterns.|Sonidos largos y cortos, y patrones de escritura.',study:studyVowels,quizzes:['vw_ls','vw_pairs','vw_vowel','vw_short','vw_pattern']},
- {id:'grammar',icon:'🧩',title:'Grammar|Gramática',topics:['be','poss','simple'],intro:'Verb BE, possessives, Present Simple, grammatical person, age and “is called”.|Verbo BE, posesivos, Present Simple, persona gramatical, edad y “is called”.',study:studyGrammar,quizzes:['be_fill','be_neg','be_q','be_order','be_contr','gr_age','po_fill','po_ctx','po_type','po_persona','ps_verb','ps_use','gr_called','gr_trans']},
- {id:'vocab',icon:'🐾',title:'Vocabulary|Vocabulario',topics:['vocab'],intro:'Colors, pets and farm animals.|Colores, mascotas y animales de granja.',study:studyVocab,quizzes:['vb_en_es','vb_es_en','vb_emoji','vb_color','vb_spell','vb_called']}
+ {id:'grammar',icon:'🧩',title:'Grammar|Gramática',topics:['be','poss','simple','demo','wh'],intro:'Verb BE, possessives, Present Simple, grammatical person, age and “is called”.|Verbo BE, posesivos, Present Simple, persona gramatical, edad y “is called”.',study:studyGrammar,quizzes:['be_fill','be_neg','be_q','be_order','be_contr','gr_age','po_fill','po_ctx','po_type','po_persona','ps_verb','ps_use','gr_called','gr_trans']},
+ {id:'vocab',icon:'🐾',title:'Vocabulary|Vocabulario',topics:['vocab','plural'],intro:'Colors, pets and farm animals.|Colores, mascotas y animales de granja.',study:studyVocab,quizzes:['vb_en_es','vb_es_en','vb_emoji','vb_color','vb_spell','vb_called']}
 ];
 function secOf(id){return SECTIONS.filter(function(s){return s.id===id;})[0];}
 
 var cur='home';
 function go(id){
   if(!USER&&id!=='login')id='login';
+  if(id==='topics')id='module:gen';
   cur=id;sess=null;stopAll();
   document.body.classList.remove('inquiz');
   renderTabs();
@@ -2057,39 +2771,106 @@ function go(id){
   else if(id==='play')renderPlay(v);
   else if(id==='team')renderTeam(v);
   else if(id==='progress')renderProgress(v,USER,false);
+  else if(id==='modules')renderModules(v);
+  else if(id==='dict')renderDictionary(v);
+  else if(/^module:/.test(id))renderModule(v,id.slice(7));
   else if(/^topic:/.test(id))renderTopic(v,id.slice(6));
+  if(id!=='login'){var mn=micNotice();if(mn)v.prepend(mn);}
+  v.append(creditEl());
   window.scrollTo(0,0);
 }
 function setUser(id){USER=id;S=DB.users[id];CFG.lastUser=id;saveCfg();renderStats();}
 
 /* ---------- LOGIN: TEACHERS AND STUDENTS ---------- */
-function profileCard(p,i){
-  var u=DB.users[p.id],t=totals(u),into=u.xp%200;
-  return h('button',{type:'button',class:'pcard'+(isTeacherP(p)?' t':''),style:'animation-delay:'+(i*70)+'ms','aria-label':'Sign in as '+p.label+' ('+roleName(p)+')',onclick:function(){
-    stopAll();setUser(p.id);go('home');
-    if(cloudOn())cloudPull().then(function(n){if(n&&cur==='home')go('home');});
-  }},
-    avatar(p,76),
-    h('b',null,p.label),
-    rolepill(p),
-    h('small',null,'Level '+lvl(u)+' · '+u.xp+' XP'),
-    h('div',{class:'lvbar'},h('div',{style:'width:'+(into/200*100)+'%'})),
-    h('small',null,t.q?(t.acc+'% correct · '+ago(lastAct(u))):'No practice yet'));
+/* ============================================================
+   LOGIN · professional start screen (teacher + students)
+   ============================================================ */
+function ringAvatar(p,size,pct,teacher){
+  var R=size/2,sw=Math.max(4,Math.round(size*0.06)),r=R-sw/2,C=2*Math.PI*r,off=C*(1-Math.max(0,Math.min(1,pct)));
+  var wrap=h('span',{class:'rav'+(teacher?' t':''),style:'width:'+size+'px;height:'+size+'px'});
+  wrap.append(h('span',{class:'rav-svg',html:'<svg viewBox="0 0 '+size+' '+size+'" aria-hidden="true"><circle class="rav-t" cx="'+R+'" cy="'+R+'" r="'+r.toFixed(1)+'" fill="none" stroke-width="'+sw+'"/><circle class="rav-p" cx="'+R+'" cy="'+R+'" r="'+r.toFixed(1)+'" fill="none" stroke-width="'+sw+'" stroke-linecap="round" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'"/></svg>'}));
+  var inner=size-sw*2-8;
+  wrap.append(h('span',{class:'av',style:'width:'+inner+'px;height:'+inner+'px;font-size:'+Math.round(inner*0.42)+'px;background:'+p.grad,'aria-hidden':'true'},p.init));
+  return wrap;
+}
+function loginEnter(p){
+  stopAll();setUser(p.id);go('home');
+  if(cloudOn())cloudPull().then(function(n){if(n&&cur==='home')go('home');});
+}
+function miniStat(val,en,es){return h('div',{class:'lgm'},h('b',null,String(val)),h('span',null,en,h('span',{class:'es'},es)));}
+function agoEs(ts){
+  if(!ts)return 'sin actividad';
+  var m=Math.floor((Date.now()-ts)/60000);
+  if(m<1)return 'justo ahora';if(m<60)return 'hace '+m+' min';
+  var hh=Math.floor(m/60);if(hh<24)return 'hace '+hh+' h';
+  var d=Math.floor(hh/24);return d===1?'ayer':'hace '+d+' días';
+}
+function teacherCard(p,cs,i){
+  return h('button',{type:'button',class:'tcard',style:'animation-delay:'+(i*80)+'ms','aria-label':'Sign in as '+p.label+' (teacher)',onclick:function(){loginEnter(p);}},
+    h('span',{class:'tc-glow','aria-hidden':'true'}),
+    h('div',{class:'tc-main'},
+      ringAvatar(p,104,1,true),
+      h('div',{class:'tc-tx'},
+        h('span',{class:'rolepill t'},'🎓 Teacher',h('span',{class:'es i'},'· '+roleEs(p))),
+        h('b',{class:'tc-name'},p.label),
+        h('span',{class:'tc-sub'},bi('Group overview, heat map by topic, ranking and alerts.','Resumen del grupo, mapa de calor por tema, ranking y alertas.')))),
+    h('div',{class:'tc-stats'},
+      miniStat(cs.n,'Students','Estudiantes'),
+      miniStat(cs.active,'Active this week','Activos esta semana'),
+      miniStat(cs.q?cs.acc+'%':'—','Group accuracy','Precisión del grupo')),
+    h('span',{class:'tc-go'},bi('Enter as teacher →','Entrar como profesora →',true)));
+}
+function studentCard(p,i,rank){
+  var u=DB.users[p.id],t=totals(u),into=u.xp%200,st=dayStreak(u),last=lastAct(u);
+  var card=h('button',{type:'button',class:'scard',style:'animation-delay:'+(i*70)+'ms;--pg:'+p.grad,'aria-label':'Sign in as '+p.label+' (student)',onclick:function(){loginEnter(p);}},
+    h('span',{class:'sc-band','aria-hidden':'true'}),
+    h('div',{class:'sc-av'},ringAvatar(p,92,into/200,false),h('span',{class:'sc-lv'},'Lv '+lvl(u))),
+    h('b',{class:'sc-name'},p.label),
+    h('span',{class:'rolepill s'},'🎒 Student',h('span',{class:'es i'},'· '+roleEs(p))),
+    h('div',{class:'sc-stats'},
+      h('div',null,h('b',null,String(u.xp)),h('small',null,bi('Points','Puntos'))),
+      h('div',null,h('b',null,'🔥 '+st),h('small',null,bi('Streak','Racha'))),
+      h('div',null,h('b',null,t.q?t.acc+'%':'—'),h('small',null,bi('Correct','Aciertos')))),
+    h('div',{class:'sc-bar','aria-hidden':'true'},h('div',{style:'width:'+(into/200*100)+'%'})),
+    h('small',{class:'sc-last'},last?bi('Last practice: '+ago(last),'Última práctica: '+agoEs(last),false):bi('Not started yet','Aún no empieza',false)),
+    h('span',{class:'sc-go'},bi('Enter →','Entrar →',true)));
+  if(rank===1)card.append(h('span',{class:'sc-crown',title:'Top XP'},'👑'));
+  return card;
 }
 function renderLogin(v){
-  var box=h('div',{class:'login'},
-    h('h2',null,bi("Who's practicing today?",'¿Quién practica hoy?')),
-    h('p',{class:'muted sub',html:I('Choose your profile. Everyone has their own score, streak and progress.','Elige tu perfil. Cada persona tiene su propio puntaje, su racha y su progreso.')}));
-  var T=teachers(),St=students(),i=0;
+  var cs=classStats(),T=teachers(),St=students(),i=0;
+  var last=CFG.lastUser&&profileOf(CFG.lastUser);
+  var box=h('div',{class:'lg'});
+  var kQ=Object.keys(QZ).length,kF=COUNTRIES.length,kM=(typeof MODULES!=='undefined')?MODULES.length:5;
+  /* ---- hero ---- */
+  var hero=h('section',{class:'lg-hero'},
+    h('div',{class:'lg-hl'},
+      h('div',{class:'lg-brand'},h('span',{class:'lg-spark','aria-hidden':'true'},'✨'),bi('English class · Nov 2026','Clase de inglés · nov 2026',true)),
+      h('h1',null,bi('Practice English together.','Practicamos inglés juntos.')),
+      h('p',null,bi('Listening, pronunciation and grammar from every class, with your own score and progress.','Listening, pronunciación y gramática de todas las clases, con tu propio puntaje y progreso.')),
+      h('div',{class:'lg-chips'},
+        h('span',null,'🧭 '+kM+' ',bi('class modules','módulos de clase',true)),
+        h('span',null,'🧪 '+kQ+' ',bi('quizzes','pruebas',true)),
+        h('span',null,'🚩 '+kF+' ',bi('flags','banderas',true)),
+        h('span',null,'🎤 ',bi('voice check','revisión de voz',true))),
+      last?h('button',{type:'button',class:'lg-cont',onclick:function(){loginEnter(last);}},
+        ringAvatar(last,40,1,isTeacherP(last)),h('span',null,h('small',null,bi('Welcome back','Bienvenido/a de nuevo',true)),h('b',null,'Continue as '+last.name+' →'))):null),
+    h('div',{class:'lg-hr','aria-hidden':'true'},h('span',{class:'lg-orb o1'}),h('span',{class:'lg-orb o2'}),h('span',{class:'lg-card c1'},'🎧'),h('span',{class:'lg-card c2'},'🗣️'),h('span',{class:'lg-card c3'},'📖'),h('span',{class:'lg-card c4'},'🚩')));
+  box.append(hero);
+  box.append(h('div',{class:'lg-q'},h('h2',null,bi("Who's practicing today?",'¿Quién practica hoy?')),h('p',{class:'muted',html:I('Choose your profile. Everyone has their own score, streak and progress.','Elige tu perfil. Cada persona tiene su propio puntaje, su racha y su progreso.')})));
+  /* ---- teacher ---- */
   if(T.length){
-    box.append(h('div',{class:'rsec t'},h('h3',null,'🎓 '+(T.length>1?'Teachers':'Teacher'),h('span',{class:'es i'},T.length>1?'Profesores':'Profesora'),h('span',{class:'cnt'},String(T.length)))));
-    var g1=h('div',{class:'pgrid'});T.forEach(function(p){g1.append(profileCard(p,i++));});box.append(g1);
+    box.append(h('div',{class:'lg-sec t'},h('span',{class:'lg-dot'}),h('h3',null,T.length>1?'Teachers':'Teacher',h('span',{class:'es i'},T.length>1?'Profesores':'Profesora'))));
+    var g1=h('div',{class:'tgrid'});T.forEach(function(p){g1.append(teacherCard(p,cs,i++));});box.append(g1);
   }
+  /* ---- students ---- */
   if(St.length){
-    box.append(h('div',{class:'rsec'},h('h3',null,'🎒 Students',h('span',{class:'es i'},'Estudiantes'),h('span',{class:'cnt'},String(St.length)))));
-    var g2=h('div',{class:'pgrid'});St.forEach(function(p){g2.append(profileCard(p,i++));});box.append(g2);
+    var order=St.map(function(p){return {p:p,xp:DB.users[p.id].xp};}).sort(function(a,b){return b.xp-a.xp;});
+    var topId=order[0]&&order[0].xp>0?order[0].p.id:null;
+    box.append(h('div',{class:'lg-sec'},h('span',{class:'lg-dot'}),h('h3',null,'Students',h('span',{class:'es i'},'Estudiantes')),h('span',{class:'cnt'},String(St.length))));
+    var g2=h('div',{class:'sgrid'});St.forEach(function(p){g2.append(studentCard(p,i++,p.id===topId?1:0));});box.append(g2);
   }
-  box.append(h('p',{class:'hint',style:'text-align:center;margin-top:18px',html:I('Progress is saved on this device. To see the whole group from different computers or phones, turn on syncing in Ranking / Panel.','El progreso se guarda en este dispositivo. Para ver a todo el grupo desde distintos equipos o celulares, activa la sincronización en Ranking / Panel.')}));
+  box.append(h('p',{class:'hint lg-foot',html:I('Progress is saved on this device. To see the whole group from different computers or phones, turn on syncing in Ranking / Panel.','El progreso se guarda en este dispositivo. Para ver a todo el grupo desde distintos equipos o celulares, activa la sincronización en Ranking / Panel.')}));
   v.append(box);
 }
 
@@ -2157,6 +2938,8 @@ function renderHome(v){
     var q1=h('div',{class:'grid',style:'margin-top:16px'});
     q1.append(
       card('gold','🎓','Teacher panel|Panel docente','Heat map by topic, ranking and alerts.|Mapa de calor por tema, ranking y alertas.','Open →|Abrir',function(){go('team');}),
+      card('feat','🧭','Modules|Módulos','Points seen in each class, practice and the General module.|Puntos vistos en cada clase, práctica y módulo General.','Open →|Abrir',function(){go('modules');}),
+      card('','📖','Dictionary|Diccionario','Subjects, negatives and every point seen.|Sujetos, negativos y todos los puntos vistos.','Open →|Abrir',function(){go('dict');}),
       card('','📚','Topics|Temas','Review the material and quizzes your students see.|Revisa el material y las pruebas que ven tus estudiantes.','See topics →|Ver temas',function(){go('topics');}),
       card('','⚡','Play|Jugar','Try the Lightning round and exams yourself.|Prueba tú misma el reto relámpago y los exámenes.','Go to play →|Ir a jugar',function(){go('play');}));
     v.append(q1);
@@ -2186,6 +2969,8 @@ function renderHome(v){
   var wk=weakest(S);
   var q1=h('div',{class:'grid',style:'margin-top:16px'});
   q1.append(
+    card('feat','🧭','Modules|Módulos','One module per class (Nov 2 to Nov 16) and the General module with everything.|Un módulo por clase (2 al 16 nov) y el módulo General con todo.','Open →|Abrir',function(){go('modules');}),
+    card('','📖','Dictionary|Diccionario','Subjects, negatives and every point seen, with search and audio.|Sujetos, negativos y todos los puntos vistos, con buscador y audio.','Open →|Abrir',function(){go('dict');}),
     card('gold','⚡','Lightning round|Reto relámpago',LIGHT_N+' questions against the clock. Answer fast to earn a bonus!|'+LIGHT_N+' preguntas a contrarreloj. ¡Responde rápido y gana bonus!','Play →|Jugar',startLightning),
     wk?card('feat','🎯','Focus: '+TOPICS[wk.k]+'|Reforzar: '+TOPICS_ES[wk.k],'Your weakest topic ('+wk.pc+'%). A short quiz helps.|Tu tema más flojo ('+wk.pc+'%). Una prueba corta ayuda.','Practice →|Practicar',function(){var ids=Object.keys(QZ).filter(function(k){return QZ[k].topic===wk.k;});startQuiz(pick(ids),{back:'home'});}):
       card('feat','📚','Pick a topic|Elige un tema','Alphabet, numbers, nationalities, grammar and more.|Alfabeto, números, nacionalidades, gramática y más.','See topics →|Ver temas',function(){go('topics');}),
@@ -2194,10 +2979,13 @@ function renderHome(v){
   v.append(q1);
   v.append(h('h3',null,bi('🏅 Achievements ('+S.badges.length+'/'+BADGES.length+')','Logros')),badgesGrid(S));
   v.append(h('h3',null,bi('What we learned in class','Lo que vimos en clase')),h('div',{class:'panel',html:
-    '<b>Nov 2:</b> colors, verb BE (am/is/are, negatives and questions), Present Simple, grammatical person.<br>'+
-    '<b>Nov 6:</b> alphabet, spelling, long and short vowels, nationalities (-ish, -an, -ese), numbers.<br>'+
-    '<b>Nov 9:</b> spelling names, ages, possessive adjectives, pets, farm animals, “is called”.'+
-    I('','2 nov: colores, verbo BE, Present Simple, persona gramatical. 6 nov: alfabeto, deletreo, vocales, nacionalidades, números. 9 nov: edades, posesivos, mascotas, animales de granja, “is called”.')}));
+    '<b>Nov 2 (Module 1):</b> colors, verb BE (am/is/are, negatives and questions), Present Simple, grammatical person.<br>'+
+    '<b>Nov 6 (Module 2):</b> alphabet, spelling, long and short vowels, nationalities (-ish, -an, -ese), numbers.<br>'+
+    '<b>Nov 9 (Module 3):</b> spelling names, ages, possessive adjectives, pets, farm animals, “is called”.<br>'+
+    '<b>Nov 13 (Module 4):</b> spelling words, flags and nationalities, everyday things, plurals, this / that / these / those.<br>'+
+    '<b>Nov 16 (Module 5):</b> spelling and punctuation marks, verb BE, Wh- questions, possessive adjectives, this / that / these / those.'+
+    I('','2 nov: colores, verbo BE, Present Simple. 6 nov: alfabeto, deletreo, vocales, nacionalidades, números. 9 nov: edades, posesivos, mascotas, animales de granja. 13 nov: deletreo, banderas, objetos, plurales, demostrativos. 16 nov: puntuación, verbo BE, preguntas Wh-, posesivos, demostrativos.')}),
+    h('div',{class:'center',style:'justify-content:flex-start'},h('button',{class:'btn pri',type:'button',onclick:function(){go('modules');}},bi('🧭 Open the modules','Abrir los módulos')),h('button',{class:'btn',type:'button',onclick:function(){go('dict');}},bi('📖 Dictionary','Diccionario'))));
   if(!TTS)v.append(h('div',{class:'notice',html:I('Your browser has no built-in voice. Open the page with Chrome or Edge.','Tu navegador no admite voz integrada. Abre la página con Chrome o Edge.')}));
 }
 function badgesGrid(u){
@@ -2207,6 +2995,947 @@ function badgesGrid(u){
     g.append(h('button',{type:'button',class:'bdg'+(on?'':' lock'),'aria-label':b.name+(on?' (earned)':' (locked): '+b.desc),onclick:function(){toast((on?'✅ ':'🔒 ')+I(b.name+': '+b.desc,b.es+': '+b.desc_es));}},h('span',{class:'e'},b.icon),b.name,h('span',{class:'es'},b.es)));
   });
   return g;
+}
+
+/* ============================================================
+   MODULES · screens (Modules list, Modules 1-5, General module)
+   ============================================================ */
+var M5_OBJ_T=[
+ {en:'cellphone',es:'celular',em:'📱'},{en:'toothbrush',es:'cepillo de dientes',em:'🪥'},{en:'sandwiches',es:'sándwiches',em:'🥪'},
+ {en:'umbrella',es:'paraguas',em:'☂️'},{en:'watch',es:'reloj',em:'⌚'},{en:'glasses',es:'lentes / gafas',em:'👓'},
+ {en:'laptop',es:'computador portátil',em:'💻'},{en:'wallet',es:'billetera',em:'👛'}
+];
+function tbl(hd,rows){
+  return '<div class="tblwrap"><table><tr>'+hd.map(function(x){return '<th>'+x+'</th>';}).join('')+'</tr>'+
+    rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>';}).join('')+'</tr>';}).join('')+'</table></div>';
+}
+function note(en,es){return h('p',{class:'muted',html:I(en,es)});}
+function ptTiles(list,spell){
+  var g=h('div',{class:'tilegrid'});
+  list.forEach(function(a){
+    var row=h('div',{class:'vrow'},h('button',{type:'button',class:'btn sm','aria-label':'Listen to '+a.en,onclick:function(){playAudio({text:a.en});}},'🔊'));
+    if(spell)row.append(h('button',{type:'button',class:'btn sm','aria-label':'Spell '+a.en,onclick:function(){playAudio({spell:a.en});}},'🔤'));
+    g.append(h('div',{class:'vt'},h('span',{class:'em'},a.em),h('b',null,a.lab||a.en),h('span',{class:'es'},a.es),row));
+  });
+  return g;
+}
+function ptNames(list){
+  var w=h('div',{class:'nchips'});
+  list.forEach(function(n){
+    w.append(h('span',{class:'nchip'},
+      h('button',{type:'button',class:'wordchip','aria-label':'Listen to '+n,onclick:function(){playAudio({text:n});}},'🔊 '+n),
+      h('button',{type:'button',class:'btn sm ghost','aria-label':'Spell '+n,onclick:function(){playAudio({spell:n});}},'🔤')));
+  });
+  return w;
+}
+function ptFlags(list){
+  var g=h('div',{class:'flaggrid'});
+  list.forEach(function(en){
+    var r=cByEn(en),np=natParts(r);
+    g.append(h('button',{type:'button',class:'ftile','aria-label':r.en+', '+r.nat+'. Listen',onclick:function(){playAudio({text:natSentence(r)});}},
+      flagEl(r.iso,60,true),h('b',null,r.en),r.es!==r.en?h('span',{class:'es'},r.es):null,h('span',{class:'natn'},np.base,np.suf?h('u',null,np.suf):null)));
+  });
+  return g;
+}
+function demoGrid(){
+  var cells=[['this','this book','📘'],['that','that book','📕'],['these','these books','📚'],['those','those books','🗄️']];
+  var g=h('div',{class:'dgrid'});
+  cells.forEach(function(c){
+    g.append(h('button',{type:'button',class:'dcell','aria-label':'Listen to '+c[1],onclick:function(){playAudio({text:c[1]});}},
+      h('span',{class:'dem'},c[2]),h('b',null,c[1]),h('small',null,DEM_RULE[c[0]]),h('span',{class:'es'},DEM_RULE_ES[c[0]])));
+  });
+  return g;
+}
+function spellTool(c){
+  var inp=h('input',{type:'text',placeholder:'Name or email…',maxlength:40,'aria-label':'Text to spell',autocapitalize:'none'}),out=h('div',{class:'spellout'});
+  var SYM={'@':'at','.':'dot','-':'dash','_':'underscore'};
+  function go1(){
+    out.innerHTML='';var w=inp.value.trim();
+    w.split('').forEach(function(ch){
+      var U=ch.toUpperCase();
+      if(ES_PRON[U])out.append(h('div',null,h('b',null,U),h('i',null,ES_PRON[U])));
+      else if(SYM[ch])out.append(h('div',null,h('b',null,ch),h('i',null,SYM[ch])));
+      else if(/\d/.test(ch))out.append(h('div',null,h('b',null,ch),h('i',null,ONES[+ch])));
+    });
+    if(w)playAudio({spell:w});
+  }
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter')go1();});
+  c.append(h('div',{class:'typerow'},inp,h('button',{class:'btn pri',type:'button',onclick:go1},bi('🔊 Spell it','Deletrear'))),out);
+}
+
+/* ---------- MODULE DEFINITIONS (points seen, date, practice) ---------- */
+var MODULES=[
+ {id:'m1',num:1,icon:'1️⃣',short:'Nov 2',dateEn:'Monday, November 2, 2026',dateEs:'lunes 2 de noviembre de 2026',
+  title:'Module 1|Módulo 1',head:'Class 1 · November 2|Clase 1 · 2 de noviembre',
+  sub:'Colors, verb BE, Present Simple and grammatical person.|Colores, verbo BE, Present Simple y persona gramatical.',
+  topics:'colors · verb BE (am / is / are, negatives and questions) · Present Simple · grammatical person|colores · verbo BE (am / is / are, negativas y preguntas) · Present Simple · persona gramatical',
+  src:'summary from Index 66',pool:M1_POOL,quizzes:M1_POOL,
+  points:[
+   {id:'colors',icon:'🎨',t:'Colors|Colores',body:function(c){c.append(note('Tap a color to hear it.','Toca un color para escucharlo.'),vocabTiles('🎨 Colors|Colores',COLORS,true));}},
+   {id:'be',icon:'🟦',t:'Verb BE (present)|Verbo BE (presente)',body:function(c){
+     c.append(h('div',{html:tbl(['Subject','Affirmative','Negative','Question'],
+       [['I','I am','I am not','Am I…?'],['you','You are','You aren’t','Are you…?'],['he / she / it','He is','He isn’t','Is he…?'],['we','We are','We aren’t','Are we…?'],['they','They are','They aren’t','Are they…?']].map(function(r){return [r[0],say_(r[1]),say_(r[2]),say_(r[3])];}))+
+       '<div class="callout">I → <b>am</b> · he / she / it → <b>is</b> · we / you / they → <b>are</b></div>'}));
+   }},
+   {id:'simple',icon:'⏱️',t:'Present Simple|Presente simple',body:function(c){
+     c.append(h('div',{html:'<ul>'+
+       '<li><b>Habits:</b> '+say_('I go to the gym every Monday.')+'<span class="es">Hábitos</span></li>'+
+       '<li><b>General truths:</b> '+say_('Water boils at 100 degrees.')+'<span class="es">Verdades generales</span></li>'+
+       '<li><b>Permanent situations:</b> '+say_('Raquel lives in Santiago.')+'<span class="es">Situaciones permanentes</span></li>'+
+       '<li><b>Fixed schedules:</b> '+say_('The train leaves at eight o’clock.')+'<span class="es">Horarios fijos</span></li></ul>'+
+       '<div class="callout">With he / she / it the verb takes <b>-s</b>: he live<b>s</b>, she work<b>s</b>, it has.'+I('','Con he / she / it el verbo lleva -s.')+'</div>'}));
+   }},
+   {id:'person',icon:'🧑‍🤝‍🧑',t:'Grammatical person|Persona gramatical',body:function(c){
+     c.append(h('div',{html:tbl(['Person','Singular','Plural'],[['1st','I','we'],['2nd','you','you'],['3rd','he / she / it','they']].map(function(r){return [r[0],say_(r[1]),say_(r[2])];}))}));
+   }}
+  ]},
+ {id:'m2',num:2,icon:'2️⃣',short:'Nov 6',dateEn:'Friday, November 6, 2026',dateEs:'viernes 6 de noviembre de 2026',
+  title:'Module 2|Módulo 2',head:'Class 2 · November 6|Clase 2 · 6 de noviembre',
+  sub:'Alphabet, spelling, vowels, nationalities with flags and numbers.|Alfabeto, deletreo, vocales, nacionalidades con banderas y números.',
+  topics:'alphabet · spelling · long and short vowels · nationalities (-ish, -an, -ese) · numbers|alfabeto · deletreo · vocales largas y cortas · nacionalidades (-ish, -an, -ese) · números',
+  src:'summary from Index 66',pool:M2_POOL,quizzes:M2_POOL,
+  points:[
+   {id:'alpha',icon:'🔤',t:'Alphabet and spelling|Alfabeto y deletreo',body:function(c){studyAlphabet(c);}},
+   {id:'vowels',icon:'🅰️',t:'Long and short vowels|Vocales largas y cortas',body:function(c){studyVowels(c);}},
+   {id:'nat',icon:'🌍',t:'Nationalities and flags|Nacionalidades y banderas',body:function(c){studyNat(c);}},
+   {id:'numbers',icon:'🔢',t:'Numbers|Números',body:function(c){studyNumbers(c);}}
+  ]},
+ {id:'m3',num:3,icon:'3️⃣',short:'Nov 9',dateEn:'Monday, November 9, 2026',dateEs:'lunes 9 de noviembre de 2026',
+  title:'Module 3|Módulo 3',head:'Class 3 · November 9|Clase 3 · 9 de noviembre',
+  sub:'Spelling names, ages, possessive adjectives, pets and “is called”.|Deletreo de nombres, edades, adjetivos posesivos, mascotas y “is called”.',
+  topics:'spelling names · ages · possessive adjectives · pets · farm animals · “is called”|deletreo de nombres · edades · adjetivos posesivos · mascotas · animales de granja · “is called”',
+  src:'summary from Index 66',pool:M3_POOL,quizzes:M3_POOL,
+  points:[
+   {id:'names',icon:'✍️',t:'Spelling names|Deletreo de nombres',body:function(c){
+     c.append(note('Type a name and hear it spelled letter by letter.','Escribe un nombre y escúchalo deletreado letra por letra.'));spellTool(c);
+     c.append(ptNames(['Noah Anderson','Mason Hughes','Eli Sanders','Theo Sanders']));
+   }},
+   {id:'ages',icon:'🎂',t:'Ages with BE|Las edades con BE',body:function(c){
+     c.append(h('div',{html:'<ul><li>'+say_('I am thirty-five years old.')+'</li><li>'+say_('She is thirty-two years old.')+'</li><li>'+say_('They are twenty-five years old.')+'</li></ul>'+
+       '<div class="callout">In English age uses <b>BE</b> (not “have”).'+I('','En inglés la edad se dice con BE, no con “have”.')+'</div>'}));
+   }},
+   {id:'poss',icon:'👤',t:'Possessive adjectives|Adjetivos posesivos',body:function(c){
+     c.append(h('div',{html:tbl(['Pronoun','Possessive','Example'],[['I','my','My dog is called Max.'],['you','your','Your cat is black.'],['he','his','His parrot is green.'],['she','her','Her fish is called Nemo.'],['we','our','Our rabbit is white.'],['they','their','Their horse is brown.']].map(function(r){return [r[0],'<b>'+r[1]+'</b>',say_(r[2])];}))}));
+   }},
+   {id:'pets',icon:'🐾',t:'Pets and farm animals|Mascotas y animales de granja',body:function(c){c.append(vocabTiles('🐾 Pets|Mascotas',PETS),vocabTiles('🚜 Farm animals|Animales de granja',FARM));}},
+   {id:'called',icon:'🏷️',t:'“is called” and writing about your pet|“is called” y escribir sobre tu mascota',body:function(c){
+     c.append(h('div',{html:'<ul><li>'+say_('Her fish is called Nemo.')+'<span class="es">Su pez se llama Nemo.</span></li><li>'+say_('Their dogs are called Max and Rex.')+'</li></ul>'}));petWriter(c);
+   }}
+  ]},
+ {id:'m4',num:4,icon:'4️⃣',short:'Nov 13',dateEn:'Friday, November 13, 2026',dateEs:'viernes 13 de noviembre de 2026',
+  title:'Module 4|Módulo 4',head:'Class 4 · November 13|Clase 4 · 13 de noviembre',
+  sub:'Spelling, nationalities, everyday things, plurals and demonstratives.|Deletreo, nacionalidades, objetos cotidianos, plurales y demostrativos.',
+  topics:'spelling words · names (listening) · flags & nationalities · fixing BE & possessives · everyday things · plurals · this / that / these / those · talking about time|deletreo de palabras · nombres (listening) · banderas y nacionalidades · corregir BE y posesivos · objetos cotidianos · plurales · this / that / these / those · hablar del tiempo',
+  src:'Nov13-26.pdf',pool:M4_POOL,quizzes:M4_POOL,
+  points:[
+   {id:'words',icon:'🔤',t:'How do you say ___ in Spanish? Can you spell it?|¿Cómo se dice ___ en español? ¿Puedes deletrearlo?',body:function(c){
+     c.append(note('Words from class. Tap 🔊 to hear the word and 🔤 to hear its spelling. Example from class: oil → aceite → A-C-E-I-T-E.','Palabras de la clase. Toca 🔊 para oír la palabra y 🔤 para oír el deletreo. Ejemplo de la clase: oil → aceite → A-C-E-I-T-E.'),ptTiles(M4_WORDS,true));
+   }},
+   {id:'names',icon:'🎧',t:'Match the audio with the name|Une el audio con el nombre',body:function(c){
+     c.append(note('Listen and match each audio with the written name. Tap 🔊 to listen and 🔤 to hear it spelled.','Escucha y une cada audio con el nombre escrito. Toca 🔊 para escuchar y 🔤 para oír el deletreo.'),ptNames(M4_NAMES));
+   }},
+   {id:'flags',icon:'🚩',t:'Match the flag with the nationality|Une la bandera con la nacionalidad',body:function(c){
+     c.append(note('Irish, Swedish, Peruvian, Greek, Norwegian, Indian, New Zealander (Kiwi) and German. Tap a flag to hear the sentence.','Irish, Swedish, Peruvian, Greek, Norwegian, Indian, New Zealander (Kiwi) y German. Toca una bandera para oír la frase.'),ptFlags(M4_NAT));
+   }},
+   {id:'fix',icon:'🛠️',t:'Rewrite the sentences, correcting the errors|Reescribe las oraciones corrigiendo los errores',body:function(c){
+     c.append(h('div',{html:
+       '<h3 style="margin-top:6px">'+II('Verb BE','Verbo BE')+'</h3>'+
+       tbl(['Wrong','Correct'],M4_BEFIX.map(function(r){return ['<span class="fixw">'+r[0]+'</span>',say_(r[1])];}))+
+       '<div class="callout">I → <b>am</b> · he / she / it → <b>is</b> · you / we / they → <b>are</b>'+I('','Con I se usa am · con he / she / it se usa is · con you / we / they se usa are')+'</div>'+
+       '<p class="hint">'+I('Pronunciation from class: '+say_('daughter')+' sounds like “doter”.','Pronunciación de la clase: '+say_('daughter')+' suena como “doter”.')+'</p>'+
+       '<h3>'+II('Possessive adjectives','Adjetivos posesivos')+'</h3>'+
+       tbl(['Wrong','Correct'],M4_POSSFIX.map(function(r){return ['<span class="fixw">'+r[0]+'</span>',say_(r[1])];}))+
+       '<div class="callout">I → <b>my</b> · you → <b>your</b> · he → <b>his</b> · she → <b>her</b> · we → <b>our</b> · they → <b>their</b></div>'}));
+   }},
+   {id:'things',icon:'🎒',t:'Vocabulary: everyday things|Vocabulario: objetos cotidianos',body:function(c){
+     c.append(note('Wallet (US) / purse (UK), coins, toothbrush, keys, cellphone, laptop, umbrella, pen, glasses, watch, book and notebook.','Wallet (EE. UU.) / purse (Reino Unido), coins, toothbrush, keys, cellphone, laptop, umbrella, pen, glasses, watch, book y notebook.'),ptTiles(THINGS,false));
+   }},
+   {id:'plurals',icon:'📚',t:'Spelling rules for plurals|Reglas de ortografía para plurales',body:function(c){
+     var rules=[
+       ['Most nouns: add “-s”','La mayoría de los sustantivos: se agrega “-s”','book','books'],
+       ['Nouns ending in “x”, “sh”, “ch”: add “-es”','Sustantivos terminados en “x”, “sh”, “ch”: se agrega “-es”','watch','watches'],
+       ['Nouns ending in “consonant + y”: drop the “-y” and add “-ies”','Sustantivos terminados en “consonante + y”: se quita la “-y” y se agrega “-ies”','dictionary','dictionaries']];
+     c.append(h('div',{html:rules.map(function(r){return '<div class="callout"><b>'+r[0]+'</b>'+I('',r[1])+'<div style="margin-top:6px">'+say_(r[2])+' → '+say_(r[3])+'</div></div>';}).join('')+
+       '<h3>'+II('Write the plural for each picture','Escribe el plural de cada dibujo')+'</h3>'+
+       tbl(['Picture','Plural'],[['🥪','sandwiches'],['🖊️','pens'],['🪥','toothbrushes'],['🪙','coins'],['📱','cellphones'],['📦','boxes']].map(function(r){return [r[0],say_(r[1])];}))}));
+   }},
+   {id:'demo',icon:'👉',t:'Demonstrative adjectives|Adjetivos demostrativos',body:function(c){
+     c.append(note('Demonstrative adjectives point to specific nouns and show their relative distance in space or time (close or far) and number (singular or plural).','Los adjetivos demostrativos señalan sustantivos específicos y muestran su distancia relativa en el espacio o el tiempo (cerca o lejos) y el número (singular o plural).'),demoGrid());
+     c.append(h('div',{html:
+       '<h3>'+II('Choose the correct demonstrative','Elige el demostrativo correcto')+'</h3>'+
+       tbl(['Sentence','Answer'],[['This is my bag.'],['These are Diego’s keys.'],['This is Olivia’s purse.'],['Those are my books.'],['These are my pencils.'],['That is Anna’s sandwich.'],['That is Malik’s phone.']].map(function(r){return [r[0].replace(/^\w+/,'…'),say_(r[0])];}))}));
+   }},
+   {id:'time',icon:'⏳',t:'Talking about time with this / that / these / those|Hablar del tiempo con this / that / these / those',body:function(c){
+     c.append(h('div',{html:
+       tbl(['','Meaning','Examples'],[
+         ['<b>THIS</b><br><small>singular / near</small>','present or upcoming','this morning, this week, this year'],
+         ['<b>THESE</b><br><small>plural / near</small>','present or recent span','these days, these past few weeks'],
+         ['<b>THAT</b><br><small>singular / far</small>','distant past or future','that day, that summer, at that time'],
+         ['<b>THOSE</b><br><small>plural / far</small>','distant past or future','those days, those years, back in those times']])+
+       '<h3>'+II('Examples from class','Ejemplos de la clase')+'</h3><ul>'+
+       '<li>'+say_('This party is really fun.')+' <small>(we’re at the party now)</small></li>'+
+       '<li>'+say_('That show we saw last week was so depressing!')+'</li>'+
+       '<li>'+say_('I’m really enjoying this.')+' <small>(an experience that’s happening now)</small></li>'+
+       '<li>'+say_('I really liked those cakes.')+' <small>(the cakes we ate last week)</small></li>'+
+       '<li>'+say_('Those people we met last night were really nice.')+'</li></ul>'}));
+   }}
+  ]},
+ {id:'m5',num:5,icon:'5️⃣',short:'Nov 16',dateEn:'Monday, November 16, 2026',dateEs:'lunes 16 de noviembre de 2026',
+  title:'Module 5|Módulo 5',head:'Class 5 · November 16|Clase 5 · 16 de noviembre',
+  sub:'Spelling & punctuation, verb BE, Wh- questions, possessives and demonstratives.|Deletreo y puntuación, verbo BE, preguntas Wh-, posesivos y demostrativos.',
+  topics:'warm-up: spell your name, email & phone · punctuation marks · spelling objects · writing names · verb BE (affirmative, negative, questions) · Wh- questions · possessive adjectives · this / that / these / those|calentamiento: deletrear nombre, correo y teléfono · signos de puntuación · deletrear objetos · escribir nombres · verbo BE (afirmativa, negativa, preguntas) · preguntas Wh- · adjetivos posesivos · this / that / these / those',
+  src:'16-11.pdf',pool:M5_POOL,quizzes:M5_POOL,
+  points:[
+   {id:'warm',icon:'🔥',t:'Warm up! Spelling and punctuation marks|¡Calentamiento! Deletreo y signos de puntuación',body:function(c){
+     c.append(h('div',{html:'<ul><li>'+II('How do you spell your first and last name and your email address?','¿Cómo deletreas tu nombre, tu apellido y tu correo?')+'</li><li>'+II('What is your phone number?','¿Cuál es tu número de teléfono?')+'</li></ul>'}));
+     spellTool(c);
+     c.append(h('h3',null,bi('Punctuation marks','Signos de puntuación')));
+     var g=h('div',{class:'punct'});
+     PUNCT.forEach(function(p){
+       g.append(h('button',{type:'button',class:'pk','aria-label':p[0]+'. Listen',onclick:function(){playAudio({text:p[0]});}},h('b',null,p[2]),h('span',null,p[0]),h('span',{class:'es'},p[1])));
+     });
+     c.append(g);
+   }},
+   {id:'spell',icon:'🔤',t:'How do you spell?|¿Cómo se deletrea?',body:function(c){
+     c.append(note('Tap 🔊 to hear the word and 🔤 to hear it spelled letter by letter.','Toca 🔊 para oír la palabra y 🔤 para oírla deletreada letra por letra.'),ptTiles(M5_OBJ_T,true));
+   }},
+   {id:'names',icon:'📝',t:'Write the name|Escribe el nombre',body:function(c){
+     c.append(note('Listen to each name and write it. Tap 🔊 to listen and 🔤 to check the spelling.','Escucha cada nombre y escríbelo. Toca 🔊 para escuchar y 🔤 para comprobar el deletreo.'),ptNames(M5_NAMES));
+   }},
+   {id:'be',icon:'🟦',t:'Present Simple verb BE|Verbo BE en presente simple',body:function(c){
+     c.append(h('div',{html:'<div class="tblwrap"><table><tr><th>Affirmative<span class="es">Afirmativa</span></th><th>Negative<span class="es">Negativa</span></th><th>Yes/No questions<span class="es">Preguntas sí/no</span></th></tr>'+
+       '<tr><td><code>Subj + be + rest of the sentence</code></td><td><code>Subj + be + not + rest of the sentence</code></td><td><code>Be + subj. + rest of the question</code></td></tr>'+
+       '<tr><td>'+say_('I am 25 years old.')+'<br>'+say_('He is beautiful.')+'<br>'+say_('You are very old.')+'</td>'+
+       '<td>'+say_('I am not English.')+'<br>'+say_('She is not a nurse.')+' / '+say_('She isn’t a nurse.')+'<br>'+say_('We aren’t Peruvian.')+'</td>'+
+       '<td>'+say_('Am I good at English?')+'<br>'+say_('Is she happy?')+'<br>'+say_('Are they students?')+'</td></tr></table></div>'+
+       '<h3>'+II('Make the sentences using be in its correct form','Forma las oraciones usando be en su forma correcta')+'</h3>'+
+       tbl(['Prompt','Answer'],M5_BEBUILD.map(function(r){return ['('+r[0]+')',say_(r[1])];}))}));
+   }},
+   {id:'wh',icon:'❓',t:'Wh- words and open questions|Palabras Wh- y preguntas abiertas',body:function(c){
+     c.append(h('div',{html:'<div class="callout"><b>Wh- + be + subj. + rest of the question</b></div>'+
+       tbl(['Wh- word','Spanish','Example'],[
+         ['<b>HOW</b>','¿cómo?',say_('How are you?')],['<b>WHY</b>','¿por qué?',say_('Why is she happy?')],['<b>WHAT</b>','¿qué? / ¿cuál?',say_('What is that?')],
+         ['<b>WHO</b>','¿quién?',say_('Who is he?')],['<b>WHEN</b>','¿cuándo?',say_('When is the meeting?')],['<b>WHERE</b>','¿dónde?',say_('Where are they?')],
+         ['<b>WHOSE</b>','¿de quién?','—']])}));
+   }},
+   {id:'poss',icon:'👤',t:'Complete with the correct possessive adjective|Completa con el adjetivo posesivo correcto',body:function(c){
+     c.append(h('div',{html:tbl(['Sentence','Español'],M5_POSS.map(function(r){var full=r[0].replace('____',r[1]);return [say_(full),r[2]];}))+
+       '<div class="callout">I → <b>my</b> · you → <b>your</b> · he → <b>his</b> · she → <b>her</b> · it → <b>its</b> · we → <b>our</b> · they → <b>their</b></div>'}));
+   }},
+   {id:'demo',icon:'👉',t:'Complete with this / that / those / these|Completa con this / that / those / these',body:function(c){
+     var it=[['🎁','These are our presents.'],['🛸','That is a UFO!'],['🔣','Those are symbols.'],['🪙','This is a coin.']];
+     c.append(h('div',{html:'<ul class="nolist">'+it.map(function(r){return '<li><span class="dem">'+r[0]+'</span> '+say_(r[1])+'</li>';}).join('')+'</ul>'}),demoGrid());
+   }}
+  ]}
+];
+function modOf(id){return MODULES.filter(function(m){return m.id===id;})[0];}
+function modStats(u,m){
+  var ids=['mod_'+m.id].concat(m.quizzes),best=0,tries=0;
+  u.history.forEach(function(e){if(ids.indexOf(e.id)>-1){tries++;if(e.pct>best)best=e.pct;}});
+  var got=(u.mods&&u.mods[m.id])||[];
+  var rev=got.filter(function(pid){return m.points.some(function(p){return p.id===pid;});}).length;
+  return {tries:tries,best:best,rev:rev,pts:m.points.length};
+}
+function genStats(u){
+  var best=0,tries=0;
+  u.history.forEach(function(e){if(e.id==='mod_gen'){tries++;if(e.pct>best)best=e.pct;}});
+  return {tries:tries,best:best};
+}
+function genGen(){var m=pick(MODULES),d=QZ[pick(m.quizzes)],q=d.gen();q.topic=q.topic||d.topic;return q;}
+function modExam(m){startQuiz('mod_'+m.id,{title:spl(m.title).en+' exam',icon:m.icon,gen:poolGen(m.pool),n:15,back:'module:'+m.id});}
+function genExam(n,title,icon,gen){startQuiz('mod_gen',{title:title,icon:icon,gen:gen||genGen,n:n,back:'module:gen'});}
+function quizCard(id2,back){
+  var d2=QZ[id2],tt=spl(d2.title),dd=spl(d2.desc);
+  return h('button',{type:'button',class:'card',onclick:function(){startQuiz(id2,{back:back});}},
+    h('span',{class:'ic'},d2.icon),h('b',null,bi(tt.en,tt.es)),h('span',{class:'d'},bi(dd.en,dd.es)),h('span',{class:'go'},'Start ('+CFG.qn+') →'));
+}
+function barRow(en,es,pct,txt){
+  return h('div',{class:'pbar'},bi(en,es),h('div',{class:'t'},h('div',{style:'width:'+Math.max(0,Math.min(100,pct))+'%'})),h('span',null,txt));
+}
+function creditEl(){
+  var p=profileOf('agustin')||PROFILES[0];
+  var av=h('span',{class:'avw s'},h('span',{class:'av',style:'width:46px;height:46px;font-size:20px;background:'+p.grad,'aria-hidden':'true'},'A'),h('span',{class:'avb','aria-hidden':'true'},'🛠️'));
+  return h('div',{class:'credit',role:'note','aria-label':'Page created by Agustín'},av,
+    h('div',{class:'cmid'},h('small',null,bi('Page created by','Página creada por')),h('b',null,'Agustín')),
+    h('span',{class:'ctag'},'✨ Creator'));
+}
+
+/* ---------- MODULES LIST ---------- */
+function modCard(m){
+  var st=modStats(S,m);
+  return h('button',{type:'button',class:'card mcard','aria-label':spl(m.title).en+', '+m.dateEn,onclick:function(){go('module:'+m.id);}},
+    h('span',{class:'mnum big'},String(m.num)),
+    h('b',null,biS(m.title)),
+    h('span',{class:'chip'},'📅 '+m.dateEn),
+    h('span',{class:'d'},biS(m.sub)),
+    h('span',{class:'d'},'📌 '+m.points.length+' points · 🧪 '+m.quizzes.length+' quizzes'),
+    barRow('Points reviewed','Puntos repasados',st.rev/st.pts*100,st.rev+'/'+st.pts),
+    barRow('Best score','Mejor puntaje',st.best,st.tries?st.best+'%':'—'),
+    h('span',{class:'go'},bi('Open module →','Abrir módulo →')));
+}
+function renderModules(v){
+  v.append(h('h2',null,bi('🧭 Modules','Módulos')),
+    h('p',{class:'muted',html:I('One module per class: the points we saw, the date and practice. The General module puts everything together.','Un módulo por clase: los puntos vistos, la fecha y práctica. El módulo General integra todo.')}));
+  var g=h('div',{class:'grid mgrid',style:'margin-top:12px'});
+  MODULES.forEach(function(m){g.append(modCard(m));});
+  var gs=genStats(S),totRev=0,totPts=0;
+  MODULES.forEach(function(m){var s=modStats(S,m);totRev+=s.rev;totPts+=s.pts;});
+  g.append(h('button',{type:'button',class:'card feat mcard','aria-label':'General module',onclick:function(){go('module:gen');}},
+    h('span',{class:'mnum big'},'🧭'),
+    h('b',null,biS('General module|Módulo General')),
+    h('span',{class:'chip'},'📅 Nov 2 – Nov 16'),
+    h('span',{class:'d'},biS('Everything in one place: all the material, all 74 flags and every quiz from the five classes.|Todo en un solo lugar: todo el material, las 74 banderas y todas las pruebas de las cinco clases.')),
+    h('span',{class:'d'},'📌 '+totRev+'/'+totPts+' points reviewed · 🧪 '+(gs.tries?'best '+gs.best+'%':'no exam yet')),
+    h('span',{class:'go'},bi('Open module →','Abrir módulo →'))));
+  g.append(h('button',{type:'button',class:'card mcard','aria-label':'Dictionary',onclick:function(){go('dict');}},
+    h('span',{class:'mnum big'},'📖'),
+    h('b',null,biS('Dictionary|Diccionario')),
+    h('span',{class:'d'},biS('Subjects, negatives and every point seen, with search, audio and examples.|Sujetos, negativos y todos los puntos vistos, con buscador, audio y ejemplos.')),
+    h('span',{class:'go'},bi('Open dictionary →','Abrir diccionario →'))));
+  v.append(g);
+}
+
+/* ---------- ONE MODULE ---------- */
+function toggleReviewed(m,pid){
+  S.mods=S.mods||{};
+  var a=S.mods[m.id]||(S.mods[m.id]=[]),i=a.indexOf(pid);
+  if(i>-1)a.splice(i,1);else a.push(pid);
+  save();
+  return i<0;
+}
+function renderPoint(m,pt,i,upd){
+  var isDone=function(){return ((S.mods&&S.mods[m.id])||[]).indexOf(pt.id)>-1;};
+  var t=spl(pt.t),sec=h('section',{class:'mpoint'+(isDone()?' done':'')});
+  var tg=h('button',{type:'button',class:'mtoggle','aria-expanded':'true'},
+    h('span',{class:'mnum'},String(i+1)),
+    h('span',{class:'mtl'},h('span',{class:'mtitle'},pt.icon+' '+t.en),t.es?h('span',{class:'es'},t.es):null),
+    h('span',{class:'mchev','aria-hidden':'true'},'▾'));
+  var chk=h('button',{type:'button',class:'mchk'});
+  function setChk(){
+    var d=isDone();
+    chk.setAttribute('aria-pressed',d?'true':'false');
+    chk.innerHTML=d?'✅ Reviewed<span class="es">Repasado</span>':'☐ Mark as reviewed<span class="es">Marcar repasado</span>';
+    sec.classList.toggle('done',d);
+  }
+  var body=h('div',{class:'mbody'});
+  pt.body(body);hydrateFlags(body);
+  tg.addEventListener('click',function(){var open=tg.getAttribute('aria-expanded')==='true';tg.setAttribute('aria-expanded',open?'false':'true');body.hidden=open;});
+  chk.addEventListener('click',function(){var on=toggleReviewed(m,pt.id);setChk();if(on)sfx('ok');upd();});
+  setChk();
+  sec.append(h('div',{class:'mhead'},tg,chk),body);
+  return sec;
+}
+function renderModule(v,id){
+  if(id==='gen'){renderGeneral(v);return;}
+  var m=modOf(id);if(!m){go('modules');return;}
+  var st=modStats(S,m),revEl=h('b',null,st.rev+'/'+st.pts);
+  function upd(){var s=modStats(S,m);revEl.textContent=s.rev+'/'+s.pts;}
+  v.append(h('button',{class:'btn sm ghost',type:'button',onclick:function(){go('modules');}},bi('← Modules','Módulos',true)));
+  v.append(h('section',{class:'hero',style:'margin-top:8px'},
+    h('div',null,h('span',{class:'rolepill s'},m.icon+' '+spl(m.title).en,h('span',{class:'es i'},'· '+spl(m.title).es)),
+      h('h1',null,biS(m.head)),
+      h('p',null,'📅 '+m.dateEn,h('span',{class:'es'},m.dateEs)),
+      h('p',null,biS(m.sub)),
+      h('div',{class:'cta'},
+        h('button',{class:'btn w',type:'button',onclick:function(){modExam(m);}},bi('▶ Module exam (15)','Examen del módulo (15)')),
+        h('button',{class:'btn o',type:'button',onclick:function(){var e=$('#mpractice');if(e)e.scrollIntoView({behavior:'smooth'});}},bi('🧪 Practice','Practicar')),
+        h('button',{class:'btn o',type:'button',onclick:function(){go('dict');}},bi('📖 Dictionary','Diccionario')))),
+    h('div',{class:'heroright'},h('div',{class:'hstats'},
+      h('div',{class:'hs'},h('b',null,String(m.points.length)),bi('Points seen','Puntos vistos')),
+      h('div',{class:'hs'},revEl,bi('Reviewed','Repasados')),
+      h('div',{class:'hs'},h('b',null,st.tries?st.best+'%':'—'),bi('Best score','Mejor puntaje'))))));
+  var bar=h('div',{class:'center',style:'justify-content:flex-start;margin:4px 0'},
+    h('button',{class:'btn sm',type:'button',onclick:function(){setAll(true);}},bi('Expand all','Abrir todo',true)),
+    h('button',{class:'btn sm',type:'button',onclick:function(){setAll(false);}},bi('Collapse all','Cerrar todo',true)),
+    h('small',null,'Source: '+m.src));
+  var list=h('div');
+  function setAll(open){Array.prototype.forEach.call(list.querySelectorAll('.mtoggle'),function(b){if((b.getAttribute('aria-expanded')==='true')!==open)b.click();});}
+  v.append(h('h3',null,bi('📌 Points seen ('+m.points.length+')','Puntos vistos')),bar,list);
+  m.points.forEach(function(pt,i){list.append(renderPoint(m,pt,i,upd));});
+  v.append(h('h3',{id:'mpractice'},bi('🧪 Practice this module ('+m.quizzes.length+' quizzes)','Practica este módulo')));
+  var g=h('div',{class:'grid'});
+  g.append(h('button',{type:'button',class:'card gold',onclick:function(){modExam(m);}},h('span',{class:'ic'},m.icon),h('b',null,biS(spl(m.title).en+' exam|Examen '+spl(m.title).es.toLowerCase())),h('span',{class:'d'},biS('15 mixed questions from this class.|15 preguntas mezcladas de esta clase.')),h('span',{class:'go'},bi('Start →','Empezar →'))));
+  m.quizzes.forEach(function(q){g.append(quizCard(q,'module:'+m.id));});
+  v.append(g);
+  var ix=MODULES.indexOf(m),prev=MODULES[ix-1],next=MODULES[ix+1];
+  var nv=h('div',{class:'center',style:'margin-top:18px'});
+  if(prev)nv.append(h('button',{class:'btn',type:'button',onclick:function(){go('module:'+prev.id);}},bi('← '+spl(prev.title).en,spl(prev.title).es,true)));
+  if(next)nv.append(h('button',{class:'btn',type:'button',onclick:function(){go('module:'+next.id);}},bi(spl(next.title).en+' →',spl(next.title).es,true)));
+  nv.append(h('button',{class:'btn pri',type:'button',onclick:function(){go('module:gen');}},bi('🧭 General module','Módulo General')));
+  v.append(nv);
+}
+
+/* ---------- GENERAL MODULE: everything in one place ---------- */
+var TOPIC_MAP=[
+ ['Colors','Colores',['M1']],
+ ['Verb BE','Verbo BE',['M1','M4','M5']],
+ ['Present Simple','Presente simple',['M1']],
+ ['Grammatical person','Persona gramatical',['M1']],
+ ['Alphabet & spelling','Alfabeto y deletreo',['M2','M3','M4','M5']],
+ ['Punctuation marks','Signos de puntuación',['M5']],
+ ['Long & short vowels','Vocales largas y cortas',['M2']],
+ ['Nationalities & flags','Nacionalidades y banderas',['M2','M4']],
+ ['Numbers','Números',['M2','M3']],
+ ['Ages','Edades',['M3']],
+ ['Possessive adjectives','Adjetivos posesivos',['M3','M4','M5']],
+ ['Pets & farm animals','Mascotas y animales de granja',['M3']],
+ ['“is called”','“is called”',['M3']],
+ ['Everyday things','Objetos cotidianos',['M4']],
+ ['Plurals','Plurales',['M4']],
+ ['Demonstratives (this / that / these / those)','Demostrativos',['M4','M5']],
+ ['Wh- questions','Preguntas Wh-',['M5']],
+ ['Listening: names','Listening: nombres',['M4','M5']]
+];
+function accItem(id,icon,en,es,build,cnt){
+  var sec=h('section',{class:'mpoint',id:id}),done=false;
+  var tg=h('button',{type:'button',class:'mtoggle','aria-expanded':'false'},
+    h('span',{class:'mnum'},icon),
+    h('span',{class:'mtl'},h('span',{class:'mtitle'},en),es?h('span',{class:'es'},es):null),
+    cnt?h('span',{class:'chip'},cnt):null,
+    h('span',{class:'mchev','aria-hidden':'true'},'▾'));
+  var body=h('div',{class:'mbody',hidden:true});
+  tg.addEventListener('click',function(){
+    var open=tg.getAttribute('aria-expanded')==='true';
+    if(!open&&!done){done=true;build(body);hydrateFlags(body);}
+    tg.setAttribute('aria-expanded',open?'false':'true');body.hidden=open;
+  });
+  sec.append(h('div',{class:'mhead'},tg),body);
+  return sec;
+}
+function openAcc(id){
+  var s=document.getElementById(id);if(!s)return;
+  var t=s.querySelector('.mtoggle');if(t.getAttribute('aria-expanded')!=='true')t.click();
+  s.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function quizGrid(ids,back){var g=h('div',{class:'grid'});ids.forEach(function(q){g.append(quizCard(q,back));});return g;}
+function renderGeneral(v){
+  var gs=genStats(S),totPts=0,totRev=0,allQ=Object.keys(QZ).length;
+  MODULES.forEach(function(m){var s=modStats(S,m);totPts+=s.pts;totRev+=s.rev;});
+  v.append(h('button',{class:'btn sm ghost',type:'button',onclick:function(){go('modules');}},bi('← Modules','Módulos',true)));
+  v.append(h('section',{class:'hero',style:'margin-top:8px'},
+    h('div',null,h('span',{class:'rolepill s'},'🧭 General module',h('span',{class:'es i'},'· Módulo General')),
+      h('h1',null,biS('Everything we have seen, in one place|Todo lo visto, en un solo lugar')),
+      h('p',null,biS('All the material and quizzes from every class: alphabet, listening, speaking, all the flags, numbers, vowels, grammar and vocabulary, plus Modules 4 and 5.|Todo el material y las pruebas de todas las clases: alfabeto, listening, pronunciación, todas las banderas, números, vocales, gramática y vocabulario, más los Módulos 4 y 5.')),
+      h('div',{class:'cta'},
+        h('button',{class:'btn w',type:'button',onclick:function(){genExam(20,'General exam','🧭');}},bi('▶ General exam (20)','Examen general (20)')),
+        h('button',{class:'btn o',type:'button',onclick:function(){go('dict');}},bi('📖 Dictionary','Diccionario')),
+        h('button',{class:'btn o',type:'button',onclick:function(){openAcc('g_nat');}},bi('🚩 All flags','Todas las banderas')),
+        h('button',{class:'btn o',type:'button',onclick:function(){var e=$('#gexams');if(e)e.scrollIntoView({behavior:'smooth'});}},bi('🧪 Exams','Exámenes')))),
+    h('div',{class:'heroright'},h('div',{class:'hstats'},
+      h('div',{class:'hs'},h('b',null,'5'),bi('Classes','Clases')),
+      h('div',{class:'hs'},h('b',null,String(allQ)),bi('Quizzes','Pruebas')),
+      h('div',{class:'hs'},h('b',null,gs.tries?gs.best+'%':'—'),bi('Best exam','Mejor examen'))))));
+
+  v.append(h('h3',null,bi('📅 Class timeline','Línea de tiempo de clases')));
+  var tl=h('div',{class:'tl'});
+  MODULES.forEach(function(m){
+    var tp=spl(m.topics),dn=m.dateEn.split(',')[0].slice(0,3)+', '+m.short;
+    tl.append(h('div',{class:'tli mod'},h('b',null,dn),h('span',{class:'chip'},m.icon+' '+spl(m.title).en),
+      h('div',{class:'d'},bi(tp.en,tp.es)),
+      h('button',{type:'button',class:'btn sm',onclick:function(){go('module:'+m.id);}},bi('Open '+spl(m.title).en+' →','Abrir '+spl(m.title).es+' →',true))));
+  });
+  v.append(tl);
+
+  v.append(h('h3',null,bi('📈 Progress by module','Progreso por módulo')));
+  var pn=h('div',{class:'panel'});
+  MODULES.forEach(function(m){
+    var s=modStats(S,m);
+    pn.append(h('div',{style:'font-weight:800;margin-top:6px'},m.icon+' '+spl(m.title).en+' · '+m.short),
+      barRow('Points reviewed','Puntos repasados',s.rev/s.pts*100,s.rev+'/'+s.pts),
+      barRow('Best score','Mejor puntaje',s.best,s.tries?s.best+'%':'—'));
+  });
+  v.append(pn);
+
+  v.append(h('h3',null,bi('🗺️ Topic map: where we saw each topic','Mapa de temas: dónde vimos cada uno')));
+  v.append(h('div',{html:tbl(['Topic','Seen in'],TOPIC_MAP.map(function(r){
+    return ['<b>'+r[0]+'</b><span class="es">'+r[1]+'</span>',r[2].map(function(x){return '<span class="chip">'+x+'</span>';}).join(' ')];
+  }))}));
+  v.append(h('p',{class:'hint',html:I('M1 = Module 1 (Nov 2) · M2 = Nov 6 · M3 = Nov 9 · M4 = Nov 13 · M5 = Nov 16.','M1 = Módulo 1 (2 nov) · M2 = 6 nov · M3 = 9 nov · M4 = 13 nov · M5 = 16 nov.')}));
+
+  v.append(h('h3',null,bi('📚 All the material and quizzes (from the earlier version)','Todo el material y las pruebas (de la versión anterior)')));
+  v.append(note('Open any block to study and practice. The Nationalities block has all 74 flags.','Abre cualquier bloque para estudiar y practicar. El bloque de Nacionalidades tiene las 74 banderas.'));
+  var accs=h('div');
+  SECTIONS.forEach(function(sec){
+    var t=spl(sec.title),d=spl(sec.intro),pc=topicPct(S,sec.topics);
+    accs.append(accItem('g_'+sec.id,sec.icon,t.en,t.es,function(b){
+      b.append(note(d.en,d.es));
+      var panel=h('div',{class:'panel'});sec.study(panel);b.append(panel);
+      b.append(h('h3',null,bi('🧪 Quizzes ('+sec.quizzes.length+')','Pruebas')),quizGrid(sec.quizzes,'module:gen'));
+    },sec.quizzes.length+' quizzes'+(pc!=null?' · '+pc+'%':'')));
+  });
+  v.append(accs);
+
+  v.append(h('h3',null,bi('🆕 Added in Modules 4 and 5','Agregado en los Módulos 4 y 5')));
+  var acc2=h('div');
+  [modOf('m4'),modOf('m5')].forEach(function(m){
+    m.points.forEach(function(pt){
+      var t=spl(pt.t);
+      acc2.append(accItem('g_'+m.id+'_'+pt.id,pt.icon,t.en,t.es,function(b){pt.body(b);},m.icon));
+    });
+  });
+  acc2.append(accItem('g_m45q','🧪','Quizzes from Modules 4 and 5','Pruebas de los Módulos 4 y 5',function(b){b.append(quizGrid(M4_POOL.concat(M5_POOL),'module:gen'));},String(M4_POOL.length+M5_POOL.length)));
+  v.append(acc2);
+
+  v.append(h('h3',{id:'gexams'},bi('🧪 General exams','Exámenes generales')));
+  var g=h('div',{class:'grid'});
+  g.append(
+    card('gold','🧭','General exam (20)|Examen general (20)','Questions from all 5 classes.|Preguntas de las 5 clases.','Start →|Empezar',function(){genExam(20,'General exam','🧭');}),
+    card('feat','🎯','Full general exam (30)|Examen general completo (30)','30 questions from every class.|30 preguntas de todas las clases.','Start →|Empezar',function(){genExam(30,'Full general exam','🎯');}),
+    card('','🏃','Marathon (50)|Maratón (50)','50 questions: everything we have seen.|50 preguntas: todo lo visto.','Start →|Empezar',function(){genExam(50,'General marathon','🏃');}),
+    card('','🆕','Latest classes (15)|Últimas clases (15)','Only Modules 4 and 5 (Nov 13 and Nov 16).|Solo Módulos 4 y 5 (13 y 16 nov).','Start →|Empezar',function(){genExam(15,'Modules 4 + 5','🆕',poolGen(M4_POOL.concat(M5_POOL)));}),
+    card('','🔁','Review mistakes|Repasar errores',S.mistakes.length+' saved question(s).|'+S.mistakes.length+' pregunta(s) guardadas.','Review →|Repasar',reviewMistakes));
+  v.append(g);
+}
+
+/* ============================================================
+   DICTIONARY v2 · illustrated cards + pronunciation check
+   ============================================================ */
+var ES_NUM=['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve'];
+var ES_TENS=['','','veinte','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];
+var DICT_CATS=[
+ ['all','📖','All|Todo','#1456c8'],
+ ['subj','👤','Subjects|Sujetos','#3b82f6'],
+ ['neg','🚫','Negatives|Negativos','#ef4444'],
+ ['q','❓','Questions|Preguntas','#8b5cf6'],
+ ['poss','🔗','Possessives|Posesivos','#14b8a6'],
+ ['dem','👉','Demonstratives|Demostrativos','#f59e0b'],
+ ['gram','🧩','Grammar rules|Reglas','#6366f1'],
+ ['voc','🐾','Vocabulary|Vocabulario','#22c55e'],
+ ['nat','🌍','Nationalities|Nacionalidades','#0ea5e9'],
+ ['num','🔢','Numbers|Números','#ec4899'],
+ ['abc','🔤','Alphabet & symbols|Alfabeto y símbolos','#64748b']
+];
+function dCat(id){return DICT_CATS.filter(function(c){return c[0]===id;})[0];}
+var DICT=null;
+var SUBJ_COL={I:'#1456c8',you:'#f59e0b',he:'#0ea5e9',she:'#ec4899',it:'#22c55e',we:'#1456c8',they:'#8b5cf6'};
+var DEM_EMOJI={this:'📘',these:'📘',that:'📕',those:'📕'};
+
+/* ---------- ART: small SVG scenes (no external images) ---------- */
+function svgW(w,hh,inner,cls){return '<svg class="art '+(cls||'')+'" viewBox="0 0 '+w+' '+hh+'" role="img" aria-hidden="true" preserveAspectRatio="xMidYMid meet">'+inner+'</svg>';}
+function pPerson(x,y,s,col,o){
+  o=o||{};var hr=8*s,bh=26*s,w=18*s,hy=y-bh-hr-2*s,g='';
+  if(o.ring)g+='<circle cx="'+x+'" cy="'+(y-bh/2-hr)+'" r="'+(bh+hr*1.1)+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-dasharray="4 4" opacity=".55"/>';
+  g+='<circle cx="'+x+'" cy="'+hy+'" r="'+hr+'" fill="'+col+'"/>';
+  if(o.dress)g+='<path d="M'+x+' '+(y-bh)+' l'+(-w*.85)+' '+bh+' h'+(w*1.7)+' z" fill="'+col+'"/>';
+  else g+='<rect x="'+(x-w/2)+'" y="'+(y-bh)+'" width="'+w+'" height="'+bh+'" rx="'+(6*s)+'" fill="'+col+'"/>';
+  return g;
+}
+function pBubble(x,y,txt,w){
+  w=w||(26+txt.length*11);
+  return '<g><rect class="artb" x="'+x+'" y="'+y+'" width="'+w+'" height="30" rx="14"/><path class="artb" d="M'+(x+10)+' '+(y+29)+' l-6 9 l14 -9"/><text class="artt" x="'+(x+w/2)+'" y="'+(y+21)+'" text-anchor="middle" font-size="18" font-weight="800">'+txt+'</text></g>';
+}
+function pArrow(x1,y1,x2,y2,col){
+  var a=Math.atan2(y2-y1,x2-x1),hx=x2-9*Math.cos(a-.45),hy=y2-9*Math.sin(a-.45),hx2=x2-9*Math.cos(a+.45),hy2=y2-9*Math.sin(a+.45);
+  return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+col+'" stroke-width="3" stroke-linecap="round"/><path d="M'+x2+' '+y2+' L'+hx+' '+hy+' M'+x2+' '+y2+' L'+hx2+' '+hy2+'" stroke="'+col+'" stroke-width="3" stroke-linecap="round" fill="none"/>';
+}
+function subjInner(who){
+  var g='<line class="artg" x1="6" y1="92" x2="154" y2="92" stroke-width="3" stroke-linecap="round"/>',c=SUBJ_COL[who]||'#1456c8';
+  if(who==='I'){g+=pPerson(52,92,1.5,c,{ring:1})+pBubble(88,14,'I',44)+pArrow(98,50,72,62,c);}
+  else if(who==='you'){g+=pPerson(32,92,1.1,'#94a3b8')+pPerson(114,92,1.4,c,{ring:1})+pArrow(52,64,84,64,'#94a3b8')+pBubble(92,6,'you',58);}
+  else if(who==='he'){g+=pPerson(80,92,1.5,c)+pBubble(104,14,'he',44);}
+  else if(who==='she'){g+=pPerson(80,92,1.5,c,{dress:1})+pBubble(104,14,'she',52);}
+  else if(who==='it'){g+='<text x="58" y="88" font-size="54" text-anchor="middle">🐱</text><text x="112" y="88" font-size="40" text-anchor="middle">📦</text>'+pBubble(60,2,'it',40);}
+  else if(who==='we'){g+='<path d="M26 99 q54 10 108 0" fill="none" stroke="'+c+'" stroke-width="3" stroke-linecap="round"/>'+pPerson(48,92,1.15,c)+pPerson(80,92,1.15,'#38bdf8')+pPerson(112,92,1.15,'#f472b6',{dress:1})+pBubble(54,2,'we',44);}
+  else if(who==='they'){g+=pPerson(22,92,1,'#94a3b8')+'<path d="M62 99 q38 10 80 0" fill="none" stroke="'+c+'" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 5"/>'+pPerson(76,92,1,c)+pPerson(102,92,1,'#a78bfa',{dress:1})+pPerson(128,92,1,'#7c3aed')+pArrow(40,60,62,60,'#94a3b8')+pBubble(84,0,'they',62);}
+  return g;
+}
+function subjSVG(who){return svgW(160,108,subjInner(who),'a-subj');}
+function negSVG(who){
+  var inner=who?subjInner(who):'<text class="artt" x="80" y="68" text-anchor="middle" font-size="46" font-weight="900">not</text>';
+  inner+='<g><circle cx="140" cy="26" r="17" fill="#ef4444"/><path d="M132 18 l16 16 M148 18 l-16 16" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g>';
+  return svgW(160,108,inner,'a-neg');
+}
+function possSVG(who){
+  var owner=who==='it'?'🐱':'',obj=who==='it'?'🐾':'🐶',c=SUBJ_COL[who]||'#14b8a6';
+  var inner='<g transform="translate(-4,6) scale(.8)">'+subjInner(who)+'</g>'+
+    '<path d="M118 66 q16 -22 36 0" fill="none" stroke="'+c+'" stroke-width="3" stroke-dasharray="5 5" stroke-linecap="round"/>'+
+    '<text x="168" y="86" font-size="40" text-anchor="middle">'+obj+'</text>'+
+    '<text class="artt" x="168" y="22" text-anchor="middle" font-size="13" font-weight="800">'+({I:'my',you:'your',he:'his',she:'her',it:'its',we:'our',they:'their'}[who]||'')+'</text>';
+  return svgW(200,108,inner,'a-poss');
+}
+function pBook(cx,yb,s,col){
+  var w=22*s,hh=30*s,x=cx-w/2,y=yb-hh;
+  return '<g><rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+hh+'" rx="'+(3*s)+'" fill="'+col+'"/><rect x="'+x+'" y="'+y+'" width="'+(5*s)+'" height="'+hh+'" rx="'+(2*s)+'" fill="#000" opacity=".22"/><rect x="'+(x+9*s)+'" y="'+(y+7*s)+'" width="'+(9*s)+'" height="'+(3*s)+'" rx="1" fill="#fff" opacity=".85"/><rect x="'+(x+9*s)+'" y="'+(y+13*s)+'" width="'+(7*s)+'" height="'+(3*s)+'" rx="1" fill="#fff" opacity=".6"/></g>';
+}
+function demSVG(key,big){
+  var near=(key==='this'||key==='these'),plural=(key==='these'||key==='those');
+  var col=near?'#16a34a':'#f97316',bookCol=(key==='this'||key==='these')?'#2563eb':'#dc2626',objX=near?100:188,sc=near?1.15:.62,gap=near?32:17,n=plural?3:1,o='';
+  for(var i=0;i<n;i++){o+=pBook(objX+(i-(n-1)/2)*gap,102,sc,bookCol);}
+  var zx=near?(plural?46:70):150,zw=near?(plural?108:60):78;
+  var inner='<line class="artg" x1="8" y1="104" x2="232" y2="104" stroke-width="3" stroke-linecap="round"/>'+
+    '<rect x="'+zx+'" y="34" width="'+zw+'" height="70" rx="14" fill="'+col+'" opacity=".14"/>'+
+    pPerson(24,104,1.25,'#1456c8',{})+
+    pArrow(44,72,near?(plural?60:76):146,72,col)+
+    '<text x="'+(near?(plural?100:100):188)+'" y="26" text-anchor="middle" font-size="13" font-weight="800" fill="'+col+'">'+(near?'CLOSE · cerca':'FAR · lejos')+'</text>'+
+    o+
+    '<text class="artt" x="24" y="122" text-anchor="middle" font-size="11" font-weight="700">me</text>'+
+    '<text x="'+(near?100:188)+'" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="'+col+'">'+(plural?'MANY · varios':'ONE · uno')+'</text>';
+  return svgW(240,128,inner,'a-dem'+(big?' big':''));
+}
+function emojiArt(e,txt){return '<div class="artE">'+(txt||e)+'</div>';}
+var WORD_EM={brother:'👦',sister:'👧',mother:'👩',grandparents:'👵👴',friend:'🧑‍🤝‍🧑',house:'🏠',snake:'🐍',daughter:'👧',backpack:'🎒',car:'🚗',mum:'👩',meeting:'👥',journalist:'📰',nurse:'🧑‍⚕️',singer:'🎤',student:'🧑‍🎓','football boots':'👟',weekend:'📅',party:'🎉'};
+function dArt(e){
+  var a=e.art||{};
+  if(a.k==='subj')return subjSVG(a.who);
+  if(a.k==='neg')return negSVG(a.who);
+  if(a.k==='poss')return possSVG(a.who);
+  if(a.k==='dem')return demSVG(a.key);
+  if(a.k==='flag')return '<div class="artE flag">'+flagTag(a.iso,64)+'</div>';
+  if(a.k==='sw')return '<div class="artE"><span class="swatch" style="background:'+a.hex+'"></span></div>';
+  if(a.k==='num')return '<div class="artE num"><b>'+a.v+'</b>'+(a.sub?'<small>'+a.sub+'</small>':'')+'</div>';
+  if(a.k==='big')return '<div class="artE big"><b>'+esc(a.v)+'</b>'+(a.sub?'<small>'+esc(a.sub)+'</small>':'')+'</div>';
+  return emojiArt(a.v||'💬',a.txt);
+}
+
+/* ---------- build entries ---------- */
+function dTarget(t){return String(t).replace(/[’‘]/g,"'").split(' / ')[0].replace(/[…?!.,;:"“”→]/g,' ').replace(/\s+/g,' ').trim();}
+function buildDict(){
+  var L=[],seen={};
+  function add(cat,w,es,mods,o){
+    o=o||{};
+    L.push({cat:cat,w:w,es:es,mods:mods||[],ex:o.ex||'',exEs:o.exEs||'',note:o.note||'',noteEs:o.noteEs||'',sym:o.sym||'',extra:o.extra||'',
+      art:o.art||{k:'emoji',v:o.em||'💬'},audio:o.audio||{text:o.say||w},tgt:o.tgt||dTarget(o.say||w),acc:o.acc||null});
+  }
+  var SU=['I','you','he','she','it','we','they'];
+  /* ---- Subjects ---- */
+  [['I','yo','1st person · singular','1.ª persona · singular','I am 25 years old.','Yo tengo 25 años.'],
+   ['you','tú / usted / ustedes','2nd person · singular and plural','2.ª persona · singular y plural','You are my friend.','Tú eres mi amigo.'],
+   ['he','él','3rd person · singular (male)','3.ª persona · singular (masculino)','He is beautiful.','Él es hermoso.'],
+   ['she','ella','3rd person · singular (female)','3.ª persona · singular (femenino)','She is thirty-two years old.','Ella tiene treinta y dos años.'],
+   ['it','ello / eso (cosas y animales)','3rd person · singular (things and animals)','3.ª persona · singular (cosas y animales)','It is our house.','Es nuestra casa.'],
+   ['we','nosotros / nosotras','1st person · plural','1.ª persona · plural','We are German.','Nosotros somos alemanes.'],
+   ['they','ellos / ellas','3rd person · plural','3.ª persona · plural','They are from Libya.','Ellos son de Libia.']
+  ].forEach(function(r){add('subj',r[0],r[1],['M1','M4','M5'],{note:r[2],noteEs:r[3],ex:r[4],exEs:r[5],extra:'subject pronoun sujeto pronombre',art:{k:'subj',who:r[0]}});});
+  [['am','soy / estoy','Goes with “I”','Va con “I”','I am 25 years old.','Yo tengo 25 años.','I'],
+   ['is','es / está','Goes with he, she, it','Va con he, she, it','Is she happy?','¿Está feliz ella?','she'],
+   ['are','eres / somos / son · estás / estamos / están','Goes with you, we, they','Va con you, we, they','We are German.','Somos alemanes.','we']
+  ].forEach(function(r){add('subj',r[0],r[1],['M1','M4','M5'],{note:r[2],noteEs:r[3],ex:r[4],exEs:r[5],extra:'verb be verbo',art:{k:'subj',who:r[6]}});});
+
+  /* ---- Negatives ---- */
+  add('neg','not','no',['M1','M5'],{note:'Subj + be + not + rest of the sentence',noteEs:'Se coloca después de am / is / are',ex:'I am not English.',exEs:'Yo no soy inglés.',extra:'negative negativo',art:{k:'neg'}});
+  add('neg','Negative sentence','Oración negativa',['M1','M5'],{note:'Subj + be + not + rest of the sentence',noteEs:'Sujeto + be + not + resto de la oración',ex:'She is not a nurse.',exEs:'Ella no es enfermera.',say:'She is not a nurse.',extra:'formula fórmula',art:{k:'neg',who:'she'}});
+  [['I am not','I','yo no soy / no estoy','Short form: I’m not (there is no “amn’t”)','Forma corta: I’m not (no existe “amn’t”)','I am not English.','Yo no soy inglés.'],
+   ['you aren’t','you','tú no eres / no estás','Full form: you are not','Forma completa: you are not','You aren’t a nurse.','Tú no eres enfermera.'],
+   ['he isn’t','he','él no es / no está','Full form: he is not','Forma completa: he is not','He isn’t a journalist.','Él no es periodista.'],
+   ['she isn’t','she','ella no es / no está','Full form: she is not','Forma completa: she is not','She isn’t a nurse.','Ella no es enfermera.'],
+   ['it isn’t','it','eso no es / no está','Full form: it is not','Forma completa: it is not','It isn’t our house.','No es nuestra casa.'],
+   ['we aren’t','we','nosotros no somos / no estamos','Full form: we are not','Forma completa: we are not','We aren’t cold.','No tenemos frío.'],
+   ['they aren’t','they','ellos no son / no están','Full form: they are not','Forma completa: they are not','They aren’t from Libya.','Ellos no son de Libia.']
+  ].forEach(function(r){add('neg',r[0],r[2],['M1','M5'],{note:r[3],noteEs:r[4],ex:r[5],exEs:r[6],extra:'negative negativo contraction contracción',art:{k:'neg',who:r[1]}});});
+  add('neg','isn’t','no es / no está',['M1','M5'],{note:'Short form of “is not” (he, she, it)',noteEs:'Forma corta de “is not” (he, she, it)',ex:'He isn’t a journalist.',exEs:'Él no es periodista.',extra:'contraction contracción',art:{k:'neg',who:'he'}});
+  add('neg','aren’t','no eres / no son / no somos',['M1','M5'],{note:'Short form of “are not” (you, we, they)',noteEs:'Forma corta de “are not” (you, we, they)',ex:'We aren’t Peruvian.',exEs:'Nosotros no somos peruanos.',extra:'contraction contracción',art:{k:'neg',who:'we'}});
+  add('neg','We aren’t singers.','Nosotros no somos cantantes.',['M5'],{note:'Exercise from class: (we / not / be / singers)',noteEs:'Ejercicio de la clase: (we / not / be / singers)',extra:'negative negativo',art:{k:'neg',who:'we'}});
+
+  /* ---- Questions ---- */
+  add('q','Yes/No question','Pregunta de sí o no',['M1','M5'],{note:'Be + subj. + rest of the question',noteEs:'Be + sujeto + resto de la pregunta',ex:'Is she happy?',exEs:'¿Está feliz ella?',say:'Is she happy?',extra:'formula fórmula',art:{k:'emoji',v:'✅❌',txt:'✅ / ❌'}});
+  [['Am I…?','¿Soy / estoy…?','Am I good at English?','¿Soy bueno en inglés?','Am I good at English?','🙋'],
+   ['Is he / she / it…?','¿Es / está él, ella, eso…?','Is she happy?','¿Está feliz ella?','Is she happy?','🧑'],
+   ['Are you…?','¿Eres / estás…?','Are you a nurse?','¿Eres enfermera?','Are you a nurse?','🫵'],
+   ['Are we / they…?','¿Somos / son…?','Are they students?','¿Son estudiantes?','Are they students?','👥']
+  ].forEach(function(r){add('q',r[0],r[1],['M1','M5'],{ex:r[2],exEs:r[3],say:r[4],extra:'question pregunta',art:{k:'emoji',v:r[5],txt:r[5]+'❓'}});});
+  add('q','Wh- question','Pregunta abierta',['M5'],{note:'Wh- + be + subj. + rest of the question',noteEs:'Wh- + be + sujeto + resto de la pregunta',ex:'Where are they?',exEs:'¿Dónde están ellos?',say:'Where are they?',extra:'formula fórmula open question',art:{k:'emoji',v:'🔎'}});
+  var whEx={};WH_SENT.forEach(function(s){whEx[s[0]]=s;});
+  var whEm={How:'🛠️',Why:'🤔',What:'📦',Who:'🧑‍🤝‍🧑',When:'🕒',Where:'📍',Whose:'🎒'};
+  WH_WORDS.forEach(function(w){var s=whEx[w[0]];add('q',w[0],w[1],['M5'],{ex:s?s[1]:'',exEs:s?s[2]:'',extra:'wh question pregunta',art:{k:'emoji',v:whEm[w[0]],txt:whEm[w[0]]+'❓'}});});
+
+  /* ---- Possessives ---- */
+  [['my','mi / mis','I → my','I’m going to call my friend later.','Voy a llamar a mi amigo más tarde.','I'],
+   ['your','tu / tus','you → your','Are these your football boots?','¿Son estas tus zapatillas de fútbol?','you'],
+   ['his','su (de él)','he → his','John brought his backpack with him.','John trajo su mochila con él.','he'],
+   ['her','su (de ella)','she → her','Lucy can’t find her glasses anywhere.','Lucy no encuentra sus lentes por ningún lado.','she'],
+   ['its','su (de una cosa o animal)','it → its','The cat stretched its paws in the sun.','El gato estiró sus patas al sol.','it'],
+   ['our','nuestro / nuestra','we → our','We want to wash our car this weekend.','Queremos lavar nuestro auto este fin de semana.','we'],
+   ['their','su (de ellos / ellas)','they → their','The athletes are waiting for their scores.','Los atletas esperan sus puntajes.','they']
+  ].forEach(function(r){add('poss',r[0],r[1],['M3','M4','M5'],{note:r[2],noteEs:'Adjetivo posesivo',ex:r[3],exEs:r[4],extra:'possessive adjective adjetivo posesivo',art:{k:'poss',who:r[5]}});});
+
+  /* ---- Demonstratives ---- */
+  [['this','este / esta / esto','singular + close','singular + cerca','present or upcoming (this week)','presente o próximo (esta semana)','This is a coin.','Esto es una moneda.'],
+   ['that','ese / esa / eso / aquel','singular + far','singular + lejos','distant past or future (that summer)','pasado o futuro lejano (aquel verano)','That is a UFO!','¡Eso es un ovni!'],
+   ['these','estos / estas','plural + close','plural + cerca','present or recent span (these days)','período actual o reciente (estos días)','These are our presents.','Estos son nuestros regalos.'],
+   ['those','esos / esas / aquellos','plural + far','plural + lejos','distant past or future (those years)','pasado o futuro lejano (aquellos años)','Those are symbols.','Esos son símbolos.']
+  ].forEach(function(r){add('dem',r[0],r[1],['M4','M5'],{note:r[2]+' · '+r[4],noteEs:r[3]+' · '+r[5],ex:r[6],exEs:r[7],extra:'demonstrative demostrativo near far cerca lejos',art:{k:'dem',key:r[0]}});});
+
+  /* ---- Grammar rules ---- */
+  add('gram','Affirmative sentence','Oración afirmativa',['M1','M5'],{note:'Subj + be + rest of the sentence',noteEs:'Sujeto + be + resto de la oración',ex:'He is beautiful.',exEs:'Él es hermoso.',say:'He is beautiful.',art:{k:'emoji',v:'✅'}});
+  add('gram','1st person','1.ª persona (yo, nosotros)',['M1'],{note:'I (singular) · we (plural)',noteEs:'I (singular) · we (plural)',say:'first person',extra:'grammatical person persona gramatical',art:{k:'subj',who:'I'}});
+  add('gram','2nd person','2.ª persona (tú, ustedes)',['M1'],{note:'you',noteEs:'you',say:'second person',extra:'grammatical person persona gramatical',art:{k:'subj',who:'you'}});
+  add('gram','3rd person','3.ª persona (él, ella, ello, ellos)',['M1'],{note:'he / she / it (singular) · they (plural)',noteEs:'he / she / it (singular) · they (plural)',say:'third person',extra:'grammatical person persona gramatical',art:{k:'subj',who:'they'}});
+  add('gram','Present Simple','Presente simple',['M1'],{note:'Habits, general truths, permanent situations and fixed schedules',noteEs:'Hábitos, verdades generales, situaciones permanentes y horarios fijos',ex:'I go to the gym every Monday.',exEs:'Voy al gimnasio todos los lunes.',art:{k:'emoji',v:'⏱️',txt:'🏋️⏱️'}});
+  add('gram','he / she / it + -s','él / ella / eso + -s',['M1'],{note:'In the Present Simple the verb takes -s',noteEs:'En el presente simple el verbo lleva -s',ex:'Raquel lives in Santiago.',exEs:'Raquel vive en Santiago.',say:'she lives',art:{k:'big',v:'+ s',sub:'he / she / it'}});
+  add('gram','age with BE','la edad con BE',['M3','M5'],{note:'Age uses BE, not “have”',noteEs:'La edad se dice con BE, no con “have”',ex:'She is thirty-two years old.',exEs:'Ella tiene treinta y dos años.',say:'She is thirty-two years old.',art:{k:'emoji',v:'🎂',txt:'🎂 32'}});
+  add('gram','is called','se llama',['M3'],{note:'Used for names of pets and things',noteEs:'Se usa para nombres de mascotas y cosas',ex:'Her fish is called Nemo.',exEs:'Su pez se llama Nemo.',art:{k:'emoji',v:'🏷️',txt:'🐟🏷️'}});
+  add('gram','plural: add -s','plural: se agrega -s',['M4'],{note:'Most nouns',noteEs:'La mayoría de los sustantivos',ex:'book → books',exEs:'libro → libros',say:'book, books',art:{k:'emoji',v:'📘',txt:'📘➜📘📘📘'}});
+  add('gram','plural: add -es','plural: se agrega -es',['M4'],{note:'Nouns ending in x, sh, ch',noteEs:'Sustantivos terminados en x, sh, ch',ex:'watch → watches',exEs:'reloj → relojes',say:'watch, watches',art:{k:'emoji',v:'⌚',txt:'⌚➜⌚⌚⌚'}});
+  add('gram','plural: -y → -ies','plural: -y → -ies',['M4'],{note:'Consonant + y: drop the -y and add -ies',noteEs:'Consonante + y: se quita la -y y se agrega -ies',ex:'dictionary → dictionaries',exEs:'diccionario → diccionarios',say:'dictionary, dictionaries',art:{k:'emoji',v:'📖',txt:'📖➜📚'}});
+  add('gram','long vowel','vocal larga',['M2'],{note:'Says its name: cake, feet, kite, rope, cute',noteEs:'Dice su nombre: cake, feet, kite, rope, cute',say:'cake, feet, kite, rope, cute',art:{k:'big',v:'ā',sub:'cake · kite'}});
+  add('gram','short vowel','vocal corta',['M2'],{note:'Short sound: apple, jet, fish, clock, sun',noteEs:'Sonido corto: apple, jet, fish, clock, sun',say:'apple, jet, fish, clock, sun',art:{k:'big',v:'ă',sub:'apple · sun'}});
+  add('gram','demonstratives and time','demostrativos y tiempo',['M4'],{note:'this / these = now or recent · that / those = distant past or future',noteEs:'this / these = ahora o reciente · that / those = pasado o futuro lejano',ex:'Do you remember that summer in Spain?',exEs:'¿Recuerdas aquel verano en España?',say:'this week, those years',art:{k:'emoji',v:'⏳',txt:'⏳📅'}});
+
+  /* ---- Vocabulary (deduplicated) ---- */
+  function voc(en,es,mods,o){var k=en.toLowerCase();o=o||{};if(seen[k]){seen[k].mods=seen[k].mods.concat(mods.filter(function(m){return seen[k].mods.indexOf(m)<0;}));return;}add('voc',en,es,mods,o);seen[k]=L[L.length-1];}
+  COLORS.forEach(function(c){voc(c.en,c.es,['M1'],{extra:'color colors colores',art:{k:'sw',hex:c.hex}});});
+  PETS.forEach(function(a){voc(a.en,a.es,['M3'],{extra:'pet mascota animal',art:{k:'emoji',v:a.em}});});
+  FARM.forEach(function(a){voc(a.en,a.es,['M3'],{extra:'farm granja animal',art:{k:'emoji',v:a.em}});});
+  M4_WORDS.forEach(function(a){voc(a.en,a.es,['M4'],{art:{k:'emoji',v:a.em}});});
+  THINGS.forEach(function(a){voc(a.en,a.es,['M4','M5'],{note:a.lab||'',noteEs:'',extra:'everyday things objetos',art:{k:'emoji',v:a.em},say:a.en});});
+  [['sandwiches','sándwiches','🥪'],['presents','regalos','🎁'],['UFO','ovni','🛸'],['symbols','símbolos','🔣']].forEach(function(a){voc(a[0],a[1],['M5'],{art:{k:'emoji',v:a[2]}});});
+  [['brother','hermano'],['sister','hermana'],['mother','madre'],['grandparents','abuelos'],['friend','amigo / amiga'],['house','casa'],['snake','serpiente']].forEach(function(a){voc(a[0],a[1],['M4'],{extra:'family familia',art:{k:'emoji',v:WORD_EM[a[0]]}});});
+  voc('daughter','hija',['M4'],{note:'Pronunciation: sounds like “doter”',noteEs:'Pronunciación: suena como “doter”',art:{k:'emoji',v:'👧'}});
+  [['backpack','mochila'],['car','auto'],['mum','mamá'],['meeting','reunión'],['journalist','periodista'],['nurse','enfermero / enfermera'],['singer','cantante'],['student','estudiante'],['football boots','zapatillas de fútbol'],['weekend','fin de semana'],['party','fiesta']].forEach(function(a){voc(a[0],a[1],['M4','M5'],{extra:'words from exercises',art:{k:'emoji',v:WORD_EM[a[0]]}});});
+
+  /* ---- Nationalities and flags ---- */
+  COUNTRIES.forEach(function(c){
+    add('nat',c.en,c.es,['M2'].concat(M4_NAT.indexOf(c.en)>-1?['M4']:[]),{art:{k:'flag',iso:c.iso},note:'Nationality: '+c.nat,noteEs:'Nacionalidad: '+c.nat,ex:natSentence(c),exEs:'',extra:c.nat+' nationality nacionalidad flag bandera'});
+  });
+
+  /* ---- Numbers ---- */
+  for(var n=0;n<20;n++)add('num',ONES[n],n+' · '+ES_NUM[n],['M2'],{art:{k:'num',v:String(n),sub:(n>=13&&n<=19)?STRESS_TEEN[n]:''},note:(n>=13&&n<=19)?'Stress at the end: '+STRESS_TEEN[n]:'',noteEs:(n>=13&&n<=19)?'Acento al final: '+STRESS_TEEN[n]:'',extra:String(n)});
+  for(var t=2;t<10;t++){var sty=(typeof STRESS_TY!=='undefined'&&STRESS_TY[t*10])?STRESS_TY[t*10]:'';add('num',TENS[t],(t*10)+' · '+ES_TENS[t],['M2'],{art:{k:'num',v:String(t*10),sub:sty},note:sty?'Stress at the start: '+sty:'',noteEs:sty?'Acento al inicio: '+sty:'',extra:String(t*10)});}
+  add('num','one hundred','100 · cien',['M2'],{art:{k:'num',v:'100'},extra:'100'});
+  add('num','one thousand','1000 · mil',['M2'],{art:{k:'num',v:'1000'},extra:'1000'});
+
+  /* ---- Alphabet and symbols ---- */
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(function(l){add('abc',l,'se dice “'+(ES_PRON[l]||'')+'”',['M2'],{audio:{spell:l},art:{k:'big',v:l+l.toLowerCase(),sub:SAY_LETTER[l]},tgt:SAY_LETTER[l],acc:[l.toLowerCase(),SAY_LETTER[l]],extra:'letter letra alphabet alfabeto'});});
+  PUNCT.forEach(function(p){add('abc',p[0],p[1],['M5'],{sym:p[2],art:{k:'big',v:p[2],sub:p[0]},extra:'punctuation symbol puntuación símbolo '+p[2]});});
+
+  L.forEach(function(e,i){
+    var c=dCat(e.cat),ct=spl(c[2]);
+    e.id=i;e.pk=e.cat+'|'+e.w;
+    e.sTgt=(e.ex&&dTarget(e.ex)!==e.tgt)?dTarget(e.ex):'';
+    e.hay=dNorm([e.w,e.es,e.ex,e.exEs,e.note,e.noteEs,e.extra,e.sym,ct.en,ct.es,e.mods.join(' ')].join(' '));
+    e.key=dNorm(e.w).replace(/[^a-z0-9]/g,'')||dNorm(e.w);
+  });
+  return L;
+}
+function dNorm(s){return String(s==null?'':s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'");}
+
+/* ---------- pronunciation check ---------- */
+var DS={q:'',cat:'all',view:'az',pi:-1};
+function dBest(pk){return (S.dictp&&S.dictp[pk])||0;}
+function dSave(pk,pct){S.dictp=S.dictp||{};if(!S.dictp[pk]||pct>S.dictp[pk]){S.dictp[pk]=pct;save();}}
+function dVerdict(pc){
+  if(pc>=80)return {cls:'good',en:'Great pronunciation! ✅',es:'¡Muy buena pronunciación!'};
+  if(pc>=50)return {cls:'mid',en:'Almost there. Listen to the model and try again. 🔁',es:'Casi. Escucha el modelo e inténtalo otra vez.'};
+  return {cls:'low',en:'Not yet. Tap 🐢 to hear it slowly and try again.',es:'Aún no. Toca 🐢 para oírlo lento e inténtalo otra vez.'};
+}
+async function dCheck(target,accept,box,btn,pk,onDone){
+  stopAll();
+  box.className='dres';
+  btn.classList.add('live');btn.disabled=true;
+  box.innerHTML=Mic.running?I('Speak now…','Habla ahora…'):(Mic.permOK?I('Getting the microphone ready…','Preparando el micrófono…'):I('Choose “Allow” when your browser asks.','Elige “Permitir” cuando el navegador lo pida.'));
+  try{
+    var alts=await Mic.ask(function(t){box.innerHTML=I('I hear you: “'+esc(t)+'”…','Te escucho: “'+esc(t)+'”…');},function(){box.innerHTML=I('Speak now…','Habla ahora…');});
+    var r=scoreSpeech(target,alts,accept),pc=Math.round(r.score*100),vd=dVerdict(pc);
+    box.className='dres '+vd.cls;
+    box.innerHTML='<div class="dr-top"><span class="dr-pct">'+pc+'%</span><span>'+I(vd.en,vd.es)+'</span></div>'+
+      '<div class="dr-words">'+r.marks.map(function(m){return '<span class="'+(m.ok?'w-ok':'w-bad')+'">'+esc(m.w)+'</span>';}).join(' ')+'</div>'+
+      '<div class="dr-heard">'+I('I heard: “'+esc(r.heard)+'”','Te escuché: “'+esc(r.heard)+'”')+'</div>';
+    if(pk){dSave(pk,pc);}
+    if(pc>=80)sfx('ok');
+    if(onDone)onDone(pc);
+  }catch(err){
+    if(err!=='aborted')box.innerHTML=micMsg(err);
+  }
+  btn.classList.remove('live');btn.disabled=false;
+}
+function micBtn(label,es,cls){return h('button',{type:'button',class:'dbtn mic '+(cls||'')},'🎤 ',h('span',null,label,es?h('span',{class:'es'},es):null));}
+function selfRate(box,pk,onDone){
+  return h('button',{type:'button',class:'dbtn',onclick:function(){if(pk)dSave(pk,100);box.className='dres good';box.innerHTML='<div class="dr-top"><span class="dr-pct">✔</span><span>'+I('Marked as said well','Marcado como bien dicho')+'</span></div>';if(onDone)onDone(100);}},'✅ ',h('span',null,'I said it well',h('span',{class:'es'},'Lo dije bien')));
+}
+
+/* ---------- one illustrated card ---------- */
+function dEntry(e,opt){
+  opt=opt||{};
+  var c=dCat(e.cat),ct=spl(c[2]);
+  var card=h('article',{class:'de2'+(opt.big?' big':''),style:'--tint:'+c[3]});
+  var art=h('div',{class:'dart',html:dArt(e)});
+  var best=dBest(e.pk),score=h('span',{class:'dscore'+(best>=80?' ok':'')});
+  function setScore(){var b=dBest(e.pk);score.textContent=b?(b>=80?'✅ ':'🎤 ')+b+'%':'';score.className='dscore'+(b>=80?' ok':'')+(b?'':' empty');}
+  setScore();
+  art.append(h('span',{class:'dcat'},c[1]+' '+ct.en));
+  var w=h('h4',{class:'dw'},e.w);
+  if(e.sym)w.append(h('span',{class:'dsym'},e.sym));
+  var body=h('div',{class:'dbody'},h('div',{class:'dtop'},w,score),h('div',{class:'dmean'},e.es));
+  if(e.ex)body.append(h('div',{class:'dex'},h('div',{class:'dbub',html:say_(e.ex)}),e.exEs?h('div',{class:'es'},e.exEs):null));
+  if(e.note)body.append(h('div',{class:'dnote',html:esc(e.note)+(e.noteEs&&e.noteEs!==e.note?'<span class="es">'+esc(e.noteEs)+'</span>':'')}));
+  if(e.mods.length)body.append(h('div',{class:'dmods','aria-label':'Seen in'},e.mods.map(function(m){return h('span',{class:'chip'},m);})));
+  var res=h('div',{class:'dres','aria-live':'polite'});
+  var act=h('div',{class:'dact'},
+    h('button',{type:'button',class:'dbtn','aria-label':'Listen to '+e.w,onclick:function(){playAudio(e.audio);}},'🔊 ',h('span',null,'Listen',h('span',{class:'es'},'Escuchar'))),
+    h('button',{type:'button',class:'dbtn','aria-label':'Listen slowly to '+e.w,onclick:function(){playAudio(e.audio,true);}},'🐢'));
+  if(SR){
+    var m1=micBtn('Say it','Dilo');
+    m1.addEventListener('click',function(){dCheck(e.tgt,e.acc,res,m1,e.pk,setScore);});
+    act.append(m1);
+    if(e.sTgt){var m2=micBtn('Sentence','Frase');m2.addEventListener('click',function(){dCheck(e.sTgt,null,res,m2,null,null);});act.append(m2);}
+  }else{
+    act.append(selfRate(res,e.pk,setScore));
+  }
+  body.append(act,res);
+  card.append(art,body);
+  return card;
+}
+
+/* ---------- Subject explorer (pictogram + BE + negative + question + possessive) ---------- */
+var SUBJ_ROWS={
+ I:['yo','I am','I am not','I’m not','Am I?','my'],
+ you:['tú / usted','you are','you are not','you aren’t','Are you?','your'],
+ he:['él','he is','he is not','he isn’t','Is he?','his'],
+ she:['ella','she is','she is not','she isn’t','Is she?','her'],
+ it:['eso / ello','it is','it is not','it isn’t','Is it?','its'],
+ we:['nosotros','we are','we are not','we aren’t','Are we?','our'],
+ they:['ellos / ellas','they are','they are not','they aren’t','Are they?','their']
+};
+function subjectExplorer(){
+  var cur='I',wrap=h('section',{class:'lab'});
+  var chips=h('div',{class:'dchips lab-chips',role:'group','aria-label':'Subject'});
+  var artBox=h('div',{class:'lab-art'});
+  var rows=h('div',{class:'lab-rows'});
+  function draw(){
+    chips.innerHTML='';
+    ['I','you','he','she','it','we','they'].forEach(function(s){
+      chips.append(h('button',{type:'button',class:'dchip','aria-pressed':cur===s?'true':'false',onclick:function(){cur=s;draw();playAudio({text:s});}},s,h('span',{class:'es'},SUBJ_ROWS[s][0])));
+    });
+    var r=SUBJ_ROWS[cur];
+    artBox.innerHTML=subjSVG(cur);
+    rows.innerHTML='';
+    [['BE','verbo BE',r[1],'t-be'],['Negative','Negativo',r[2],'t-neg'],['Short','Forma corta',r[3],'t-short'],['Question','Pregunta',r[4],'t-q'],['Possessive','Posesivo',r[5],'t-poss']].forEach(function(x){
+      var rowRes=h('div',{class:'dres'});
+      var row=h('div',{class:'lab-row '+x[3]},h('div',{class:'lab-k'},x[0],h('span',{class:'es'},x[1])),
+        h('button',{type:'button',class:'lab-w',onclick:function(){playAudio({text:x[2]});},'aria-label':'Listen to '+x[2]},x[2],h('span',{class:'ic'},'🔊')));
+      if(SR){var mb=h('button',{type:'button',class:'dbtn mic sm','aria-label':'Say '+x[2]},'🎤');mb.addEventListener('click',function(){dCheck(dTarget(x[2]),null,rowRes,mb,null,null);});row.append(mb);}
+      rows.append(row,rowRes);
+    });
+  }
+  wrap.append(h('h3',{class:'lab-h'},bi('👤 Subject explorer','Explorador de sujetos')),
+    h('p',{class:'muted',html:I('Pick a subject to see who it is, its verb BE, negative, question and possessive. Tap to listen, 🎤 to check your pronunciation.','Elige un sujeto para ver quién es, su verbo BE, negativo, pregunta y posesivo. Toca para escuchar y 🎤 para revisar tu pronunciación.')}),
+    chips,h('div',{class:'lab-grid'},artBox,rows));
+  draw();
+  return wrap;
+}
+
+/* ---------- Near / far lab ---------- */
+function demLab(){
+  var dist='near',num='one',wrap=h('section',{class:'lab'});
+  var artBox=h('div',{class:'lab-art wide'}),out=h('div',{class:'lab-out'}),res=h('div',{class:'dres'});
+  var segD=h('div',{class:'dseg',role:'group','aria-label':'Distance'}),segN=h('div',{class:'dseg',role:'group','aria-label':'Number'});
+  var SENT={this:['This is my book.','Este es mi libro.'],that:['That is my book.','Ese es mi libro.'],these:['These are my books.','Estos son mis libros.'],those:['Those are my books.','Esos son mis libros.']};
+  function key(){return dist==='near'?(num==='one'?'this':'these'):(num==='one'?'that':'those');}
+  function draw(){
+    var k=key(),s=SENT[k];
+    segD.innerHTML='';segN.innerHTML='';
+    [['near','📍 Close','Cerca'],['far','🔭 Far','Lejos']].forEach(function(x){segD.append(h('button',{type:'button','aria-pressed':dist===x[0]?'true':'false',onclick:function(){dist=x[0];draw();playAudio({text:SENT[key()][0]});}},x[1],h('span',{class:'es'},x[2])));});
+    [['one','1️⃣ One','Uno'],['many','📚 Many','Varios']].forEach(function(x){segN.append(h('button',{type:'button','aria-pressed':num===x[0]?'true':'false',onclick:function(){num=x[0];draw();playAudio({text:SENT[key()][0]});}},x[1],h('span',{class:'es'},x[2])));});
+    artBox.innerHTML=demSVG(k,true);
+    out.innerHTML='';res.className='dres';res.innerHTML='';
+    out.append(h('div',{class:'lab-big'},k),h('div',{class:'lab-rule'},DEM_RULE[k],h('span',{class:'es'},DEM_RULE_ES[k])),
+      h('div',{class:'dbub',html:say_(s[0])}),h('div',{class:'es'},s[1]));
+    var act=h('div',{class:'dact'},h('button',{type:'button',class:'dbtn',onclick:function(){playAudio({text:s[0]});}},'🔊 ',h('span',null,'Listen',h('span',{class:'es'},'Escuchar'))),h('button',{type:'button',class:'dbtn',onclick:function(){playAudio({text:s[0]},true);}},'🐢'));
+    if(SR){var mb=micBtn('Say it','Dilo');mb.addEventListener('click',function(){dCheck(dTarget(s[0]),null,res,mb,null,null);});act.append(mb);}
+    out.append(act,res);
+  }
+  wrap.append(h('h3',{class:'lab-h'},bi('👉 Close or far? this · that · these · those','¿Cerca o lejos? this · that · these · those')),
+    h('p',{class:'muted',html:I('Change the distance and the number to see which word to use.','Cambia la distancia y la cantidad para ver qué palabra usar.')}),
+    h('div',{class:'lab-ctl'},segD,segN),h('div',{class:'lab-grid'},artBox,out));
+  draw();
+  return wrap;
+}
+
+function dSubjectTable(){
+  var rows=['I','you','he','she','it','we','they'].map(function(s){var r=SUBJ_ROWS[s];return [say_(s),r[0],say_(r[1],r[1].split(' ')[1]),say_(r[2]),say_(r[3]),say_(r[4]),say_(r[5])];});
+  return h('details',{class:'panel dtable'},
+    h('summary',{style:'font-weight:800;cursor:pointer'},bi('📊 Quick table: subjects, negatives and questions','📊 Tabla rápida: sujetos, negativos y preguntas')),
+    h('div',{html:tbl(['Subject<span class="es">Sujeto</span>','Español','BE','Negative<span class="es">Negativo</span>','Short<span class="es">Corta</span>','Question<span class="es">Pregunta</span>','Possessive<span class="es">Posesivo</span>'],rows)}));
+}
+
+/* ---------- Dictionary screen ---------- */
+function renderDictionary(v){
+  if(!DICT)DICT=buildDict();
+  var inp=h('input',{type:'search',placeholder:'Search / Buscar…',value:DS.q,'aria-label':'Search the dictionary',autocomplete:'off',autocapitalize:'none',spellcheck:'false'});
+  var clr=h('button',{type:'button',class:'btn sm ghost','aria-label':'Clear search',onclick:function(){DS.q='';inp.value='';DS.pi=-1;draw();inp.focus();}},'✕');
+  var chipsBox=h('div',{class:'dchips',role:'group','aria-label':'Categories'});
+  var info=h('small',{role:'status','aria-live':'polite'});
+  var prog=h('div',{class:'dprog'});
+  var segAz=h('button',{type:'button',onclick:function(){DS.view='az';DS.pi=-1;draw();}},'A–Z');
+  var segTp=h('button',{type:'button',onclick:function(){DS.view='topic';DS.pi=-1;draw();}},bi('By topic','Por tema',true));
+  var azbar=h('div',{class:'daz',role:'navigation','aria-label':'Letters'});
+  var labs=h('div');
+  var box=h('div');
+  v.append(h('h2',null,bi('📖 Dictionary','Diccionario')),
+    h('p',{class:'muted',html:I('Illustrated cards for every point we have seen. Listen, then say it with 🎤 to check your pronunciation.','Tarjetas ilustradas de todo lo visto. Escucha y luego dilo con 🎤 para revisar tu pronunciación.')}));
+  v.append(h('div',{class:'dsearch'},h('div',{class:'dsrow'},inp,clr),chipsBox));
+  v.append(prog,h('div',{class:'dtools'},info,h('div',{class:'dseg',role:'group','aria-label':'View'},segAz,segTp)),azbar,labs,box);
+
+  function drawChips(){
+    chipsBox.innerHTML='';
+    DICT_CATS.forEach(function(c){
+      var n=c[0]==='all'?DICT.length:DICT.filter(function(e){return e.cat===c[0];}).length,t=spl(c[2]);
+      chipsBox.append(h('button',{type:'button',class:'dchip','aria-pressed':DS.cat===c[0]?'true':'false',onclick:function(){DS.cat=c[0];DS.pi=-1;draw();}},c[1]+' '+t.en+' ('+n+')',h('span',{class:'es'},t.es)));
+    });
+  }
+  function drawProg(items){
+    var ok=DICT.filter(function(e){return dBest(e.pk)>=80;}).length,pct=Math.round(ok/DICT.length*100);
+    prog.innerHTML='';
+    prog.append(h('div',{class:'dprog-t'},h('b',null,'🎤 '),bi('Pronounced well','Bien pronunciadas'),h('b',{style:'margin-left:auto'},ok+' / '+DICT.length)),
+      h('div',{class:'t'},h('div',{style:'width:'+pct+'%'})));
+    if(SR&&items.length){
+      prog.append(h('button',{type:'button',class:'dbtn go',onclick:function(){DS.pi=0;draw();window.scrollTo(0,0);}},'🎯 ',bi('Practice pronunciation ('+items.length+')','Practicar pronunciación ('+items.length+')',true)));
+    }
+  }
+  function sortKey(a,b){return a.key<b.key?-1:a.key>b.key?1:0;}
+  function draw(){
+    drawChips();
+    segAz.setAttribute('aria-pressed',DS.view==='az'?'true':'false');
+    segTp.setAttribute('aria-pressed',DS.view==='topic'?'true':'false');
+    var terms=dNorm(DS.q).trim().split(/\s+/).filter(Boolean);
+    var items=DICT.filter(function(e){return (DS.cat==='all'||e.cat===DS.cat)&&terms.every(function(t){return e.hay.indexOf(t)>-1;});});
+    drawProg(items);
+    labs.innerHTML='';box.innerHTML='';azbar.innerHTML='';
+    info.innerHTML=items.length+' '+I('entries','entradas');
+    /* focused practice mode */
+    if(DS.pi>=0){
+      items.sort(sortKey);
+      if(DS.pi>=items.length)DS.pi=items.length-1;
+      var e=items[DS.pi];
+      azbar.hidden=true;
+      box.append(h('div',{class:'dpr-bar'},
+        h('button',{type:'button',class:'btn sm',onclick:function(){DS.pi=-1;draw();}},bi('← Back to list','Volver a la lista',true)),
+        h('b',null,(DS.pi+1)+' / '+items.length),
+        h('div',{class:'dpr-nav'},
+          h('button',{type:'button',class:'btn sm',disabled:DS.pi===0?'disabled':null,onclick:function(){DS.pi--;draw();}},'◀'),
+          h('button',{type:'button',class:'btn sm pri',disabled:DS.pi>=items.length-1?'disabled':null,onclick:function(){DS.pi++;draw();}},bi('Next ▶','Siguiente ▶',true)))));
+      box.append(dEntry(e,{big:true}));
+      hydrateFlags(box);
+      return;
+    }
+    azbar.hidden=false;
+    var showLabs=terms.length===0;
+    if(showLabs&&(DS.cat==='all'||DS.cat==='subj'||DS.cat==='neg'||DS.cat==='poss')){labs.append(subjectExplorer());labs.append(dSubjectTable());}
+    if(showLabs&&(DS.cat==='all'||DS.cat==='dem'))labs.append(demLab());
+    if(!items.length){box.append(h('div',{class:'dempty'},h('div',{style:'font-size:40px'},'🔎'),bi('No results. Try another word or category.','Sin resultados. Prueba otra palabra o categoría.')));return;}
+    var groups=[];
+    function grp(key,label,sub){var g=groups.filter(function(x){return x.key===key;})[0];if(!g){g={key:key,label:label,sub:sub,items:[]};groups.push(g);}return g;}
+    if(DS.view==='az'){
+      items.sort(sortKey);
+      items.forEach(function(e){var L=/[a-z]/.test(e.key.charAt(0))?e.key.charAt(0).toUpperCase():'#';grp(L,L,'').items.push(e);});
+      groups.sort(function(a,b){return a.key<b.key?-1:a.key>b.key?1:0;});
+    }else{
+      DICT_CATS.forEach(function(c){if(c[0]==='all')return;var t=spl(c[2]);var its=items.filter(function(e){return e.cat===c[0];});
+        if(its.length){its.sort(sortKey);var g=grp(c[0],c[1]+' '+t.en,t.es);g.items=its;}});
+    }
+    groups.forEach(function(g,i){
+      var id='dg_'+i;
+      if(DS.view==='az'){azbar.append(h('button',{type:'button','aria-label':'Go to '+g.label,onclick:function(){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}},g.label));}
+      box.append(h('div',{class:'dgrp',id:id},g.label,h('small',null,g.sub?g.sub+' · '+g.items.length:String(g.items.length))));
+      var list=h('div',{class:'dlist'});
+      g.items.forEach(function(e){list.append(dEntry(e));});
+      box.append(list);
+    });
+    hydrateFlags(box);
+  }
+  var tm=null;
+  inp.addEventListener('input',function(){DS.q=inp.value;DS.pi=-1;clearTimeout(tm);tm=setTimeout(draw,140);});
+  draw();
 }
 
 /* ---------- TOPICS AND PLAY ---------- */
@@ -2342,6 +4071,7 @@ function viewUser(id){
   var v=$('#view');v.innerHTML='';
   v.classList.remove('view-in');void v.offsetWidth;v.classList.add('view-in');
   renderProgress(v,id,true);
+  v.append(creditEl());
 }
 function resetUser(id){
   if(!confirm('Delete all progress for '+profileOf(id).label+'? This cannot be undone.\n\n¿Borrar todo el progreso de '+profileOf(id).label+'? Esta acción no se puede deshacer.'))return false;
@@ -2594,6 +4324,7 @@ function openSettings(){
       else{try{await Mic.enable();toast(I('Microphone is on.','Micrófono activo.'));}catch(e){toast(micMsg(e));}}
       b.setAttribute('aria-checked',Mic.wanted?'true':'false');
     }):h('small',null,'Not available')),
+    h('div',{class:'row'},h('label',null,bi('Microphone status','Estado del micrófono')),micStateRow()),
     h('div',{class:'row'},h('label',null,bi('🔔 Sounds & vibration','Sonidos y vibración')),sw('swSound','Sounds',CFG.sound!==false,function(b){CFG.sound=!(CFG.sound!==false);saveCfg();b.setAttribute('aria-checked',CFG.sound?'true':'false');if(CFG.sound)sfx('ok');})),
     h('div',{class:'row'},h('label',null,bi('🌙 Dark mode','Modo oscuro')),sw('swDark','Dark mode',document.documentElement.getAttribute('data-theme')==='dark',function(b){
       CFG.theme=(document.documentElement.getAttribute('data-theme')==='dark')?'light':'dark';applyTheme();saveCfg();b.setAttribute('aria-checked',CFG.theme==='dark'?'true':'false');
@@ -2633,7 +4364,7 @@ applyTheme();applyEs();renderStats();
   go(ok?'home':'login');
   if(cloudOn())cloudPull().then(function(n){if(n&&cur==='home')go('home');});
 })();
-window.__EP={QZ:QZ,checkType:checkType,scoreSpeech:scoreSpeech,normText:normText,numWords:numWords,COUNTRIES:COUNTRIES,SECTIONS:SECTIONS,EXAM_POOL:EXAM_POOL,
+window.__EP={MODULES:MODULES,M1_POOL:M1_POOL,M2_POOL:M2_POOL,M3_POOL:M3_POOL,M4_POOL:M4_POOL,M5_POOL:M5_POOL,genGen:genGen,poolGen:poolGen,buildDict:buildDict,DS:DS,Mic:Mic,hasSR:!!SR,dArt:dArt,getS:function(){return S;},QZ:QZ,checkType:checkType,scoreSpeech:scoreSpeech,normText:normText,numWords:numWords,COUNTRIES:COUNTRIES,SECTIONS:SECTIONS,EXAM_POOL:EXAM_POOL,
   DB:DB,CFG:CFG,Mic:Mic,PROFILES:PROFILES,BADGES:BADGES,FLAGS:FLAGS,setUser:setUser,go:go,startQuiz:startQuiz,mergeUsers:mergeUsers,mixedGen:mixedGen,lightGen:lightGen,teamCSV:teamCSV,
   getS:function(){return S;},getUser:function(){return USER;},alertsList:alertsList,classStats:classStats,dayStreak:dayStreak};
 })();
