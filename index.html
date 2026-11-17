@@ -1371,15 +1371,17 @@ function banner(title,sub,gold){
 }
 
 /* ============================================================
-   MICROPHONE  (turned on ONCE and kept open while you practice)
+   MICROPHONE  (one listening session per tap)
    ============================================================ */
 function micMsg(err){
   var m={
     'not-allowed':['The microphone is blocked. Tap the padlock next to the address → Microphone → Allow, then reload.','El micrófono está bloqueado. Toca el candado junto a la dirección → Micrófono → Permitir, y recarga.'],
     'service-not-allowed':['The microphone is blocked for this page.','El micrófono está bloqueado para esta página.'],
     'no-speech':["I didn't hear you. Move closer to the microphone and try again.",'No te escuché. Acércate al micrófono e inténtalo de nuevo.'],
-    'network':['Speech recognition needs an Internet connection.','El reconocimiento de voz necesita conexión a Internet.'],
-    'audio-capture':['No microphone was found.','No se encontró un micrófono.'],
+    'network':['Speech recognition needs an Internet connection and Chrome or Edge (it does not work in Brave or Firefox).','El reconocimiento de voz necesita Internet y Chrome o Edge (no funciona en Brave ni Firefox).'],
+    'no-start':["The microphone did not start. Check that it is allowed and not being used by another app, then tap again.",'El micrófono no se inició. Revisa que esté permitido y que otra app no lo esté usando, y toca de nuevo.'],
+    'language':["This browser can't recognize English. Use Chrome or Edge.",'Este navegador no reconoce inglés. Usa Chrome o Edge.'],
+    'audio-capture':['No microphone was found. Plug one in or check your system sound settings.','No se encontró un micrófono. Conecta uno o revisa la configuración de sonido.'],
     'unsupported':["Your browser doesn't support speech recognition. Use Chrome or Edge.",'Tu navegador no admite reconocimiento de voz. Usa Chrome o Edge.']
   };
   if(err==='aborted')return '';
@@ -1387,56 +1389,23 @@ function micMsg(err){
   return I(x[0],x[1]);
 }
 var Mic={
-  /* Design: ask the browser for permission ONCE (then release the stream), and only run a
-     speech-recognition session while the student is actually practicing. After a quiet
-     period the session sleeps by itself, with no background restarts, so the browser has
-     nothing to ask about again. */
-  rec:null,wanted:false,running:false,win:null,idle:null,warmUntil:0,restarts:[],permOK:false,perm:'unknown',_pw:false,
-  WARM:75000,
+  /* Simple and reliable design:
+     - ONE speech-recognition session per tap, started directly from the tap (no background restarts).
+     - No getUserMedia before recognition (it can leave the microphone "busy" and make recognition fail).
+     - The browser asks for permission by itself the first time; on https (GitHub Pages) it remembers "Allow". */
+  rec:null,win:null,running:false,wanted:false,permOK:false,perm:'unknown',_pw:false,lastEnd:0,
   queryPerm:async function(){
     var m=this;
     try{
       if(navigator.permissions&&navigator.permissions.query){
         var p=await navigator.permissions.query({name:'microphone'});
         m.perm=p.state;
-        if(!m._pw){m._pw=true;p.onchange=function(){m.perm=p.state;if(p.state==='denied')m.permOK=false;m.chip();};}
+        if(p.state==='granted')m.permOK=true;
+        if(!m._pw){m._pw=true;p.onchange=function(){m.perm=p.state;if(p.state==='denied'){m.permOK=false;m.wanted=false;}else if(p.state==='granted')m.permOK=true;m.chip();};}
         return p.state;
       }
     }catch(e){}
     return 'unknown';
-  },
-  ensurePermission:async function(){
-    var m=this;
-    if(m.permOK&&m.perm!=='denied')return true;
-    var st=await m.queryPerm();
-    if(st==='denied'){m.chip();throw 'not-allowed';}
-    if(st!=='granted'&&navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
-      var s=null;
-      try{
-        try{if(!localStorage.getItem('ep_micHint')){localStorage.setItem('ep_micHint','1');toast(I('When your browser asks, choose “Allow” (not “this time”) so it does not ask again.','Cuando el navegador pregunte, elige “Permitir” (no “solo esta vez”) para que no vuelva a preguntar.'));}}catch(e0){}
-        s=await navigator.mediaDevices.getUserMedia({audio:true});
-      }catch(e){
-        var n=e&&e.name;
-        if(n==='NotAllowedError'||n==='SecurityError'||n==='PermissionDeniedError'){m.perm='denied';m.chip();}
-        throw (n==='NotFoundError'||n==='DevicesNotFoundError')?'audio-capture':
-              (n==='NotAllowedError'||n==='SecurityError'||n==='PermissionDeniedError')?'not-allowed':'error';
-      }finally{
-        if(s){try{s.getTracks().forEach(function(t){t.stop();});}catch(e2){}}
-      }
-      await m.queryPerm();
-    }
-    m.permOK=true;
-    return true;
-  },
-  touch:function(){
-    var m=this;m.warmUntil=Date.now()+m.WARM;clearTimeout(m.idle);
-    m.idle=setTimeout(function(){m.sleep();},m.WARM+500);
-  },
-  sleep:function(){
-    var m=this;
-    if(m.win){m.touch();return;}
-    try{if(m.rec)m.rec.abort();}catch(e){}
-    m.running=false;m.chip();
   },
   chip:function(){
     var b=$('#micChip');if(!b)return;
@@ -1445,97 +1414,125 @@ var Mic={
     b.innerHTML='\uD83C\uDF99\uFE0F<span class="lbl">'+lbl+'</span>';
     b.classList.toggle('on',!!this.wanted&&!denied);
     b.setAttribute('aria-pressed',this.wanted?'true':'false');
-    b.setAttribute('aria-label',denied?'Microphone blocked in the browser':(this.wanted?'Microphone ready. Tap to turn off':'Microphone off. Tap to turn on'));
+    b.setAttribute('aria-label',denied?'Microphone blocked in the browser':(this.wanted?'Microphone ready. Tap to turn off':'Microphone off. Tap to test and turn on'));
     var sw=$('#swMic');if(sw)sw.setAttribute('aria-checked',this.wanted?'true':'false');
   },
+  /* Header button / Settings switch: asks for permission once (from a tap) and releases the microphone. */
   enable:async function(){
     var m=this;
     if(!SR)throw 'unsupported';
-    await m.ensurePermission();
-    m.wanted=true;m.touch();m.chip();
+    var st=await m.queryPerm();
+    if(st==='denied'){m.chip();throw 'not-allowed';}
+    if(st!=='granted'&&navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
+      var s=null;
+      try{s=await navigator.mediaDevices.getUserMedia({audio:true});}
+      catch(e){
+        var n=e&&e.name;
+        if(n==='NotAllowedError'||n==='SecurityError'||n==='PermissionDeniedError'){m.perm='denied';m.chip();throw 'not-allowed';}
+        if(n==='NotFoundError'||n==='DevicesNotFoundError')throw 'audio-capture';
+        throw 'no-start';
+      }finally{
+        if(s){try{s.getTracks().forEach(function(t){t.stop();});}catch(e2){}}
+      }
+      await sleep(400);   // let the browser release the microphone before recognition uses it
+      await m.queryPerm();
+    }
+    m.permOK=true;m.wanted=true;m.chip();
     return true;
   },
   disable:function(){
-    var m=this;m.wanted=false;clearTimeout(m.idle);
-    try{if(m.rec)m.rec.abort();}catch(e){}
-    m.running=false;m.closeWin('aborted');m.chip();
-  },
-  fail:function(code){
-    var m=this;
-    m.running=false;
-    if(code==='not-allowed'||code==='audio-capture'){m.wanted=false;m.permOK=false;if(code==='not-allowed')m.perm='denied';}
-    m.closeWin(code);m.chip();
-  },
-  start:function(){
-    var m=this;if(!SR||m.running)return;
-    var now=Date.now();
-    m.restarts=m.restarts.filter(function(t){return now-t<10000;});
-    if(m.restarts.length>=8){m.fail('error');return;}
-    m.restarts.push(now);
-    var r=new SR();
-    r.lang='en-US';r.continuous=true;r.interimResults=true;r.maxAlternatives=5;
-    function ready(){var w=m.win;if(m.rec===r&&w&&!w.ready){w.ready=true;if(w.onReady)w.onReady();}}
-    r.onstart=ready;r.onaudiostart=ready;
-    r.onresult=function(e){if(m.rec===r)m.result(e);};
-    r.onerror=function(e){
-      if(m.rec!==r)return;
-      var c=e&&e.error;
-      if(c==='not-allowed'||c==='service-not-allowed')m.fail('not-allowed');
-      else if(c==='audio-capture')m.fail('audio-capture');
-      else if(c==='network')m.closeWin('network');
-    };
-    r.onend=function(){
-      if(m.rec!==r)return;
-      m.running=false;
-      var need=m.wanted&&(m.win||Date.now()<m.warmUntil);
-      if(need)setTimeout(function(){if(m.wanted&&!m.running&&(m.win||Date.now()<m.warmUntil))m.start();},250);
-      else m.chip();
-    };
-    m.rec=r;
-    try{r.start();m.running=true;}catch(e){m.running=false;}
-  },
-  result:function(e){
-    var w=this.win;if(!w)return;
-    for(var i=e.resultIndex;i<e.results.length;i++){
-      var r=e.results[i],alts=[];
-      for(var j=0;j<r.length;j++)alts.push(r[j].transcript);
-      if(!alts.length)continue;
-      w.interim=alts;
-      if(w.onInterim)w.onInterim(alts[0]);
-      if(r.isFinal){w.done(alts);return;}
-    }
-    clearTimeout(w.silence);
-    w.silence=setTimeout(function(){if(w.interim&&w.interim[0])w.done(w.interim);},1700);
+    var m=this;m.wanted=false;m.closeWin('aborted');m.chip();
   },
   closeWin:function(reason){
     var w=this.win;
-    if(w){this.win=null;w.reject(reason||'aborted');}
+    if(w)w.reject(reason||'aborted');
   },
   cancel:function(){this.closeWin('aborted');},
-  listen:function(onInterim,onReady){
-    var m=this;m.touch();m.closeWin('aborted');
-    return new Promise(function(resolve,reject){
-      var w={interim:null,onInterim:onInterim,onReady:onReady,ready:false,finished:false};
-      function clear(){clearTimeout(w.silence);clearTimeout(w.max);}
-      w.done=function(a){if(w.finished)return;w.finished=true;clear();if(m.win===w)m.win=null;m.touch();resolve(a);};
-      w.reject=function(c){if(w.finished)return;w.finished=true;clear();if(m.win===w)m.win=null;reject(c);};
-      w.max=setTimeout(function(){
-        if(w.interim&&w.interim[0])w.done(w.interim);else w.reject('no-speech');
-      },10500);
-      m.win=w;
-      if(m.running){w.ready=true;if(onReady)setTimeout(onReady,0);}
-      else m.start();
-    });
-  },
+  /* Listen once. Resolves with a list of alternative transcripts; rejects with an error code. */
   ask:function(onInterim,onReady){
     var m=this;
-    if(m.wanted&&m.permOK)return m.listen(onInterim,onReady);   // no awaits: keeps the tap gesture (Safari)
-    return m.enable().then(function(){return m.listen(onInterim,onReady);});
+    return new Promise(function(resolve,reject){
+      if(!SR){reject('unsupported');return;}
+      m.closeWin('aborted');
+      var r;
+      try{r=new SR();}catch(e){reject('unsupported');return;}
+      r.lang='en-US';r.continuous=false;r.interimResults=true;r.maxAlternatives=5;
+      var alts=null,err='',done=false,gotAudio=false,tStart=null,tMax=null,tSil=null,tBackup=null;
+      function clearAll(){clearTimeout(tStart);clearTimeout(tMax);clearTimeout(tSil);clearTimeout(tBackup);}
+      function finish(ok,val){
+        if(done)return;done=true;clearAll();
+        if(m.win===w)m.win=null;
+        if(m.rec===r)m.rec=null;
+        m.running=false;m.lastEnd=Date.now();
+        try{r.onresult=r.onerror=r.onend=r.onstart=r.onaudiostart=null;r.abort();}catch(e){}
+        m.chip();
+        if(ok)resolve(val);else reject(val);
+      }
+      var w={reject:function(c){finish(false,c);}};
+      r.onstart=function(){m.running=true;};
+      r.onaudiostart=function(){
+        if(gotAudio)return;gotAudio=true;
+        clearTimeout(tStart);
+        m.permOK=true;m.perm='granted';m.wanted=true;m.chip();
+        tMax=setTimeout(function(){if(alts)finish(true,alts);else finish(false,'no-speech');},14000);
+        if(onReady)onReady();
+      };
+      r.onresult=function(e){
+        var i,j,last=null,fin=false;
+        for(i=e.resultIndex;i<e.results.length;i++){
+          var res=e.results[i],a=[];
+          for(j=0;j<res.length;j++)a.push(res[j].transcript);
+          if(a.length){last=a;if(res.isFinal)fin=true;}
+        }
+        if(!last)return;
+        if(e.results.length>1){
+          var all=[];
+          for(i=0;i<e.results.length;i++)if(e.results[i][0])all.push(e.results[i][0].transcript);
+          last=[all.join(' ').replace(/\s+/g,' ').trim()].concat(last);
+        }
+        alts=last;
+        if(!gotAudio&&onReady){gotAudio=true;clearTimeout(tStart);if(onReady)onReady();}
+        if(onInterim)onInterim(alts[0]);
+        if(fin){finish(true,alts);return;}
+        clearTimeout(tSil);
+        tSil=setTimeout(function(){
+          try{r.stop();}catch(e0){}
+          tBackup=setTimeout(function(){if(alts)finish(true,alts);},1500);
+        },1600);
+      };
+      r.onerror=function(e){
+        var c=e&&e.error;err=c||err;
+        if(c==='not-allowed'||c==='service-not-allowed'){m.perm='denied';m.permOK=false;m.wanted=false;finish(false,'not-allowed');}
+        else if(c==='audio-capture'){m.wanted=false;finish(false,'audio-capture');}
+        else if(c==='network'){finish(false,'network');}
+        else if(c==='language-not-supported'){finish(false,'language');}
+        /* 'no-speech' and 'aborted' are resolved in onend */
+      };
+      r.onend=function(){
+        if(done)return;
+        if(alts)finish(true,alts);
+        else finish(false,(err&&err!=='aborted'&&err!=='no-speech')?err:(err==='aborted'?'no-start':'no-speech'));
+      };
+      m.win=w;m.rec=r;
+      /* If nothing starts within 12 s, stop waiting */
+      tStart=setTimeout(function(){if(!gotAudio&&!alts)finish(false,'no-start');},12000);
+      function go(){
+        if(done)return;
+        try{r.start();}
+        catch(e){
+          setTimeout(function(){if(done)return;try{r.start();}catch(e2){finish(false,'no-start');}},300);
+        }
+      }
+      var wait=260-(Date.now()-m.lastEnd);   // give the previous session a moment to close
+      if(wait>0)setTimeout(go,wait);else go();
+    });
   },
   diag:function(){
     var out=[];
     if(location.protocol==='file:')out.push({en:'This page is open as a local file, so the browser asks for the microphone every time. Open it from its web address (the GitHub Pages link) and choose “Allow” once.',es:'Esta página está abierta como archivo local, por eso el navegador pide el micrófono cada vez. Ábrela desde su dirección web (el enlace de GitHub Pages) y elige “Permitir” una sola vez.'});
     else if(location.protocol==='http:'&&!/^(localhost|127\.|\[::1\])/.test(location.hostname))out.push({en:'This page uses http, so the microphone is blocked. Use the https:// address.',es:'Esta página usa http, por eso el micrófono se bloquea. Usa la dirección https://.'});
+    try{if(navigator.brave)out.push({en:'Brave blocks speech recognition. Open this page in Chrome or Edge to use the microphone.',es:'Brave bloquea el reconocimiento de voz. Abre esta página en Chrome o Edge para usar el micrófono.'});}catch(e){}
+    if(/FBAN|FBAV|Instagram|MicroMessenger|WhatsApp|Line\/|Snapchat|TikTok/i.test(navigator.userAgent||''))out.push({en:'You are inside an app’s built-in browser, where the microphone does not work. Open this page in Chrome, Edge or Safari.',es:'Estás dentro del navegador interno de una app, donde el micrófono no funciona. Abre esta página en Chrome, Edge o Safari.'});
     try{if(window.top!==window.self)out.push({en:'The page is inside another page (frame). Open it in its own tab so the microphone permission is remembered.',es:'La página está dentro de otra página (marco). Ábrela en su propia pestaña para que se recuerde el permiso del micrófono.'});}
     catch(e){out.push({en:'The page is inside another page (frame). Open it in its own tab.',es:'La página está dentro de otra página (marco). Ábrela en su propia pestaña.'});}
     return out;
@@ -2618,7 +2615,7 @@ function studyListening(c){
   });
 }
 function studyPron(c){
-  c.append(h('div',{class:'notice',html:I('🎤 The microphone turns on once when you tap “Speak” and stays open while you practice (it turns off after 10 minutes without use, or with the 🎙️ button at the top). It works in Chrome or Edge and needs Internet.','El micrófono se activa una sola vez y queda abierto mientras practicas (se apaga tras 10 min sin usarlo, o con el botón 🎙️). Funciona en Chrome o Edge y necesita Internet.')}));
+  c.append(h('div',{class:'notice',html:I('\uD83C\uDFA4 Tap “Speak”, wait for “Speak now…” and say the phrase. It works in Chrome or Edge, needs Internet and asks for the microphone once (choose “Allow”).','Toca “Hablar”, espera el mensaje “Habla ahora…” y di la frase. Funciona en Chrome o Edge, necesita Internet y pide el micrófono una sola vez (elige “Permitir”).')}));
   c.append(h('h3',{style:'margin-top:0'},bi('Free practice lab','Laboratorio libre')));
   var ta=h('textarea',{'aria-label':'Text to practice'},'Her fish is called Nemo.');
   var res=h('div',{class:'heard','aria-live':'polite'}),tg=h('div',{class:'target'});
@@ -4539,9 +4536,9 @@ function openSettings(){
     h('div',{class:'row'},h('label',{for:'rate'},bi('Speed','Velocidad')),h('span',{style:'display:flex;align-items:center;gap:8px'},rate,rv)),
     h('div',{class:'row'},h('label',{for:'qn'},bi('Questions per quiz','Preguntas por prueba')),qn),
     h('div',{class:'row'},h('label',null,bi('🇪🇸 Show Spanish translations','Mostrar traducciones en español')),sw('swEs','Show Spanish translations',CFG.es!==false,function(b){CFG.es=!(CFG.es!==false);saveCfg();applyEs();b.setAttribute('aria-checked',CFG.es?'true':'false');})),
-    h('div',{class:'row'},h('label',null,bi('🎙️ Microphone (stays on)','Micrófono (queda abierto)')),SR?sw('swMic','Microphone',Mic.wanted,async function(b){
+    h('div',{class:'row'},h('label',null,bi('🎙️ Microphone (test / allow)','Micrófono (probar / permitir)')),SR?sw('swMic','Microphone',Mic.wanted,async function(b){
       if(Mic.wanted){Mic.disable();toast(I('Microphone turned off.','Micrófono apagado.'));}
-      else{try{await Mic.enable();toast(I('Microphone is on.','Micrófono activo.'));}catch(e){toast(micMsg(e));}}
+      else{try{await Mic.enable();toast(I('Microphone allowed and ready. ✅','Micrófono permitido y listo. ✅'));}catch(e){toast(micMsg(e));}}
       b.setAttribute('aria-checked',Mic.wanted?'true':'false');
     }):h('small',null,'Not available')),
     h('div',{class:'row'},h('label',null,bi('Microphone status','Estado del micrófono')),micStateRow()),
@@ -4567,7 +4564,7 @@ $('#gearBtn').addEventListener('click',openSettings);
 $('#userChip').addEventListener('click',function(){stopAll();go('login');});
 $('#micChip').addEventListener('click',async function(){
   if(Mic.wanted){Mic.disable();toast(I('Microphone turned off.','Micrófono apagado.'));return;}
-  try{await Mic.enable();toast(I('Microphone is on. It stays open while you practice.','Micrófono activo. Queda abierto mientras practicas.'));}
+  try{await Mic.enable();toast(I('Microphone allowed and ready. ✅','Micrófono permitido y listo. ✅'));}
   catch(e){toast(micMsg(e));}
 });
 if(TTS){loadVoices();if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=function(){loadVoices();};}
