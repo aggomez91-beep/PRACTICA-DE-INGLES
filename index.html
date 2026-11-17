@@ -864,6 +864,59 @@ table{border-radius:16px}
 }
 @media(max-width:340px){.sgrid{grid-template-columns:1fr}}
 @media(max-width:760px){.scard .rolepill .es{display:none}.scard .rolepill{font-size:11px;padding:2px 10px}}
+/* DICT-V3-START: dictionary organized by titles and concepts */
+.dsecs{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.dpart{display:flex;align-items:center;gap:8px;margin:20px 2px 0;font-weight:800;font-size:14px;letter-spacing:.6px;text-transform:uppercase;color:var(--mut)}
+.dpart::after{content:"";flex:1;height:1px;background:var(--line)}
+.dpart .es{text-transform:none;letter-spacing:0;font-weight:600}
+.dsec{--tint:#1456c8;position:relative;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .15s,border-color .15s}
+.dsec::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--tint)}
+.dsec.open{border-color:var(--tint);box-shadow:0 14px 34px rgba(15,40,90,.14)}
+.dsec-h{width:100%;display:flex;align-items:center;gap:14px;background:none;border:0;padding:14px 16px 14px 22px;text-align:left;color:var(--fg)}
+.dsec-h:hover{background:color-mix(in srgb,var(--tint) 7%,var(--card))}
+.dsec-ic{width:52px;height:52px;flex:none;border-radius:16px;display:grid;place-items:center;font-size:26px;background:color-mix(in srgb,var(--tint) 16%,var(--card))}
+.dsec-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.dsec-t{font-size:18px;line-height:1.2;letter-spacing:-.2px}
+.dsec-tx .es{font-size:13px;margin:0}
+.dsec-c{font-size:13.5px;color:var(--mut);margin-top:3px;line-height:1.3}
+.dsec-meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.dsec-n{font-weight:800;font-size:12px;background:color-mix(in srgb,var(--tint) 16%,var(--card));color:var(--fg);border-radius:99px;padding:2px 11px}
+.dsec-ok{font-size:11.5px;font-weight:800;color:var(--ok);white-space:nowrap}
+.dsec .mchev{color:var(--mut);font-size:18px;transition:transform .2s;flex:none}
+.dsec-h[aria-expanded=false] .mchev{transform:rotate(-90deg)}
+.dsec-b{padding:2px 16px 18px 22px;border-top:1px solid var(--line)}
+.dcon{background:linear-gradient(135deg,color-mix(in srgb,var(--tint) 12%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--tint) 30%,var(--line));border-radius:20px;padding:14px 16px 16px;margin:14px 0}
+.dcon-k{font-weight:800;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:var(--tint);filter:brightness(.85)}
+:root[data-theme=dark] .dcon-k{filter:none}
+.dcon-k .es{text-transform:none;letter-spacing:0;font-weight:600}
+.dcon-p{margin:6px 0 10px;font-size:16.5px;font-weight:600;line-height:1.45}
+.dcon-p .es{font-size:13.5px;margin-top:4px;font-weight:500}
+.dcon-l{font-size:12px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+.dcon-l .es{text-transform:none;letter-spacing:0;font-weight:600}
+.dcon-rule{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0}
+.dcon-rule code{background:var(--card);border:1px solid color-mix(in srgb,var(--tint) 35%,var(--line));border-radius:12px;padding:6px 12px;font-size:14.5px;font-weight:800;color:var(--acc-d);white-space:normal;line-height:1.4}
+:root[data-theme=dark] .dcon-rule code{color:#fff}
+.dcon-ex{margin-top:10px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.dcon-ex .dbub{background:var(--card);border-radius:14px 14px 14px 4px;padding:8px 12px;font-size:17px;display:inline-block;border:1px solid var(--line)}
+.dcon-ex .dres{align-self:stretch}
+.dcon-f{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.dcon-f .chip{font-size:11px;padding:1px 10px}
+.dcon-f .dbtn.go{margin-left:auto}
+.dbtn.go.sm{padding:7px 14px;font-size:13.5px;min-height:36px}
+.dtb{display:flex;gap:8px}
+.dsec .dlist{margin-top:6px}
+.dsec .lab{margin:12px 0}
+@media(max-width:720px){
+  .dsec-h{gap:10px;padding:12px 12px 12px 18px}
+  .dsec-ic{width:44px;height:44px;font-size:22px;border-radius:14px}
+  .dsec-t{font-size:16.5px}
+  .dsec-c{font-size:12.5px}
+  .dsec-b{padding:2px 10px 14px 16px}
+  .dcon{padding:12px 12px 14px}
+  .dcon-p{font-size:15.5px}
+  .dcon-f .dbtn.go{margin-left:0}
+}
+/* DICT-V3-END */
 </style>
 </head>
 <body>
@@ -3488,29 +3541,113 @@ function renderGeneral(v){
 }
 
 /* ============================================================
-   DICTIONARY v2 · illustrated cards + pronunciation check
+   DICTIONARY v3 · organized by TITLES and CONCEPTS (no A–Z)
    ============================================================ */
 var ES_NUM=['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve'];
 var ES_TENS=['','','veinte','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];
-var DICT_CATS=[
- ['all','📖','All|Todo','#1456c8'],
- ['subj','👤','Subjects|Sujetos','#3b82f6'],
- ['neg','🚫','Negatives|Negativos','#ef4444'],
- ['q','❓','Questions|Preguntas','#8b5cf6'],
- ['poss','🔗','Possessives|Posesivos','#14b8a6'],
- ['dem','👉','Demonstratives|Demostrativos','#f59e0b'],
- ['gram','🧩','Grammar rules|Reglas','#6366f1'],
- ['voc','🐾','Vocabulary|Vocabulario','#22c55e'],
- ['nat','🌍','Nationalities|Nacionalidades','#0ea5e9'],
- ['num','🔢','Numbers|Números','#ec4899'],
- ['abc','🔤','Alphabet & symbols|Alfabeto y símbolos','#64748b']
+
+/* ---------- the titles (sections) and their concepts ---------- */
+var DPARTS=[
+ ['gram','📘','Grammar|Gramática'],
+ ['snd','🔤','Sounds & spelling|Sonidos y escritura'],
+ ['numc','🌍','Numbers & countries|Números y países'],
+ ['voc','🐾','Vocabulary|Vocabulario']
 ];
-function dCat(id){return DICT_CATS.filter(function(c){return c[0]===id;})[0];}
-var DICT=null;
-var SUBJ_COL={I:'#1456c8',you:'#f59e0b',he:'#0ea5e9',she:'#ec4899',it:'#22c55e',we:'#1456c8',they:'#8b5cf6'};
-var DEM_EMOJI={this:'📘',these:'📘',that:'📕',those:'📕'};
+var DSECS=[
+ {id:'subj',part:'gram',icon:'👤',tint:'#3b82f6',t:'Subject pronouns|Pronombres sujeto',
+  k:'Who the sentence is about.|De quién habla la oración.',
+  c:'The subject says WHO does the action or who the sentence is about. In English you always have to say it: I, you, he, she, it, we, they.|El sujeto dice QUIÉN hace la acción o de quién habla la oración. En inglés siempre hay que decirlo: I, you, he, she, it, we, they.',
+  rule:'I · you · he · she · it · we · they',ex:'She is thirty-two years old.'},
+ {id:'person',part:'gram',icon:'🧑‍🤝‍🧑',tint:'#6366f1',t:'Grammatical person|Persona gramatical',
+  k:'1st, 2nd and 3rd person.|1.ª, 2.ª y 3.ª persona.',
+  c:'Grammatical person groups the subjects: the 1st person is who speaks (I, we), the 2nd is who you speak to (you) and the 3rd is everyone else (he, she, it, they).|La persona gramatical agrupa los sujetos: la 1.ª es quien habla (I, we), la 2.ª es a quien le hablas (you) y la 3.ª es todo lo demás (he, she, it, they).',
+  rule:'1st: I, we · 2nd: you · 3rd: he, she, it, they',ex:'They are from Libya.'},
+ {id:'be',part:'gram',icon:'🟦',tint:'#1456c8',t:'Verb BE (am · is · are)|Verbo BE (am · is · are)',
+  k:'Links the subject with a name, age, place…|Une el sujeto con un nombre, edad, lugar…',
+  c:'BE links the subject with a name, age, nationality, feeling or place. It changes with the subject and, in a normal (affirmative) sentence, goes right after it.|BE une el sujeto con un nombre, edad, nacionalidad, estado o lugar. Cambia según el sujeto y, en una oración afirmativa, va justo después de él.',
+  rule:'I am · he / she / it is · you / we / they are',ex:'He is beautiful.'},
+ {id:'neg',part:'gram',icon:'🚫',tint:'#ef4444',t:'Negatives|Negativos',
+  k:'BE + not.|BE + not.',
+  c:'To make a negative sentence, put not after am / is / are. When we speak we usually use the short form: isn’t and aren’t (with I we say I’m not).|Para negar, se pone not después de am / is / are. Al hablar se usa la forma corta: isn’t y aren’t (con I se dice I’m not).',
+  rule:'Subj + be + not + rest of the sentence',ex:'She isn’t a nurse.'},
+ {id:'yn',part:'gram',icon:'❓',tint:'#8b5cf6',t:'Yes/No questions|Preguntas de sí o no',
+  k:'Questions you answer with yes or no.|Preguntas que se responden sí o no.',
+  c:'In a Yes/No question, BE goes BEFORE the subject.|En una pregunta de sí o no, BE va ANTES del sujeto.',
+  rule:'Be + subj. + rest of the question',ex:'Are they students?'},
+ {id:'wh',part:'gram',icon:'🔎',tint:'#a855f7',t:'Wh- questions|Preguntas abiertas (Wh-)',
+  k:'How, why, what, who, when, where, whose.|How, why, what, who, when, where, whose.',
+  c:'Wh- words ask for specific information. They go first, then BE and the subject.|Las palabras Wh- piden información concreta. Van primero, luego BE y el sujeto.',
+  rule:'Wh- + be + subj. + rest of the question',ex:'Where are they?'},
+ {id:'poss',part:'gram',icon:'🔗',tint:'#14b8a6',t:'Possessive adjectives|Adjetivos posesivos',
+  k:'my · your · his · her · its · our · their|my · your · his · her · its · our · their',
+  c:'Possessive adjectives show who something belongs to. They go before the noun and do not change for singular or plural.|Los adjetivos posesivos muestran de quién es algo. Van antes del sustantivo y no cambian por singular o plural.',
+  rule:'I → my · you → your · he → his · she → her · it → its · we → our · they → their',ex:'Her fish is called Nemo.'},
+ {id:'dem',part:'gram',icon:'👉',tint:'#f59e0b',t:'this · that · these · those|Demostrativos (cerca o lejos)',
+  k:'Close or far, one or many.|Cerca o lejos, uno o varios.',
+  c:'Demonstratives point to things. They show the distance (close or far) and the number (one or many). They also work for time: this week is now, that summer was long ago.|Los demostrativos señalan cosas. Muestran la distancia (cerca o lejos) y la cantidad (uno o varios). También sirven para el tiempo: this week es ahora, that summer fue hace mucho.',
+  rule:'this = one + close · that = one + far · these = many + close · those = many + far',ex:'These are my books.'},
+ {id:'simple',part:'gram',icon:'⏱️',tint:'#0ea5e9',t:'Present Simple|Presente simple',
+  k:'Habits, truths and schedules.|Hábitos, verdades y horarios.',
+  c:'The Present Simple talks about habits, general truths, permanent situations and fixed schedules. With he / she / it the verb takes -s.|El presente simple habla de hábitos, verdades generales, situaciones permanentes y horarios fijos. Con he / she / it el verbo lleva -s.',
+  rule:'he / she / it + verb + s',ex:'Raquel lives in Santiago.'},
+ {id:'struct',part:'gram',icon:'🧩',tint:'#6366f1',t:'Age and “is called”|Edad y “is called”',
+  k:'Two useful patterns from class.|Dos estructuras útiles de la clase.',
+  c:'Age uses BE (not “have”), and “is called” gives the name of a pet or a thing.|La edad se dice con BE (no con “have”) y “is called” da el nombre de una mascota o cosa.',
+  rule:'Subj + be + number + years old · Subj + is called + name',ex:'Her fish is called Nemo.'},
+ {id:'plural',part:'gram',icon:'📚',tint:'#22c55e',t:'Plurals|Plurales',
+  k:'-s · -es · -ies|-s · -es · -ies',
+  c:'Most nouns add -s. Nouns ending in x, sh or ch add -es. Consonant + y changes to -ies.|La mayoría de los sustantivos agrega -s. Los terminados en x, sh o ch agregan -es. Consonante + y cambia a -ies.',
+  rule:'book → books · watch → watches · dictionary → dictionaries',ex:'I have two watches.'},
+ {id:'vowels',part:'snd',icon:'🅰️',tint:'#f97316',t:'Long and short vowels|Vocales largas y cortas',
+  k:'The sound of a, e, i, o, u.|El sonido de a, e, i, o, u.',
+  c:'A long vowel says its own name (cake, feet, kite, rope, cute). A short vowel makes a short sound (apple, jet, fish, clock, sun).|Una vocal larga dice su propio nombre (cake, feet, kite, rope, cute). Una vocal corta hace un sonido corto (apple, jet, fish, clock, sun).',
+  rule:'long vowel: says its name · short vowel: short sound',ex:'I like cake.'},
+ {id:'abc',part:'snd',icon:'🔤',tint:'#64748b',t:'The alphabet|El alfabeto',
+  k:'The 26 letters.|Las 26 letras.',
+  c:'The English alphabet has 26 letters. Learn the name of each letter to spell names, emails and phone numbers.|El alfabeto inglés tiene 26 letras. Aprende el nombre de cada una para deletrear nombres, correos y teléfonos.',
+  rule:'A (ay) · B (bee) · C (see)…',ex:'How do you spell your name?'},
+ {id:'punct',part:'snd',icon:'⌨️',tint:'#475569',t:'Punctuation marks|Signos de puntuación',
+  k:'Symbols for emails and web addresses.|Símbolos para correos y direcciones web.',
+  c:'These symbols appear in emails and web addresses, so you need to say them correctly: dot (.), at (@), hyphen (-), underscore (_).|Estos símbolos aparecen en correos y direcciones web, por eso hay que decirlos bien: dot (.), at (@), hyphen (-), underscore (_).',
+  rule:'john.smith@gmail.com → john dot smith at gmail dot com',ex:'My email is john dot smith at gmail dot com.'},
+ {id:'num',part:'numc',icon:'🔢',tint:'#ec4899',t:'Numbers|Números',
+  k:'0–19, the tens and big numbers.|0–19, las decenas y números grandes.',
+  c:'Numbers from 0 to 19, the tens and the big numbers. Watch the stress: thir-TEEN (13) is stressed at the end, THIR-ty (30) at the start.|Números del 0 al 19, las decenas y los números grandes. Cuida el acento: thir-TEEN (13) va al final, THIR-ty (30) va al inicio.',
+  rule:'13 = thir-TEEN · 30 = THIR-ty',ex:'I am thirty-five years old.'},
+ {id:'nat',part:'numc',icon:'🌍',tint:'#0ea5e9',t:'Countries, flags and nationalities|Países, banderas y nacionalidades',
+  k:'Where you are from and what you are.|De dónde eres y qué eres.',
+  c:'Every country has a flag and a nationality. Say where you are from and what you are. Common endings: -ish, -an, -ese.|Cada país tiene una bandera y una nacionalidad. Di de dónde eres y qué eres. Terminaciones comunes: -ish, -an, -ese.',
+  rule:'I am from Chile. I am Chilean.',ex:'I am from Chile. I am Chilean.'},
+ {id:'col',part:'voc',icon:'🎨',tint:'#f43f5e',t:'Colors|Colores',
+  k:'The basic colors.|Los colores básicos.',
+  c:'The basic colors. Tap a card to hear the color and check your pronunciation.|Los colores básicos. Toca una tarjeta para oír el color y revisar tu pronunciación.',
+  rule:'',ex:'My favorite color is blue.'},
+ {id:'pets',part:'voc',icon:'🐶',tint:'#22c55e',t:'Pets|Mascotas',
+  k:'Animals people keep at home.|Animales que se tienen en casa.',
+  c:'Animals people keep at home. You can say the name of your pet with “is called”.|Animales que se tienen en casa. Puedes decir el nombre de tu mascota con “is called”.',
+  rule:'',ex:'My dog is called Max.'},
+ {id:'farm',part:'voc',icon:'🐄',tint:'#84cc16',t:'Farm animals|Animales de granja',
+  k:'Animals you find on a farm.|Animales que hay en una granja.',
+  c:'Animals you find on a farm.|Animales que hay en una granja.',
+  rule:'',ex:'The animals are on the farm.'},
+ {id:'things',part:'voc',icon:'🎒',tint:'#06b6d4',t:'Everyday things|Objetos cotidianos',
+  k:'Objects you carry or use every day.|Objetos que llevas o usas cada día.',
+  c:'Objects you carry or use every day. In the US a small money holder is a wallet; in the UK it is a purse.|Objetos que llevas o usas cada día. En EE. UU. se dice wallet a la billetera; en Reino Unido, purse.',
+  rule:'',ex:'This is my wallet.'},
+ {id:'people',part:'voc',icon:'👪',tint:'#d946ef',t:'Family, friends and jobs|Familia, amigos y trabajos',
+  k:'People around you.|Las personas a tu alrededor.',
+  c:'Words for the people around you and what they do.|Palabras para las personas a tu alrededor y lo que hacen.',
+  rule:'',ex:'This is my sister.'},
+ {id:'words',part:'voc',icon:'📝',tint:'#64748b',t:'More words from class|Más palabras de la clase',
+  k:'Words from the class exercises.|Palabras de los ejercicios de clase.',
+  c:'Other words from the class exercises: oil, fruit, jam, giraffe, guitar…|Otras palabras de los ejercicios de clase: oil, fruit, jam, giraffe, guitar…',
+  rule:'',ex:'I play the guitar.'}
+];
+function dSec(id){return DSECS.filter(function(s){return s.id===id;})[0];}
+function dPart(id){return DPARTS.filter(function(p){return p[0]===id;})[0];}
 
 /* ---------- ART: small SVG scenes (no external images) ---------- */
+var SUBJ_COL={I:'#1456c8',you:'#f59e0b',he:'#0ea5e9',she:'#ec4899',it:'#22c55e',we:'#1456c8',they:'#8b5cf6'};
 function svgW(w,hh,inner,cls){return '<svg class="art '+(cls||'')+'" viewBox="0 0 '+w+' '+hh+'" role="img" aria-hidden="true" preserveAspectRatio="xMidYMid meet">'+inner+'</svg>';}
 function pPerson(x,y,s,col,o){
   o=o||{};var hr=8*s,bh=26*s,w=18*s,hy=y-bh-hr-2*s,g='';
@@ -3542,11 +3679,11 @@ function subjInner(who){
 function subjSVG(who){return svgW(160,108,subjInner(who),'a-subj');}
 function negSVG(who){
   var inner=who?subjInner(who):'<text class="artt" x="80" y="68" text-anchor="middle" font-size="46" font-weight="900">not</text>';
-  inner+='<g><circle cx="140" cy="26" r="17" fill="#ef4444"/><path d="M132 18 l16 16 M148 18 l-16 16" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g>';
-  return svgW(160,108,inner,'a-neg');
+  inner+='<g><circle cx="172" cy="24" r="17" fill="#ef4444"/><path d="M164 16 l16 16 M180 16 l-16 16" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g>';
+  return svgW(192,108,inner,'a-neg');
 }
 function possSVG(who){
-  var owner=who==='it'?'🐱':'',obj=who==='it'?'🐾':'🐶',c=SUBJ_COL[who]||'#14b8a6';
+  var obj=who==='it'?'🐾':'🐶',c=SUBJ_COL[who]||'#14b8a6';
   var inner='<g transform="translate(-4,6) scale(.8)">'+subjInner(who)+'</g>'+
     '<path d="M118 66 q16 -22 36 0" fill="none" stroke="'+c+'" stroke-width="3" stroke-dasharray="5 5" stroke-linecap="round"/>'+
     '<text x="168" y="86" font-size="40" text-anchor="middle">'+obj+'</text>'+
@@ -3566,7 +3703,7 @@ function demSVG(key,big){
     '<rect x="'+zx+'" y="34" width="'+zw+'" height="70" rx="14" fill="'+col+'" opacity=".14"/>'+
     pPerson(24,104,1.25,'#1456c8',{})+
     pArrow(44,72,near?(plural?60:76):146,72,col)+
-    '<text x="'+(near?(plural?100:100):188)+'" y="26" text-anchor="middle" font-size="13" font-weight="800" fill="'+col+'">'+(near?'CLOSE · cerca':'FAR · lejos')+'</text>'+
+    '<text x="'+(near?100:188)+'" y="26" text-anchor="middle" font-size="13" font-weight="800" fill="'+col+'">'+(near?'CLOSE · cerca':'FAR · lejos')+'</text>'+
     o+
     '<text class="artt" x="24" y="122" text-anchor="middle" font-size="11" font-weight="700">me</text>'+
     '<text x="'+(near?100:188)+'" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="'+col+'">'+(plural?'MANY · varios':'ONE · uno')+'</text>';
@@ -3587,8 +3724,34 @@ function dArt(e){
   return emojiArt(a.v||'💬',a.txt);
 }
 
-/* ---------- build entries ---------- */
+/* ---------- build entries (cat is kept so saved scores keep working) ---------- */
 function dTarget(t){return String(t).replace(/[’‘]/g,"'").split(' / ')[0].replace(/[…?!.,;:"“”→]/g,' ').replace(/\s+/g,' ').trim();}
+var D_SEC_W={'1st person':'person','2nd person':'person','3rd person':'person','Present Simple':'simple','he / she / it + -s':'simple','age with BE':'struct','is called':'struct','plural: add -s':'plural','plural: add -es':'plural','plural: -y → -ies':'plural','long vowel':'vowels','short vowel':'vowels','demonstratives and time':'dem','Affirmative sentence':'be'};
+var D_PEOPLE=['brother','sister','mother','grandparents','friend','daughter','mum','journalist','nurse','singer','student'];
+function dSecFor(e){
+  var w=e.w,x=e.extra||'';
+  switch(e.cat){
+    case 'subj':return (w==='am'||w==='is'||w==='are')?'be':'subj';
+    case 'neg':return 'neg';
+    case 'q':return /^(How|Why|What|Who|When|Where|Whose|Wh- question)$/.test(w)?'wh':'yn';
+    case 'poss':return 'poss';
+    case 'dem':return 'dem';
+    case 'gram':return D_SEC_W[w]||'struct';
+    case 'nat':return 'nat';
+    case 'num':return 'num';
+    case 'abc':return e.sym?'punct':'abc';
+    default:{
+      var lw=w.toLowerCase();
+      if(x.indexOf('color')>-1)return 'col';
+      if(lw==='snake'||x.indexOf('pet')===0)return 'pets';
+      if(x.indexOf('farm')===0)return 'farm';
+      if(D_PEOPLE.indexOf(lw)>-1)return 'people';
+      var th=THINGS.map(function(a){return a.en.toLowerCase();}).concat(['sandwiches','presents','ufo','symbols','backpack','football boots','car','house']);
+      if(th.indexOf(lw)>-1)return 'things';
+      return 'words';
+    }
+  }
+}
 function buildDict(){
   var L=[],seen={};
   function add(cat,w,es,mods,o){
@@ -3596,7 +3759,6 @@ function buildDict(){
     L.push({cat:cat,w:w,es:es,mods:mods||[],ex:o.ex||'',exEs:o.exEs||'',note:o.note||'',noteEs:o.noteEs||'',sym:o.sym||'',extra:o.extra||'',
       art:o.art||{k:'emoji',v:o.em||'💬'},audio:o.audio||{text:o.say||w},tgt:o.tgt||dTarget(o.say||w),acc:o.acc||null});
   }
-  var SU=['I','you','he','she','it','we','they'];
   /* ---- Subjects ---- */
   [['I','yo','1st person · singular','1.ª persona · singular','I am 25 years old.','Yo tengo 25 años.'],
    ['you','tú / usted / ustedes','2nd person · singular and plural','2.ª persona · singular y plural','You are my friend.','Tú eres mi amigo.'],
@@ -3698,19 +3860,23 @@ function buildDict(){
   'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(function(l){add('abc',l,'se dice “'+(ES_PRON[l]||'')+'”',['M2'],{audio:{spell:l},art:{k:'big',v:l+l.toLowerCase(),sub:SAY_LETTER[l]},tgt:SAY_LETTER[l],acc:[l.toLowerCase(),SAY_LETTER[l]],extra:'letter letra alphabet alfabeto'});});
   PUNCT.forEach(function(p){add('abc',p[0],p[1],['M5'],{sym:p[2],art:{k:'big',v:p[2],sub:p[0]},extra:'punctuation symbol puntuación símbolo '+p[2]});});
 
+  /* ---- assign each entry to its title, then order by title (not by letter) ---- */
+  L.forEach(function(e,i){e.sec=dSecFor(e);e._i=i;});
+  var order={};DSECS.forEach(function(s,i){order[s.id]=i;});
+  L.sort(function(a,b){return (order[a.sec]-order[b.sec])||(a._i-b._i);});
   L.forEach(function(e,i){
-    var c=dCat(e.cat),ct=spl(c[2]);
+    var s=dSec(e.sec),st=spl(s.t);
     e.id=i;e.pk=e.cat+'|'+e.w;
     e.sTgt=(e.ex&&dTarget(e.ex)!==e.tgt)?dTarget(e.ex):'';
-    e.hay=dNorm([e.w,e.es,e.ex,e.exEs,e.note,e.noteEs,e.extra,e.sym,ct.en,ct.es,e.mods.join(' ')].join(' '));
-    e.key=dNorm(e.w).replace(/[^a-z0-9]/g,'')||dNorm(e.w);
+    e.hay=dNorm([e.w,e.es,e.ex,e.exEs,e.note,e.noteEs,e.extra,e.sym,st.en,st.es,e.mods.join(' ')].join(' '));
   });
   return L;
 }
 function dNorm(s){return String(s==null?'':s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'");}
 
 /* ---------- pronunciation check ---------- */
-var DS={q:'',cat:'all',view:'az',pi:-1};
+var DICT=null;
+var DS={q:'',part:'all',open:{},pr:null,pi:0};
 function dBest(pk){return (S.dictp&&S.dictp[pk])||0;}
 function dSave(pk,pct){S.dictp=S.dictp||{};if(!S.dictp[pk]||pct>S.dictp[pk]){S.dictp[pk]=pct;save();}}
 function dVerdict(pc){
@@ -3746,13 +3912,13 @@ function selfRate(box,pk,onDone){
 /* ---------- one illustrated card ---------- */
 function dEntry(e,opt){
   opt=opt||{};
-  var c=dCat(e.cat),ct=spl(c[2]);
-  var card=h('article',{class:'de2'+(opt.big?' big':''),style:'--tint:'+c[3]});
+  var s=dSec(e.sec),st=spl(s.t);
+  var card=h('article',{class:'de2'+(opt.big?' big':''),style:'--tint:'+s.tint});
   var art=h('div',{class:'dart',html:dArt(e)});
-  var best=dBest(e.pk),score=h('span',{class:'dscore'+(best>=80?' ok':'')});
+  var score=h('span',{class:'dscore'});
   function setScore(){var b=dBest(e.pk);score.textContent=b?(b>=80?'✅ ':'🎤 ')+b+'%':'';score.className='dscore'+(b>=80?' ok':'')+(b?'':' empty');}
   setScore();
-  art.append(h('span',{class:'dcat'},c[1]+' '+ct.en));
+  if(opt.secTag||opt.big)art.append(h('span',{class:'dcat'},s.icon+' '+st.en));
   var w=h('h4',{class:'dw'},e.w);
   if(e.sym)w.append(h('span',{class:'dsym'},e.sym));
   var body=h('div',{class:'dbody'},h('div',{class:'dtop'},w,score),h('div',{class:'dmean'},e.es));
@@ -3848,93 +4014,147 @@ function dSubjectTable(){
     h('div',{html:tbl(['Subject<span class="es">Sujeto</span>','Español','BE','Negative<span class="es">Negativo</span>','Short<span class="es">Corta</span>','Question<span class="es">Pregunta</span>','Possessive<span class="es">Posesivo</span>'],rows)}));
 }
 
-/* ---------- Dictionary screen ---------- */
+/* ---------- Dictionary screen: titles → concept → cards ---------- */
 function renderDictionary(v){
   if(!DICT)DICT=buildDict();
   var inp=h('input',{type:'search',placeholder:'Search / Buscar…',value:DS.q,'aria-label':'Search the dictionary',autocomplete:'off',autocapitalize:'none',spellcheck:'false'});
-  var clr=h('button',{type:'button',class:'btn sm ghost','aria-label':'Clear search',onclick:function(){DS.q='';inp.value='';DS.pi=-1;draw();inp.focus();}},'✕');
-  var chipsBox=h('div',{class:'dchips',role:'group','aria-label':'Categories'});
+  var clr=h('button',{type:'button',class:'btn sm ghost','aria-label':'Clear search',onclick:function(){DS.q='';inp.value='';draw();inp.focus();}},'✕');
+  var partsBox=h('div',{class:'dchips',role:'group','aria-label':'Parts'});
   var info=h('small',{role:'status','aria-live':'polite'});
   var prog=h('div',{class:'dprog'});
-  var segAz=h('button',{type:'button',onclick:function(){DS.view='az';DS.pi=-1;draw();}},'A–Z');
-  var segTp=h('button',{type:'button',onclick:function(){DS.view='topic';DS.pi=-1;draw();}},bi('By topic','Por tema',true));
-  var azbar=h('div',{class:'daz',role:'navigation','aria-label':'Letters'});
-  var labs=h('div');
-  var box=h('div');
-  v.append(h('h2',null,bi('📖 Dictionary','Diccionario')),
-    h('p',{class:'muted',html:I('Illustrated cards for every point we have seen. Listen, then say it with 🎤 to check your pronunciation.','Tarjetas ilustradas de todo lo visto. Escucha y luego dilo con 🎤 para revisar tu pronunciación.')}));
-  v.append(h('div',{class:'dsearch'},h('div',{class:'dsrow'},inp,clr),chipsBox));
-  v.append(prog,h('div',{class:'dtools'},info,h('div',{class:'dseg',role:'group','aria-label':'View'},segAz,segTp)),azbar,labs,box);
+  var btnOpen=h('button',{type:'button',class:'btn sm',onclick:function(){setAllOpen(true);}},bi('Open all','Abrir todo',true));
+  var btnShut=h('button',{type:'button',class:'btn sm',onclick:function(){setAllOpen(false);}},bi('Close all','Cerrar todo',true));
+  var tools=h('div',{class:'dtools'},info,h('div',{class:'dtb'},btnOpen,btnShut));
+  var searchEl=h('div',{class:'dsearch'},h('div',{class:'dsrow'},inp,clr),partsBox);
+  var intro=h('div',null,h('h2',null,bi('📖 Dictionary','Diccionario')),
+    h('p',{class:'muted',html:I('Organized by titles. Each title explains its concept and then shows its cards with pictures. Listen, then say it with 🎤.','Organizado por títulos. Cada título explica su concepto y luego muestra sus tarjetas con imágenes. Escucha y luego dilo con 🎤.')}));
+  var box=h('div',{class:'dsecs'});
+  v.append(intro,searchEl,prog,tools,box);
 
-  function drawChips(){
-    chipsBox.innerHTML='';
-    DICT_CATS.forEach(function(c){
-      var n=c[0]==='all'?DICT.length:DICT.filter(function(e){return e.cat===c[0];}).length,t=spl(c[2]);
-      chipsBox.append(h('button',{type:'button',class:'dchip','aria-pressed':DS.cat===c[0]?'true':'false',onclick:function(){DS.cat=c[0];DS.pi=-1;draw();}},c[1]+' '+t.en+' ('+n+')',h('span',{class:'es'},t.es)));
+  function chrome(show){intro.hidden=!show;searchEl.hidden=!show;prog.hidden=!show;tools.hidden=!show;}
+  function terms(){return dNorm(DS.q).trim().split(/\s+/).filter(Boolean);}
+  function visible(){
+    var t=terms();
+    return DICT.filter(function(e){return (DS.part==='all'||dSec(e.sec).part===DS.part)&&t.every(function(x){return e.hay.indexOf(x)>-1;});});
+  }
+  function startPractice(ids){DS.pr=ids.slice();DS.pi=0;draw();window.scrollTo(0,0);}
+  function setAllOpen(open){
+    DSECS.forEach(function(s){DS.open[s.id]=open;});
+    draw();
+  }
+  function drawParts(){
+    partsBox.innerHTML='';
+    var all=[['all','📖','All titles|Todos los títulos']].concat(DPARTS);
+    all.forEach(function(p){
+      var n=p[0]==='all'?DSECS.length:DSECS.filter(function(s){return s.part===p[0];}).length,t=spl(p[2]);
+      partsBox.append(h('button',{type:'button',class:'dchip','aria-pressed':DS.part===p[0]?'true':'false',onclick:function(){DS.part=p[0];draw();}},p[1]+' '+t.en+' ('+n+')',h('span',{class:'es'},t.es)));
     });
   }
-  function drawProg(items){
+  function drawProg(vis){
     var ok=DICT.filter(function(e){return dBest(e.pk)>=80;}).length,pct=Math.round(ok/DICT.length*100);
     prog.innerHTML='';
     prog.append(h('div',{class:'dprog-t'},h('b',null,'🎤 '),bi('Pronounced well','Bien pronunciadas'),h('b',{style:'margin-left:auto'},ok+' / '+DICT.length)),
       h('div',{class:'t'},h('div',{style:'width:'+pct+'%'})));
-    if(SR&&items.length){
-      prog.append(h('button',{type:'button',class:'dbtn go',onclick:function(){DS.pi=0;draw();window.scrollTo(0,0);}},'🎯 ',bi('Practice pronunciation ('+items.length+')','Practicar pronunciación ('+items.length+')',true)));
+    if(SR&&vis.length){
+      prog.append(h('button',{type:'button',class:'dbtn go',onclick:function(){startPractice(vis.map(function(e){return e.id;}));}},'🎯 ',bi('Practice pronunciation ('+vis.length+')','Practicar pronunciación ('+vis.length+')',true)));
     }
   }
-  function sortKey(a,b){return a.key<b.key?-1:a.key>b.key?1:0;}
-  function draw(){
-    drawChips();
-    segAz.setAttribute('aria-pressed',DS.view==='az'?'true':'false');
-    segTp.setAttribute('aria-pressed',DS.view==='topic'?'true':'false');
-    var terms=dNorm(DS.q).trim().split(/\s+/).filter(Boolean);
-    var items=DICT.filter(function(e){return (DS.cat==='all'||e.cat===DS.cat)&&terms.every(function(t){return e.hay.indexOf(t)>-1;});});
-    drawProg(items);
-    labs.innerHTML='';box.innerHTML='';azbar.innerHTML='';
-    info.innerHTML=items.length+' '+I('entries','entradas');
-    /* focused practice mode */
-    if(DS.pi>=0){
-      items.sort(sortKey);
-      if(DS.pi>=items.length)DS.pi=items.length-1;
-      var e=items[DS.pi];
-      azbar.hidden=true;
-      box.append(h('div',{class:'dpr-bar'},
-        h('button',{type:'button',class:'btn sm',onclick:function(){DS.pi=-1;draw();}},bi('← Back to list','Volver a la lista',true)),
-        h('b',null,(DS.pi+1)+' / '+items.length),
-        h('div',{class:'dpr-nav'},
-          h('button',{type:'button',class:'btn sm',disabled:DS.pi===0?'disabled':null,onclick:function(){DS.pi--;draw();}},'◀'),
-          h('button',{type:'button',class:'btn sm pri',disabled:DS.pi>=items.length-1?'disabled':null,onclick:function(){DS.pi++;draw();}},bi('Next ▶','Siguiente ▶',true)))));
-      box.append(dEntry(e,{big:true}));
-      hydrateFlags(box);
-      return;
+  function conceptPanel(s,all){
+    var c=spl(s.c),mods=[];
+    all.forEach(function(e){e.mods.forEach(function(m){if(mods.indexOf(m)<0)mods.push(m);});});
+    mods.sort();
+    var p=h('div',{class:'dcon'},
+      h('div',{class:'dcon-k'},bi('💡 Concept','💡 Concepto')),
+      h('p',{class:'dcon-p'},c.en,h('span',{class:'es'},c.es)));
+    if(s.rule)p.append(h('div',{class:'dcon-rule'},h('span',{class:'dcon-l'},bi('Rule','Regla',true)),h('code',null,s.rule)));
+    if(s.ex){
+      var res=h('div',{class:'dres','aria-live':'polite'});
+      var act=h('div',{class:'dact'},
+        h('button',{type:'button',class:'dbtn','aria-label':'Listen to the example',onclick:function(){playAudio({text:s.ex});}},'🔊 ',h('span',null,'Listen',h('span',{class:'es'},'Escuchar'))),
+        h('button',{type:'button',class:'dbtn','aria-label':'Listen slowly',onclick:function(){playAudio({text:s.ex},true);}},'🐢'));
+      if(SR){var mb=micBtn('Say it','Dilo');mb.addEventListener('click',function(){dCheck(dTarget(s.ex),null,res,mb,null,null);});act.append(mb);}
+      p.append(h('div',{class:'dcon-ex'},h('div',{class:'dcon-l'},bi('Example','Ejemplo',true)),h('div',{class:'dbub',html:say_(s.ex)}),act,res));
     }
-    azbar.hidden=false;
-    var showLabs=terms.length===0;
-    if(showLabs&&(DS.cat==='all'||DS.cat==='subj'||DS.cat==='neg'||DS.cat==='poss')){labs.append(subjectExplorer());labs.append(dSubjectTable());}
-    if(showLabs&&(DS.cat==='all'||DS.cat==='dem'))labs.append(demLab());
-    if(!items.length){box.append(h('div',{class:'dempty'},h('div',{style:'font-size:40px'},'🔎'),bi('No results. Try another word or category.','Sin resultados. Prueba otra palabra o categoría.')));return;}
-    var groups=[];
-    function grp(key,label,sub){var g=groups.filter(function(x){return x.key===key;})[0];if(!g){g={key:key,label:label,sub:sub,items:[]};groups.push(g);}return g;}
-    if(DS.view==='az'){
-      items.sort(sortKey);
-      items.forEach(function(e){var L=/[a-z]/.test(e.key.charAt(0))?e.key.charAt(0).toUpperCase():'#';grp(L,L,'').items.push(e);});
-      groups.sort(function(a,b){return a.key<b.key?-1:a.key>b.key?1:0;});
-    }else{
-      DICT_CATS.forEach(function(c){if(c[0]==='all')return;var t=spl(c[2]);var its=items.filter(function(e){return e.cat===c[0];});
-        if(its.length){its.sort(sortKey);var g=grp(c[0],c[1]+' '+t.en,t.es);g.items=its;}});
-    }
-    groups.forEach(function(g,i){
-      var id='dg_'+i;
-      if(DS.view==='az'){azbar.append(h('button',{type:'button','aria-label':'Go to '+g.label,onclick:function(){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}},g.label));}
-      box.append(h('div',{class:'dgrp',id:id},g.label,h('small',null,g.sub?g.sub+' · '+g.items.length:String(g.items.length))));
+    var foot=h('div',{class:'dcon-f'});
+    if(mods.length){foot.append(h('span',{class:'dcon-l'},bi('Seen in','Visto en',true)));mods.forEach(function(m){foot.append(h('span',{class:'chip'},m));});}
+    if(SR)foot.append(h('button',{type:'button',class:'dbtn go sm',onclick:function(){startPractice(all.map(function(e){return e.id;}));}},'🎯 ',bi('Practice this title ('+all.length+')','Practicar este título ('+all.length+')',true)));
+    p.append(foot);
+    return p;
+  }
+  function secEl(s,items,searching){
+    var all=DICT.filter(function(e){return e.sec===s.id;}),t=spl(s.t),k=spl(s.k);
+    var okc=all.filter(function(e){return dBest(e.pk)>=80;}).length;
+    var open=searching||!!DS.open[s.id],done=false;
+    var wrap=h('section',{class:'dsec'+(open?' open':''),id:'ds_'+s.id,style:'--tint:'+s.tint});
+    var head=h('button',{type:'button',class:'dsec-h','aria-expanded':open?'true':'false','aria-controls':'dsb_'+s.id},
+      h('span',{class:'dsec-ic','aria-hidden':'true'},s.icon),
+      h('span',{class:'dsec-tx'},h('b',{class:'dsec-t'},t.en),t.es&&t.es!==t.en?h('span',{class:'es'},t.es):null,h('span',{class:'dsec-c'},k.en)),
+      h('span',{class:'dsec-meta'},h('span',{class:'dsec-n'},searching?(items.length+' / '+all.length):String(all.length)),okc?h('span',{class:'dsec-ok'},'✅ '+okc+'/'+all.length):null),
+      h('span',{class:'mchev','aria-hidden':'true'},'▾'));
+    var body=h('div',{class:'dsec-b',id:'dsb_'+s.id});
+    body.hidden=!open;
+    function fill(){
+      if(done)return;done=true;
+      if(!searching){
+        body.append(conceptPanel(s,all));
+        if(s.id==='subj'){body.append(subjectExplorer(),dSubjectTable());}
+        else if(s.id==='be'||s.id==='neg'){body.append(dSubjectTable());}
+        else if(s.id==='dem'){body.append(demLab());}
+      }
       var list=h('div',{class:'dlist'});
-      g.items.forEach(function(e){list.append(dEntry(e));});
-      box.append(list);
+      items.forEach(function(e){list.append(dEntry(e,{secTag:searching}));});
+      body.append(list);
+      hydrateFlags(body);
+    }
+    head.addEventListener('click',function(){
+      var o=head.getAttribute('aria-expanded')!=='true';
+      head.setAttribute('aria-expanded',o?'true':'false');
+      body.hidden=!o;wrap.classList.toggle('open',o);
+      if(o)fill();
+      if(!searching)DS.open[s.id]=o;
     });
+    if(open)fill();
+    wrap.append(head,body);
+    return wrap;
+  }
+  function drawPractice(){
+    var ids=DS.pr;
+    if(DS.pi>=ids.length)DS.pi=ids.length-1;
+    if(DS.pi<0)DS.pi=0;
+    var e=DICT[ids[DS.pi]];
+    chrome(false);
+    box.innerHTML='';
+    box.append(h('div',{class:'dpr-bar'},
+      h('button',{type:'button',class:'btn sm',onclick:function(){DS.pr=null;draw();}},bi('← Back to titles','Volver a los títulos',true)),
+      h('b',null,(DS.pi+1)+' / '+ids.length),
+      h('div',{class:'dpr-nav'},
+        h('button',{type:'button',class:'btn sm',disabled:DS.pi===0?'disabled':null,onclick:function(){DS.pi--;draw();}},'◀'),
+        h('button',{type:'button',class:'btn sm pri',disabled:DS.pi>=ids.length-1?'disabled':null,onclick:function(){DS.pi++;draw();}},bi('Next ▶','Siguiente ▶',true)))));
+    box.append(dEntry(e,{big:true}));
     hydrateFlags(box);
   }
+  function draw(){
+    if(DS.pr&&DS.pr.length){drawPractice();return;}
+    DS.pr=null;chrome(true);
+    drawParts();
+    var t=terms(),searching=t.length>0,vis=visible(),groups=[];
+    DSECS.forEach(function(s){var its=vis.filter(function(e){return e.sec===s.id;});if(its.length)groups.push({s:s,items:its});});
+    drawProg(vis);
+    info.innerHTML=I(groups.length+' titles · '+vis.length+' entries',groups.length+' títulos · '+vis.length+' entradas');
+    btnOpen.hidden=searching;btnShut.hidden=searching;
+    box.innerHTML='';
+    if(!groups.length){box.append(h('div',{class:'dempty'},h('div',{style:'font-size:40px'},'🔎'),bi('No results. Try another word or title.','Sin resultados. Prueba otra palabra o título.')));return;}
+    var lastPart='';
+    groups.forEach(function(g){
+      if(g.s.part!==lastPart){
+        lastPart=g.s.part;
+        if(DS.part==='all'){var p=dPart(lastPart),pt=spl(p[2]);box.append(h('div',{class:'dpart'},p[1]+' '+pt.en,h('span',{class:'es i'},pt.es)));}
+      }
+      box.append(secEl(g.s,g.items,searching));
+    });
+  }
   var tm=null;
-  inp.addEventListener('input',function(){DS.q=inp.value;DS.pi=-1;clearTimeout(tm);tm=setTimeout(draw,140);});
+  inp.addEventListener('input',function(){DS.q=inp.value;clearTimeout(tm);tm=setTimeout(draw,140);});
   draw();
 }
 
