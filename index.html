@@ -943,6 +943,18 @@ table{border-radius:16px}
 .w1step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:3px;box-shadow:var(--shadow)}
 .w1sn{position:absolute;right:10px;top:8px;width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--accfg);font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
 .w1se{font-size:28px}
+
+/* ---------- GIFS ---------- */
+.gifpair{display:flex;gap:10px;align-items:stretch;width:100%}
+.gifbox{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;border-radius:18px;overflow:hidden;line-height:0;background:rgba(5,15,43,.6);border:2px solid rgba(255,255,255,.38);box-shadow:0 10px 26px rgba(5,15,43,.3)}
+.gifbox img{display:block;width:100%;height:auto;max-height:170px;object-fit:contain}
+.gifpair.gw{max-width:640px;margin:12px 0 4px}
+.gifpair.gw .gifbox{background:var(--card);border-color:var(--acc3);box-shadow:var(--shadow)}
+.lg-hr .lg-orb,.lg-hr .lg-card{display:none}
+.lg-hr .gifpair.gl{position:absolute;inset:0;flex-direction:column;gap:8px}
+.lg-hr .gifpair.gl .gifbox{flex:1;min-height:0}
+.lg-hr .gifpair.gl .gifbox img{max-height:108px}
+@media(max-width:760px){.lg-hr{display:block;height:auto;margin-top:4px}.lg-hr .lg-orb,.lg-hr .lg-card{display:none}.lg-hr .gifpair.gl{position:static;flex-direction:row}.gifbox img{max-height:120px}}
 </style>
 </head>
 <body>
@@ -1052,8 +1064,8 @@ function profileOf(id){return PROFILES.filter(function(p){return p.id===id;})[0]
 function teachers(){return PROFILES.filter(function(p){return p.role==='teacher';});}
 function students(){return PROFILES.filter(function(p){return p.role!=='teacher';});}
 
-var TOPICS={alphabet:'Alphabet',listening:'Listening',pron:'Speaking',nat:'Nationalities',numbers:'Numbers',vowels:'Vowels',be:'Verb BE',poss:'Possessives',simple:'Present Simple',vocab:'Vocabulary',plural:'Plurals',demo:'Demonstratives',wh:'Wh- questions',top100:'Top 100 words'};
-var TOPICS_ES={alphabet:'Alfabeto',listening:'Comprensión auditiva',pron:'Pronunciación',nat:'Nacionalidades',numbers:'Números',vowels:'Vocales',be:'Verbo BE',poss:'Posesivos',simple:'Presente simple',vocab:'Vocabulario',plural:'Plurales',demo:'Demostrativos',wh:'Preguntas Wh-',top100:'Top 100 palabras'};
+var TOPICS={alphabet:'Alphabet',listening:'Listening',pron:'Speaking',nat:'Nationalities',numbers:'Numbers',vowels:'Vowels',be:'Verb BE',poss:'Possessives',simple:'Present Simple',vocab:'Vocabulary',plural:'Plurals',demo:'Demonstratives',wh:'Wh- questions',top100:'Top 100 words',jobs:'Jobs',family:'Family'};
+var TOPICS_ES={alphabet:'Alfabeto',listening:'Comprensión auditiva',pron:'Pronunciación',nat:'Nacionalidades',numbers:'Números',vowels:'Vocales',be:'Verbo BE',poss:'Posesivos',simple:'Presente simple',vocab:'Vocabulario',plural:'Plurales',demo:'Demostrativos',wh:'Preguntas Wh-',top100:'Top 100 palabras',jobs:'Trabajos',family:'Familia'};
 
 /* ============================================================
    CLASS DATA
@@ -2358,6 +2370,245 @@ def('tw_dict','📝','Sentence dictation|Dictado de oraciones','Type the whole s
   return {kind:'type',prompt:I('Listen and <b>type the sentence</b>.','Escucha y <b>escribe la oración</b>.'),audio:{text:o.ex},answer:o.ex,hint:I(o.ex.split(' ').length+' words · key word: “'+o.w+'”',o.ex.split(' ').length+' palabras · palabra clave: “'+o.w+'”'),explain:I('<i>'+o.ex+'</i>',o.exEs)};
 });
 var M6_POOL=['tw_repeat','tw_repeat_sent','tw_hear_type','tw_hear_spell','tw_meaning','tw_en','tw_pron','tw_type_es','tw_fill','tw_dict'];
+/* ============================================================
+   MODULE 7 · class of Nov 20, 2026
+   Warm up · listening · verb BE · possessive adjectives and pronouns ·
+   Unit 2 People (jobs) · family
+   ============================================================ */
+var GIF_A='https://media.tenor.com/Wakk9-QWiLIAAAAM/dokkan-battle-top.gif';
+var GIF_B='https://i.pinimg.com/originals/aa/63/8a/aa638ac39b1a944cd6227cfb2199facd.gif';
+function gifBox(url,cls,label){
+  var im=h('img',{src:url,alt:label||'',loading:'lazy',decoding:'async',referrerpolicy:'no-referrer'});
+  var box=h('div',{class:'gifbox'+(cls?' '+cls:'')},im);
+  im.addEventListener('error',function(){box.hidden=true;});
+  return box;
+}
+function gifPair(cls){return h('div',{class:'gifpair'+(cls?' '+cls:'')},gifBox(GIF_A,'',''),gifBox(GIF_B,'',''));}
+var M7_BE=[
+ ['you / not / be / a doctor','You are not a doctor.','Tú no eres médico.'],
+ ['they / be / my brothers','They are my brothers.','Ellos son mis hermanos.'],
+ ['he / be / handsome','He is handsome.','Él es guapo.'],
+ ['how often / be / you in London?','How often are you in London?','¿Con qué frecuencia estás en Londres?'],
+ ['we / be / thirsty','We are thirsty.','Tenemos sed.'],
+ ['how long / be / the film?','How long is the film?','¿Cuánto dura la película?'],
+ ['where / be / David?','Where is David?','¿Dónde está David?'],
+ ['how / be / your mother?','How is your mother?','¿Cómo está tu mamá?']
+];
+var M7_PADJ=[
+ ['John and Julie shared ____ sandwiches at the picnic.','their','John y Julie compartieron sus sándwiches en el picnic.'],
+ ['You should tidy ____ room.','your','Deberías ordenar tu habitación.'],
+ ['They’re spending ____ holidays in Greece this year.','their','Ellos pasan sus vacaciones en Grecia este año.'],
+ ['William forgot to bring ____ snacks to work.','his','William olvidó traer sus bocadillos al trabajo.'],
+ ['We painted ____ living room a bright yellow.','our','Pintamos nuestro living de un amarillo brillante.'],
+ ['The children finished ____ schoolwork quickly.','their','Los niños terminaron su tarea escolar rápido.'],
+ ['You need to water ____ plants every morning.','your','Tienes que regar tus plantas cada mañana.']
+];
+/* [pronoun, possessive adjective, possessive pronoun, Spanish, example, example in Spanish] */
+var M7_PPRO=[
+ ['I','my','mine','mío / mía','This pencil is mine.','Este lápiz es mío.'],
+ ['you','your','yours','tuyo / tuya','Those headphones are yours.','Esos audífonos son tuyos.'],
+ ['he','his','his','suyo (de él)','This watch is his.','Este reloj es de él.'],
+ ['she','her','hers','suyo (de ella)','Those keys are hers.','Esas llaves son de ella.'],
+ ['it','its','','','',''],
+ ['we','our','ours','nuestro / nuestra','These beds are ours.','Estas camas son nuestras.'],
+ ['they','their','theirs','suyo (de ellos)','The house is theirs.','La casa es de ellos.']
+];
+var M7_PRO_LIST=['mine','yours','his','hers','ours','theirs'];
+var M7_ADJ_LIST=['my','your','his','her','our','their'];
+var M7_REW=[
+ ['This is my coin.','This coin is mine.','Esta es mi moneda. → Esta moneda es mía.'],
+ ['This is his watch.','This watch is his.','Este es su reloj. → Este reloj es de él.'],
+ ['This is my pencil.','This pencil is mine.','Este es mi lápiz. → Este lápiz es mío.'],
+ ['Those are your headphones.','Those headphones are yours.','Esos son tus audífonos. → Esos audífonos son tuyos.'],
+ ['These are our beds.','These beds are ours.','Estas son nuestras camas. → Estas camas son nuestras.'],
+ ['Those are her keys.','Those keys are hers.','Esas son sus llaves. → Esas llaves son de ella.']
+];
+var M7_REWN=[['this','pencil','is'],['this','coin','is'],['this','phone','is'],['that','bag','is'],['these','keys','are'],['those','headphones','are'],['these','beds','are'],['those','shoes','are']];
+/* ---------- jobs (Unit 2 · People) ---------- */
+var M7_JOBS1=[
+ {en:'police officer',lab:'Police Officer',es:'policía',em:'👮'},
+ {en:'firefighter',lab:'Firefighter',es:'bombero / bombera',em:'🚒'},
+ {en:'judge',lab:'Judge',es:'juez / jueza',em:'👨‍⚖️'},
+ {en:'lawyer',lab:'Lawyer',es:'abogado / abogada',em:'💼'},
+ {en:'driver',lab:'Driver',es:'conductor / conductora',em:'🚚'},
+ {en:'doctor',lab:'Doctor',es:'médico / médica',em:'🩺'},
+ {en:'nurse',lab:'Nurse',es:'enfermero / enfermera',em:'💉'},
+ {en:'surgeon',lab:'Surgeon',es:'cirujano / cirujana',em:'😷'},
+ {en:'dentist',lab:'Dentist',es:'dentista',em:'🦷'},
+ {en:'pharmacist',lab:'Pharmacist',es:'farmacéutico / farmacéutica',em:'💊'}
+];
+var M7_JOBS2=[
+ {en:'designer',lab:'Designer',es:'diseñador / diseñadora',em:'🎨'},
+ {en:'writer',lab:'Writer',es:'escritor / escritora',em:'✍️'},
+ {en:'chef',lab:'Chef',es:'chef / cocinero',em:'👨‍🍳'},
+ {en:'waitress',lab:'Waitress',es:'camarera / garzona',em:'🍽️'},
+ {en:'hairdresser',lab:'Hairdresser',es:'peluquero / peluquera',em:'💇'},
+ {en:'mechanic',lab:'Mechanic',es:'mecánico / mecánica',em:'🔧'},
+ {en:'gardener',lab:'Gardener',es:'jardinero / jardinera',em:'🌱'},
+ {en:'farmer',lab:'Farmer',es:'agricultor / agricultora',em:'🚜'},
+ {en:'plumber',lab:'Plumber',es:'gásfiter / plomero',em:'🚰'},
+ {en:'engineer',lab:'Engineer',es:'ingeniero / ingeniera',em:'⚙️'}
+];
+var M7_JOBS3=[
+ {en:'architect',lab:'Architect',es:'arquitecto / arquitecta',em:'📐'},
+ {en:'teacher',lab:'Teacher',es:'profesor / profesora',em:'👩‍🏫'},
+ {en:'data analyst',lab:'Data Analyst',es:'analista de datos',em:'📊'},
+ {en:'tour guide',lab:'Tour guide',es:'guía turístico / guía turística',em:'🗺️'},
+ {en:'flight attendant',lab:'Flight Attendant',es:'auxiliar de vuelo',em:'✈️'},
+ {en:'janitor',lab:'Janitor',es:'auxiliar de aseo / conserje',em:'🧹'},
+ {en:'veterinarian',lab:'Veterinarian',es:'veterinario / veterinaria',em:'🐕'},
+ {en:'pilot',lab:'Pilot',es:'piloto',em:'👨‍✈️'},
+ {en:'journalist',lab:'Journalist',es:'periodista',em:'📰'},
+ {en:'businessman',lab:'Businessman',es:'empresario / hombre de negocios',em:'👔'}
+];
+var M7_JOBS_ALL=M7_JOBS1.concat(M7_JOBS2,M7_JOBS3);
+var M7_OFFICE=[
+ {en:'receptionist',lab:'Receptionist',es:'recepcionista',em:'🛎️'},
+ {en:'human resource manager',lab:'Human Resource Manager (HRM)',es:'gerente de Recursos Humanos',em:'🧑‍💼'},
+ {en:'sales rep',lab:'Sales Rep.',es:'representante de ventas',em:'🤝'},
+ {en:'team leader',lab:'Team Leader',es:'líder de equipo',em:'🚩'},
+ {en:'personal assistant',lab:'Personal Assistant (PA)',es:'asistente personal',em:'📋'},
+ {en:'chief executive officer',lab:'Chief Executive Officer (CEO)',es:'director ejecutivo / gerente general',em:'👑'},
+ {en:'technician',lab:'Technician',es:'técnico / técnica',em:'🛠️'},
+ {en:'financial director',lab:'Financial Director',es:'director financiero / directora financiera',em:'💰'}
+];
+/* ---------- Unit 2 table: name · job · nationality of the company ---------- */
+var M7_PEOPLE=[
+ {n:'Dahlia',job:'Receptionist',jen:'receptionist',nat:'American',es:'recepcionista'},
+ {n:'Raquel',job:'HRM',jen:'human resource manager',nat:'Italian',es:'gerente de Recursos Humanos'},
+ {n:'Randy',job:'Sales Rep.',jen:'sales rep',nat:'Japanese',es:'representante de ventas'},
+ {n:'Lukaz',job:'Team Leader',jen:'team leader',nat:'Indian',es:'líder de equipo'},
+ {n:'Tiziana',job:'PA',jen:'personal assistant',nat:'Polish',es:'asistente personal'},
+ {n:'Charlotte',job:'CEO',jen:'chief executive officer',nat:'British',es:'director ejecutivo'},
+ {n:'Yuko',job:'Technician',jen:'technician',nat:'Brazilian',es:'técnico'},
+ {n:'Jacob',job:'Financial Director',jen:'financial director',nat:'South African',es:'director financiero'}
+];
+function m7PSent(p){return p.n+' is '+aOrAn(p.jen)+' '+p.jen+' at '+aOrAn(p.nat)+' '+p.nat+' company.';}
+/* ---------- family ---------- */
+var M7_FAM1=[
+ {en:'grandmother',es:'abuela',em:'👵'},{en:'grandfather',es:'abuelo',em:'👴'},
+ {en:'mother',lab:'Mother',es:'madre / mamá',em:'👩'},{en:'father',lab:'Father',es:'padre / papá',em:'👨'},
+ {en:'aunt',es:'tía',em:'👩‍🦱'},{en:'uncle',es:'tío',em:'👨‍🦱'},
+ {en:'brother',es:'hermano',em:'👦'},{en:'sister',es:'hermana',em:'👧'},{en:'cousins',es:'primos',em:'🧒'}
+];
+var M7_FAM2=[
+ {en:'mother / mom',es:'madre / mamá',em:'👵'},{en:'father / dad',es:'padre / papá',em:'👴'},
+ {en:'husband',es:'esposo / marido',em:'🤵'},{en:'wife',es:'esposa / mujer',em:'👰'},
+ {en:'father-in-law',es:'suegro',em:'👴'},{en:'mother-in-law',es:'suegra',em:'👵'},
+ {en:'brother-in-law',es:'cuñado',em:'👨'},{en:'sister-in-law',es:'cuñada',em:'👩'},
+ {en:'son',es:'hijo',em:'👦'},{en:'daughter',es:'hija',em:'👧'},
+ {en:'niece',es:'sobrina',em:'👶'},{en:'nephew',es:'sobrino',em:'🧒'}
+];
+var M7_FAMG=[
+ ['Grandparents','abuelos','grandmother + grandfather'],
+ ['Parents','padres','mother + father'],
+ ['Children','hijos','daughter + son'],
+ ['Siblings','hermanos','brother + sister']
+];
+/* every family word for the quizzes: [English, Spanish, extra accepted spellings] */
+var M7_FAMQ=[
+ ['grandmother','abuela',[]],['grandfather','abuelo',[]],['grandparents','abuelos',[]],
+ ['mother','madre / mamá',['mom','mum']],['father','padre / papá',['dad']],['parents','padres',[]],
+ ['aunt','tía',[]],['uncle','tío',[]],['cousins','primos',['cousin']],
+ ['brother','hermano',[]],['sister','hermana',[]],['siblings','hermanos',[]],
+ ['son','hijo',[]],['daughter','hija',[]],['children','hijos',[]],
+ ['husband','esposo / marido',[]],['wife','esposa',[]],
+ ['father-in-law','suegro',[]],['mother-in-law','suegra',[]],['brother-in-law','cuñado',[]],['sister-in-law','cuñada',[]],
+ ['niece','sobrina',[]],['nephew','sobrino',[]]
+];
+var M7_FAMREL=[
+ ['Your mother’s mother is your ____.','grandmother','La mamá de tu mamá es tu abuela.'],
+ ['Your father’s father is your ____.','grandfather','El papá de tu papá es tu abuelo.'],
+ ['Your mother’s sister is your ____.','aunt','La hermana de tu mamá es tu tía.'],
+ ['Your father’s brother is your ____.','uncle','El hermano de tu papá es tu tío.'],
+ ['Your aunt’s children are your ____.','cousins','Los hijos de tu tía son tus primos.'],
+ ['Your brother’s daughter is your ____.','niece','La hija de tu hermano es tu sobrina.'],
+ ['Your sister’s son is your ____.','nephew','El hijo de tu hermana es tu sobrino.'],
+ ['Your husband’s mother is your ____.','mother-in-law','La mamá de tu esposo es tu suegra.'],
+ ['Your wife’s father is your ____.','father-in-law','El papá de tu esposa es tu suegro.'],
+ ['Your husband’s brother is your ____.','brother-in-law','El hermano de tu esposo es tu cuñado.'],
+ ['Your brother’s wife is your ____.','sister-in-law','La esposa de tu hermano es tu cuñada.'],
+ ['Your mother and father are your ____.','parents','Tu mamá y tu papá son tus padres.'],
+ ['Your grandmother and grandfather are your ____.','grandparents','Tu abuela y tu abuelo son tus abuelos.'],
+ ['Your son and daughter are your ____.','children','Tu hijo y tu hija son tus hijos.'],
+ ['Your brother and sister are your ____.','siblings','Tu hermano y tu hermana son tus hermanos.']
+];
+var M7_FAMPOOL=['grandmother','grandfather','mother','father','aunt','uncle','cousins','niece','nephew','mother-in-law','father-in-law','brother-in-law','sister-in-law','parents','grandparents','children','siblings','brother','sister','son','daughter','husband','wife'];
+function jobLab(a){return a.lab||a.en;}
+/* ---------- quizzes ---------- */
+def('m7_be','🟦','Verb BE: make the sentence|Verbo BE: forma la oración','(you / not / be / a doctor) → You aren’t a doctor. (Module 7)|(you / not / be / a doctor) → You aren’t a doctor. (Módulo 7)','be',function(){
+  var it=pick(M7_BE);
+  if(Math.random()<0.6)return {kind:'type',prompt:I('Make the sentence using <b>be</b> in its correct form:','Forma la oración usando <b>be</b> en su forma correcta:')+'<span class="big">('+it[0]+')</span>',answer:it[1],hint:I('Contractions are fine: aren’t, isn’t, he’s, we’re','Puedes usar contracciones: aren’t, isn’t, he’s, we’re'),explain:I('<b>'+it[1]+'</b>',it[2])};
+  var be=it[1].match(/\b(am|is|are)\b/)[1];
+  return {kind:'mc',prompt:I('Choose <b>am / is / are</b>:','Elige <b>am / is / are</b>:')+'<span class="big" style="font-size:24px">'+it[1].replace(/\b(am|is|are)\b/,'____')+'<span class="es">'+it[2]+'</span></span>',options:['am','is','are'],answer:be,explain:I('<b>'+it[1]+'</b>  I → am · he / she / it → is · we / you / they → are','')};
+});
+def('m7_padj','👤','Possessive adjectives: fill the gap|Adjetivos posesivos: completa','Fill with the correct adjective (Module 7).|Completa con el adjetivo correcto (Módulo 7).','poss',function(){
+  var it=pick(M7_PADJ);
+  if(Math.random()<0.65)return {kind:'mc',prompt:I('Fill with the correct <b>possessive adjective</b>:','Completa con el <b>adjetivo posesivo</b> correcto:')+'<span class="big" style="font-size:22px">'+it[0]+'<span class="es">'+it[2]+'</span></span>',options:POSS7.slice(),answer:it[1],explain:I(it[0].replace('____','<b>'+it[1]+'</b>'),it[2])};
+  return {kind:'type',prompt:I('Type the correct <b>possessive adjective</b>:','Escribe el <b>adjetivo posesivo</b> correcto:')+'<span class="big" style="font-size:22px">'+it[0]+'<span class="es">'+it[2]+'</span></span>',answer:it[1],explain:I(it[0].replace('____','<b>'+it[1]+'</b>'),it[2])};
+});
+def('m7_ppro','🔗','Adjective ↔ pronoun (my → mine)|Adjetivo ↔ pronombre (my → mine)','my → mine · your → yours · her → hers… (Module 7).|my → mine · your → yours · her → hers… (Módulo 7).','poss',function(){
+  var rows=M7_PPRO.filter(function(r){return r[2];}),r=pick(rows),t=Math.random();
+  var ex=I('<b>'+r[0]+' → '+r[1]+' → '+r[2]+'</b>','Pronombre personal → adjetivo posesivo → pronombre posesivo');
+  if(t<0.4)return {kind:'mc',prompt:I('Which <b>possessive pronoun</b> matches <b>'+r[1]+'</b>?','¿Qué <b>pronombre posesivo</b> corresponde a <b>'+r[1]+'</b>?'),options:mcOpts(r[2],M7_PRO_LIST),answer:r[2],explain:ex};
+  if(t<0.7)return {kind:'mc',prompt:I('Which <b>possessive adjective</b> matches <b>'+r[2]+'</b>?','¿Qué <b>adjetivo posesivo</b> corresponde a <b>'+r[2]+'</b>?'),options:mcOpts(r[1],M7_ADJ_LIST),answer:r[1],explain:ex};
+  return {kind:'type',prompt:I('Type the <b>possessive pronoun</b> for <b>'+r[0]+'</b> ('+r[1]+' → ?):','Escribe el <b>pronombre posesivo</b> de <b>'+r[0]+'</b> ('+r[1]+' → ?):'),answer:r[2],explain:ex};
+});
+def('m7_ppro_use','🪙','Adjective or pronoun?|¿Adjetivo o pronombre?','This is ____ coin / This coin is ____ (Module 7).|This is ____ coin / This coin is ____ (Módulo 7).','poss',function(){
+  var rows=M7_PPRO.filter(function(r){return r[2]&&r[0]!=='he';}),r=pick(rows),n=pick(['phone','bag','car','coat','book','pen','coin']),adj=Math.random()<0.5;
+  var s=adj?'This is ____ '+n+'.':'This '+n+' is ____.';
+  var ans=adj?r[1]:r[2];
+  var others=rows.filter(function(x){return x[0]!==r[0];}),o=sample(others,2);
+  var opts=uniq([r[1],r[2]].concat(o.map(function(x){return adj?x[1]:x[2];})));
+  return {kind:'mc',prompt:I('Complete the sentence. The owner is <b>'+r[0]+'</b>:','Completa la oración. El dueño es <b>'+r[0]+'</b>:')+'<span class="big">'+s+'</span><div class="hint">'+I(adj?'Before a noun → possessive adjective':'At the end of the sentence → possessive pronoun',adj?'Antes de un sustantivo → adjetivo posesivo':'Al final de la oración → pronombre posesivo')+'</div>',options:shuffle(opts),answer:ans,explain:I(s.replace('____','<b>'+ans+'</b>'),'This is my coin → This coin is mine.')};
+});
+def('m7_rewrite','✏️','Rewrite with a possessive pronoun|Reescribe con pronombre posesivo','This is my pencil → This pencil is mine (Module 7).|This is my pencil → This pencil is mine (Módulo 7).','poss',function(){
+  var s1,s2,es;
+  if(Math.random()<0.5){var it=pick(M7_REW);s1=it[0];s2=it[1];es=it[2];}
+  else{
+    var d=pick(M7_REWN),r=pick(M7_PPRO.filter(function(x){return x[2];}));
+    s1=cap(d[0])+' '+d[2]+' '+r[1]+' '+d[1]+'.';s2=cap(d[0])+' '+d[1]+' '+d[2]+' '+r[2]+'.';es='';
+  }
+  return {kind:'type',prompt:I('Rewrite the sentence with a <b>possessive pronoun</b> at the end:','Reescribe la oración con un <b>pronombre posesivo</b> al final:')+'<span class="big" style="font-size:22px">'+s1+'</span>',answer:s2,hint:I('e.g. This is his watch → This watch is his.','p. ej. This is his watch → This watch is his.'),explain:I('<b>'+s2+'</b>',es)};
+});
+def('m7_people','🏢','Unit 2: People, jobs and companies|Unidad 2: personas, trabajos y empresas','Name · job title · nationality of the company (Module 7).|Nombre · cargo · nacionalidad de la empresa (Módulo 7).','listening',function(){
+  var p=pick(M7_PEOPLE),r=Math.random(),sent=m7PSent(p);
+  var explain=I(sent,p.n+' es '+p.es+' en una empresa '+p.nat.toLowerCase()+'.');
+  if(r<0.3)return {kind:'mc',prompt:I('Listen and choose the <b>job title</b> of the person.','Escucha y elige el <b>cargo</b> de la persona.'),audio:{text:sent},options:mcOpts(p.job,M7_PEOPLE.map(function(x){return x.job;})),answer:p.job,explain:explain};
+  if(r<0.55)return {kind:'mc',prompt:I('Listen and choose the <b>nationality of the company</b>.','Escucha y elige la <b>nacionalidad de la empresa</b>.'),audio:{text:sent},options:mcOpts(p.nat,M7_PEOPLE.map(function(x){return x.nat;})),answer:p.nat,explain:explain};
+  if(r<0.75)return {kind:'mc',prompt:I('Listen and choose the <b>name</b> of the person.','Escucha y elige el <b>nombre</b> de la persona.'),audio:{text:sent},options:mcOpts(p.n,M7_PEOPLE.map(function(x){return x.n;})),answer:p.n,explain:explain};
+  if(r<0.9)return {kind:'mc',prompt:I('What is <b>'+p.n+'</b>’s job title?','¿Cuál es el cargo de <b>'+p.n+'</b>?'),options:mcOpts(p.job,M7_PEOPLE.map(function(x){return x.job;})),answer:p.job,explain:explain};
+  return {kind:'mc',prompt:I('Who works at <b>'+aOrAn(p.nat)+' '+p.nat+'</b> company?','¿Quién trabaja en una empresa <b>'+p.nat.toLowerCase()+'</b>?'),options:mcOpts(p.n,M7_PEOPLE.map(function(x){return x.n;})),answer:p.n,explain:explain};
+});
+def('m7_job_pic','🖼️','Picture → job|Dibujo → trabajo','See the picture and choose the job (Module 7).|Mira el dibujo y elige el trabajo (Módulo 7).','jobs',function(){
+  var a=pick(M7_JOBS_ALL),others=sample(M7_JOBS_ALL.filter(function(x){return x!==a;}),3);
+  return {kind:'mc',prompt:I('Which <b>job</b> is this?','¿Qué <b>trabajo</b> es este?')+'<b class="big" style="font-size:56px">'+a.em+'</b>',options:shuffle([a].concat(others)).map(jobLab),answer:jobLab(a),explain:I(a.em+' <b>'+jobLab(a)+'</b>',a.es)};
+});
+def('m7_job_listen','🔊','Hear the job, tap the picture|Escucha el trabajo y toca el dibujo','You hear a job and choose the picture (Module 7).|Oyes un trabajo y eliges el dibujo (Módulo 7).','jobs',function(){
+  var a=pick(M7_JOBS_ALL),others=sample(M7_JOBS_ALL.filter(function(x){return x!==a;}),3);
+  return {kind:'mc',emojiOnly:true,prompt:I('Listen to the word and choose the <b>picture</b>.','Escucha la palabra y elige el <b>dibujo</b>.'),audio:{text:a.en},options:shuffle([a].concat(others)).map(function(x){return {emoji:x.em,label:'',value:x.en};}),answer:a.en,explain:I(a.em+' <b>'+jobLab(a)+'</b>',a.es)};
+});
+def('m7_job_es','🔁','Jobs: English ↔ Spanish|Trabajos: inglés ↔ español','Choose or type the job (Module 7).|Elige o escribe el trabajo (Módulo 7).','jobs',function(){
+  var a=pick(M7_JOBS_ALL);
+  if(Math.random()<0.5)return {kind:'mc',prompt:I('What does this job mean in <b>Spanish</b>?','¿Qué significa este trabajo en <b>español</b>?')+'<b class="big">'+jobLab(a)+'</b>',audio:{text:a.en},options:mcOpts(firstEs(a),M7_JOBS_ALL.map(firstEs)),answer:firstEs(a),explain:I(a.em+' <b>'+jobLab(a)+'</b>','<b>'+jobLab(a)+'</b> = '+a.es)};
+  return {kind:'type',prompt:I('Type this job in <b>English</b>:','Escribe este trabajo en <b>inglés</b>:')+'<b class="big" style="font-size:26px">'+a.es+'</b><span class="big" style="font-size:44px">'+a.em+'</span>',answer:a.en,explain:I(a.em+' <b>'+jobLab(a)+'</b>',a.es+' = <b>'+jobLab(a)+'</b>')};
+});
+def('m7_job_spell','🔤','Spell the job|Deletrea el trabajo','You hear the letters and type the job (Module 7).|Oyes las letras y escribes el trabajo (Módulo 7).','jobs',function(){
+  var a=pick(M7_JOBS_ALL);
+  return {kind:'type',cmp:'letters',prompt:I('Listen to the spelling and type the <b>job</b>.','Escucha el deletreo y escribe el <b>trabajo</b>.'),audio:{spell:a.en},answer:a.en,hint:I(a.en.replace(/ /g,'').length+' letters · '+a.em,a.en.replace(/ /g,'').length+' letras · '+a.es),explain:I('It was <b>'+jobLab(a)+'</b>.','Era <b>'+jobLab(a)+'</b> ('+a.es+').')};
+});
+def('m7_fam_es','👪','Family: English ↔ Spanish|Familia: inglés ↔ español','Grandmother, aunt, nephew, brother-in-law… (Module 7).|Grandmother, aunt, nephew, brother-in-law… (Módulo 7).','family',function(){
+  var f=pick(M7_FAMQ),pool=M7_FAMQ.map(function(x){return x[1].split(' / ')[0];}),r=Math.random();
+  var fe=f[1].split(' / ')[0];
+  if(r<0.4)return {kind:'mc',prompt:I('What does this word mean in <b>Spanish</b>?','¿Qué significa esta palabra en <b>español</b>?')+'<b class="big">'+f[0]+'</b>',audio:{text:f[0]},options:mcOpts(fe,pool),answer:fe,explain:I('<b>'+f[0]+'</b>','<b>'+f[0]+'</b> = '+f[1])};
+  if(r<0.75)return {kind:'type',prompt:I('Type this family word in <b>English</b>:','Escribe esta palabra de la familia en <b>inglés</b>:')+'<b class="big" style="font-size:26px">'+f[1]+'</b>',answer:f[0],accept:f[2],explain:I('<b>'+f[0]+'</b>',f[1]+' = <b>'+f[0]+'</b>')};
+  return {kind:'type',cmp:'letters',prompt:I('Listen to the spelling and type the <b>family word</b>.','Escucha el deletreo y escribe la <b>palabra de la familia</b>.'),audio:{spell:f[0]},answer:f[0],hint:I(f[0].replace(/-/g,'').length+' letters','Se escribe con '+f[0].replace(/-/g,'').length+' letras'),explain:I('It was <b>'+f[0]+'</b>.','Era <b>'+f[0]+'</b> ('+f[1]+').')};
+});
+def('m7_fam_rel','🌳','Family tree: who is it?|Árbol familiar: ¿quién es?','Your mother’s sister is your… (Module 7).|Your mother’s sister is your… (Módulo 7).','family',function(){
+  var it=pick(M7_FAMREL);
+  return {kind:'mc',prompt:I('Complete the sentence:','Completa la oración:')+'<span class="big" style="font-size:22px">'+it[0]+'<span class="es">'+it[2]+'</span></span>',options:mcOpts(it[1],M7_FAMPOOL),answer:it[1],explain:I(it[0].replace('____','<b>'+it[1]+'</b>'),it[2])};
+});
+var M7_POOL=['m7_be','m7_padj','m7_ppro','m7_ppro_use','m7_rewrite','m7_people','m7_job_pic','m7_job_listen','m7_job_es','m7_job_spell','m7_fam_es','m7_fam_rel'];
 
 /* ---------- Module 6 · study screens ---------- */
 function w1Card(o){
@@ -2429,7 +2680,7 @@ function poolGen(ids){return function(){var d=QZ[pick(ids)],q=d.gen();q.topic=q.
 
 /* ---------- MIXED EXAM / LIGHTNING ---------- */
 var OLD_POOL=['al_listen','al_pron','al_spell','li_comp','li_dict','li_numbers','li_nat','li_vocab','li_colors','li_ages','nt_flag','nt_flag2c','nt_flagtype','nt_hearflag','nt_c2n','nt_n2c','nt_fill','nt_suffix','nt_odd','nt_spell','nt_trans','nm_pairs','nm_w2n','nm_n2w','nm_age','nm_math','vw_ls','vw_pairs','vw_vowel','vw_short','vw_pattern','be_fill','be_neg','be_q','be_order','be_contr','po_fill','po_ctx','po_type','po_persona','ps_verb','ps_use','gr_called','gr_age','gr_trans','vb_en_es','vb_es_en','vb_emoji','vb_color','vb_spell','vb_called'];
-var EXAM_POOL=OLD_POOL.concat(M4_POOL,M5_POOL,M6_POOL);
+var EXAM_POOL=OLD_POOL.concat(M4_POOL,M5_POOL,M6_POOL,M7_POOL);
 var LIGHT_POOL=['al_listen','al_pron','li_nat','li_vocab','li_colors','nt_flag','nt_flag2c','nt_hearflag','nt_c2n','nt_n2c','nt_fill','nt_suffix','nt_odd','nm_pairs','nm_w2n','vw_ls','vw_pairs','vw_vowel','vw_short','be_fill','be_contr','po_fill','po_ctx','po_type','po_persona','ps_verb','ps_use','gr_called','gr_age','vb_en_es','vb_es_en','vb_emoji','vb_color'];
 function mixedGen(){var d=QZ[pick(EXAM_POOL)],q=d.gen();q.topic=d.topic;return q;}
 function lightGen(){var d=QZ[pick(LIGHT_POOL)],q=d.gen();q.topic=d.topic;return q;}
@@ -3170,7 +3421,7 @@ function renderLogin(v){
         h('span',null,'🎤 ',bi('voice check','revisión de voz',true))),
       last?h('button',{type:'button',class:'lg-cont',onclick:function(){loginEnter(last);}},
         ringAvatar(last,40,1,isTeacherP(last)),h('span',null,h('small',null,bi('Welcome back','Bienvenido/a de nuevo',true)),h('b',null,'Continue as '+last.name+' →'))):null),
-    h('div',{class:'lg-hr','aria-hidden':'true'},h('span',{class:'lg-orb o1'}),h('span',{class:'lg-orb o2'}),h('span',{class:'lg-card c1'},'🎧'),h('span',{class:'lg-card c2'},'🗣️'),h('span',{class:'lg-card c3'},'📖'),h('span',{class:'lg-card c4'},'🚩')));
+    h('div',{class:'lg-hr','aria-hidden':'true'},gifPair('gl'),h('span',{class:'lg-orb o1'}),h('span',{class:'lg-orb o2'}),h('span',{class:'lg-card c1'},'🎧'),h('span',{class:'lg-card c2'},'🗣️'),h('span',{class:'lg-card c3'},'📖'),h('span',{class:'lg-card c4'},'🚩')));
   box.append(hero);
   box.append(h('div',{class:'lg-q'},h('h2',null,bi("Who's practicing today?",'¿Quién practica hoy?')),h('p',{class:'muted',html:I('Choose your profile. Everyone has their own score, streak and progress.','Elige tu perfil. Cada persona tiene su propio puntaje, su racha y su progreso.')})));
   /* ---- teacher ---- */
@@ -3245,6 +3496,7 @@ function renderHome(v){
           h('button',{class:'btn w',type:'button',onclick:function(){go('team');}},bi('🎓 Open teacher panel','Abrir panel docente')),
           h('button',{class:'btn o',type:'button',onclick:function(){startDaily('home');}},bi('▶ Practice myself','Practicar yo')))),
       h('div',{class:'heroright'},
+        gifPair('gh'),
         h('div',{class:'hstats'},
           h('div',{class:'hs'},h('b',null,cs.active+'/'+cs.n),bi('Active (7 days)','Activos 7 días')),
           h('div',{class:'hs'},h('b',null,cs.q?cs.acc+'%':'—'),bi('Accuracy','Aciertos')),
@@ -3269,6 +3521,7 @@ function renderHome(v){
         h('button',{class:'btn o',type:'button',onclick:startLightning},bi('⚡ Lightning round','Reto relámpago')),
         h('button',{class:'btn o',type:'button',onclick:function(){go('topic:pron');}},bi('🎤 Speak','Pronunciar')))),
     h('div',{class:'heroright'},
+      gifPair('gh'),
       h('div',{class:'ringbox'},ringBox(todayQ(S),DAILY_GOAL),
         h('div',{class:'hstats',style:'flex:1'},
           h('div',{class:'hs'},h('b',null,String(S.xp)),h('span',null,'XP')),
@@ -3284,7 +3537,7 @@ function renderHome(v){
   var wk=weakest(S);
   var q1=h('div',{class:'grid',style:'margin-top:16px'});
   q1.append(
-    card('feat','🧭','Modules|Módulos','One module per class (Nov 2 to Nov 16) and the General module with everything.|Un módulo por clase (2 al 16 nov) y el módulo General con todo.','Open →|Abrir',function(){go('modules');}),
+    card('feat','🧭','Modules|Módulos','One module per class (Nov 2 to Nov 20) and the General module with everything.|Un módulo por clase (2 al 20 nov) y el módulo General con todo.','Open →|Abrir',function(){go('modules');}),
     card('','📖','Dictionary|Diccionario','Subjects, negatives and every point seen, with search and audio.|Sujetos, negativos y todos los puntos vistos, con buscador y audio.','Open →|Abrir',function(){go('dict');}),
     card('gold','⚡','Lightning round|Reto relámpago',LIGHT_N+' questions against the clock. Answer fast to earn a bonus!|'+LIGHT_N+' preguntas a contrarreloj. ¡Responde rápido y gana bonus!','Play →|Jugar',startLightning),
     wk?card('feat','🎯','Focus: '+TOPICS[wk.k]+'|Reforzar: '+TOPICS_ES[wk.k],'Your weakest topic ('+wk.pc+'%). A short quiz helps.|Tu tema más flojo ('+wk.pc+'%). Una prueba corta ayuda.','Practice →|Practicar',function(){var ids=Object.keys(QZ).filter(function(k){return QZ[k].topic===wk.k;});startQuiz(pick(ids),{back:'home'});}):
@@ -3298,8 +3551,9 @@ function renderHome(v){
     '<b>Nov 6 (Module 2):</b> alphabet, spelling, long and short vowels, nationalities (-ish, -an, -ese), numbers.<br>'+
     '<b>Nov 9 (Module 3):</b> spelling names, ages, possessive adjectives, pets, farm animals, “is called”.<br>'+
     '<b>Nov 13 (Module 4):</b> spelling words, flags and nationalities, everyday things, plurals, this / that / these / those.<br>'+
-    '<b>Nov 16 (Module 5):</b> spelling and punctuation marks, verb BE, Wh- questions, possessive adjectives, this / that / these / those.'+
-    I('','2 nov: colores, verbo BE, Present Simple. 6 nov: alfabeto, deletreo, vocales, nacionalidades, números. 9 nov: edades, posesivos, mascotas, animales de granja. 13 nov: deletreo, banderas, objetos, plurales, demostrativos. 16 nov: puntuación, verbo BE, preguntas Wh-, posesivos, demostrativos.')}),
+    '<b>Nov 16 (Module 5):</b> spelling and punctuation marks, verb BE, Wh- questions, possessive adjectives, this / that / these / those.<br>'+
+    '<b>Nov 20 (Module 7):</b> verb BE, possessive adjectives and pronouns, Unit 2 People (jobs) and family.'+
+    I('','2 nov: colores, verbo BE, Present Simple. 6 nov: alfabeto, deletreo, vocales, nacionalidades, números. 9 nov: edades, posesivos, mascotas, animales de granja. 13 nov: deletreo, banderas, objetos, plurales, demostrativos. 16 nov: puntuación, verbo BE, preguntas Wh-, posesivos, demostrativos. 20 nov: verbo BE, posesivos y pronombres posesivos, trabajos, familia.')}),
     h('div',{class:'center',style:'justify-content:flex-start'},h('button',{class:'btn pri',type:'button',onclick:function(){go('modules');}},bi('🧭 Open the modules','Abrir los módulos')),h('button',{class:'btn',type:'button',onclick:function(){go('dict');}},bi('📖 Dictionary','Diccionario'))));
   if(!TTS)v.append(h('div',{class:'notice',html:I('Your browser has no built-in voice. Open the page with Chrome or Edge.','Tu navegador no admite voz integrada. Abre la página con Chrome o Edge.')}));
 }
@@ -3554,6 +3808,81 @@ var MODULES=[
    {id:'w3',icon:'3️⃣',t:'Words 41–60|Palabras 41–60',body:function(c){w1Group(c,41,60);}},
    {id:'w4',icon:'4️⃣',t:'Words 61–80|Palabras 61–80',body:function(c){w1Group(c,61,80);}},
    {id:'w5',icon:'5️⃣',t:'Words 81–100|Palabras 81–100',body:function(c){w1Group(c,81,100);}}
+  ]},
+ {id:'m7',num:7,icon:'7️⃣',short:'Nov 20',dateEn:'Friday, November 20, 2026',dateEs:'viernes 20 de noviembre de 2026',
+  title:'Module 7|Módulo 7',head:'Class of November 20|Clase del 20 de noviembre',
+  sub:'Verb BE, possessive adjectives and pronouns, Unit 2 People (jobs) and family.|Verbo BE, adjetivos y pronombres posesivos, Unidad 2 Personas (trabajos) y familia.',
+  topics:'warm-up: words with S · listening: voicemail · present simple BE · possessive adjectives · possessive pronouns · Unit 2 People: jobs and companies · family tree|calentamiento: palabras con S · listening: mensaje de voz · presente simple BE · adjetivos posesivos · pronombres posesivos · Unidad 2 Personas: trabajos y empresas · árbol familiar',
+  src:'Nov 20.pdf',pool:M7_POOL,quizzes:M7_POOL,
+  points:[
+   {id:'warm',icon:'🔥',t:'Warm up! Five words with S|¡Calentamiento! Cinco palabras con S',body:function(c){
+     c.append(note('Think and say five words (in English) starting with the letter S. Type them to check, or tap an example to hear it.','Piensa y di cinco palabras (en inglés) que empiecen con la letra S. Escríbelas para comprobarlas o toca un ejemplo para oírlo.'));
+     var inp=h('input',{type:'text',placeholder:'e.g. sun, sister, school…','aria-label':'Five words with S',autocapitalize:'none',spellcheck:'false'}),out=h('div',{class:'hint','aria-live':'polite'});
+     function chk(){
+       var ws=uniq(inp.value.toLowerCase().split(/[\s,;]+/).filter(Boolean)),good=ws.filter(function(w){return w.charAt(0)==='s';}),bad=ws.filter(function(w){return w.charAt(0)!=='s';});
+       if(!ws.length){out.innerHTML=I('Type at least one word.','Escribe al menos una palabra.');return;}
+       var ok=good.length>=5;
+       out.innerHTML=(ok?'✅ ':'💡 ')+I(good.length+' word(s) start with S'+(ok?'. Great!':'. You need 5.')+(bad.length?' Not with S: '+esc(bad.join(', '))+'.':''),good.length+' palabra(s) empiezan con S'+(ok?'. ¡Muy bien!':'. Necesitas 5.')+(bad.length?' No empiezan con S: '+esc(bad.join(', '))+'.':''));
+       if(ok)sfx('ok');
+     }
+     inp.addEventListener('keydown',function(e){if(e.key==='Enter')chk();});
+     c.append(h('div',{class:'typerow'},inp,h('button',{class:'btn pri',type:'button',onclick:chk},bi('Check','Comprobar'))),out);
+     c.append(h('h3',null,bi('Examples (tap to listen)','Ejemplos (toca para oír)')),ptNames(['sun','sister','school','sandwich','summer','Saturday','seven','sorry']));
+   }},
+   {id:'listen',icon:'🎧',t:'Listening: a voicemail message|Listening: un mensaje de voz',body:function(c){
+     c.append(note('Listen to a voicemail message and answer the questions to practice your listening skills. The audio is played in class (British Council · LearnEnglish).','Escucha un mensaje de voz y responde las preguntas para practicar tu comprensión auditiva. El audio se escucha en clase (British Council · LearnEnglish).'));
+     var qs=[['What is the name of the caller?','¿Cómo se llama quien llama?'],['Where does she work?','¿Dónde trabaja ella?'],['Who gave her John’s phone number?','¿Quién le dio el número de teléfono de John?'],['What is her email address?','¿Cuál es su correo electrónico?'],['What is her phone number?','¿Cuál es su número de teléfono?']];
+     qs.forEach(function(q,i){
+       var inp=h('input',{type:'text',autocomplete:'off',autocapitalize:'none',spellcheck:'false','aria-label':'Answer '+(i+1),placeholder:'Your answer…'});
+       c.append(h('div',{class:'field'},h('label',null,(i+1)+'. '+q[0],h('span',{class:'es'},q[1])),h('div',{class:'typerow'},inp,h('button',{class:'btn sm',type:'button','aria-label':'Listen to question '+(i+1),onclick:function(){playAudio({text:q[0]});}},'🔊'))));
+     });
+     c.append(h('div',{class:'notice',html:I('Tip: for the email and the phone number, say <b>at</b> for @, <b>dot</b> for the period and the numbers one by one. Practice them in the spelling tool below.','Consejo: para el correo y el teléfono, di <b>at</b> para @, <b>dot</b> para el punto y los números uno por uno. Practícalos en el deletreador de abajo.')}));
+     spellTool(c);
+   }},
+   {id:'be',icon:'🟦',t:'Present Simple: BE|Presente simple: BE',body:function(c){
+     c.append(note('Make the sentences using the correct form of be.','Forma las oraciones usando la forma correcta de be.'));
+     c.append(h('div',{html:tbl(['Prompt','Answer','Español'],M7_BE.map(function(r){return ['('+r[0]+')',say_(r[1]),r[2]];}))+
+       '<div class="callout">I → <b>am</b> · he / she / it → <b>is</b> · we / you / they → <b>are</b>'+I('','Con I se usa am · con he / she / it se usa is · con we / you / they se usa are')+'</div>'+
+       '<p class="hint">'+I('You can also use contractions: You aren’t · They’re · He’s · We’re.','También puedes usar contracciones: You aren’t · They’re · He’s · We’re.')+'</p>'}));
+   }},
+   {id:'padj',icon:'👤',t:'Possessive adjectives: fill with the correct one|Adjetivos posesivos: completa con el correcto',body:function(c){
+     c.append(h('div',{html:tbl(['Sentence','Español'],M7_PADJ.map(function(r){return [say_(r[0].replace('____',r[1]),r[0].replace('____','<b>'+r[1]+'</b>')),r[2]];}))+
+       '<div class="callout">I → <b>my</b> · you → <b>your</b> · he → <b>his</b> · she → <b>her</b> · it → <b>its</b> · we → <b>our</b> · they → <b>their</b></div>'}));
+   }},
+   {id:'ppro',icon:'🔗',t:'Possessive pronouns|Pronombres posesivos',body:function(c){
+     c.append(note('You can use them instead of the possessive adjectives, at the end of a sentence.','Se pueden usar en lugar de los adjetivos posesivos, al final de una oración.'));
+     c.append(h('div',{html:tbl(['Personal pronoun','Possessive adj.','Possessive pro.'],M7_PPRO.map(function(r){return [say_(r[0]),say_(r[1]),r[2]?'<b>'+say_(r[2])+'</b>':'—'];}))+
+       '<div class="callout">🪙 '+say_('This is my coin.')+' → '+say_('This coin is mine.','This coin is <b>mine</b>.')+'<span class="es">Esta es mi moneda → Esta moneda es mía.</span></div>'+
+       '<p class="hint">'+I('<b>it → its</b> has no possessive pronoun in the table.','<b>it → its</b> no tiene pronombre posesivo en la tabla.')+'</p>'}));
+   }},
+   {id:'rewrite',icon:'✏️',t:'Rewrite the sentences|Reescribe las oraciones',body:function(c){
+     c.append(note('Example: This is his watch → This watch is his. Change “my / your / her / our…” + noun into a possessive pronoun.','Ejemplo: This is his watch → This watch is his. Cambia “my / your / her / our…” + sustantivo por un pronombre posesivo.'));
+     c.append(h('div',{html:tbl(['Sentence','Rewrite','Español'],M7_REW.map(function(r,i){return [say_(r[0]),'<b>'+say_(r[1])+'</b>',r[2]];}))}));
+   }},
+   {id:'people',icon:'🏢',t:'Unit 2 · People: listen and complete the table|Unidad 2 · Personas: escucha y completa la tabla',body:function(c){
+     c.append(note('Name, job title and nationality of the company. Tap a sentence to hear it.','Nombre, cargo y nacionalidad de la empresa. Toca una oración para oírla.'));
+     c.append(h('div',{html:tbl(['Name','Job title','Nationality of company'],M7_PEOPLE.map(function(p){return ['<b>'+say_(p.n)+'</b>',say_(p.jen,p.job+'<span class="es">'+p.es+'</span>'),say_(p.nat)];}))+
+       '<h3>'+II('Full sentences','Oraciones completas')+'</h3><ul>'+M7_PEOPLE.map(function(p){return '<li>'+say_(m7PSent(p))+'</li>';}).join('')+'</ul>'}));
+     c.append(h('h3',null,bi('Job titles in the bank','Cargos del banco de palabras')),ptTiles(M7_OFFICE,false));
+   }},
+   {id:'jobs1',icon:'👮',t:'Jobs (1/3): public service and health|Trabajos (1/3): servicio público y salud',body:function(c){c.append(note('Tap 🔊 to hear the job and 🔤 to hear it spelled.','Toca 🔊 para oír el trabajo y 🔤 para oírlo deletreado.'),ptTiles(M7_JOBS1,true));}},
+   {id:'jobs2',icon:'👨‍🍳',t:'Jobs (2/3): services and trades|Trabajos (2/3): servicios y oficios',body:function(c){c.append(note('Tap 🔊 to hear the job and 🔤 to hear it spelled.','Toca 🔊 para oír el trabajo y 🔤 para oírlo deletreado.'),ptTiles(M7_JOBS2,true));}},
+   {id:'jobs3',icon:'✈️',t:'Jobs (3/3): professions|Trabajos (3/3): profesiones',body:function(c){
+     c.append(note('Tap 🔊 to hear the job and 🔤 to hear it spelled.','Toca 🔊 para oír el trabajo y 🔤 para oírlo deletreado.'),ptTiles(M7_JOBS3,true));
+     c.append(h('div',{class:'callout',html:I('Before a job we say <b>a</b> or <b>an</b>: She is <b>a</b> teacher. He is <b>an</b> architect.','Antes de un trabajo se dice <b>a</b> o <b>an</b>: She is <b>a</b> teacher. He is <b>an</b> architect.')}));
+   }},
+   {id:'fam1',icon:'🌳',t:'Family tree: my family|Árbol familiar: mi familia',body:function(c){
+     c.append(note('Grandmother, grandfather, mother, father, aunt, uncle, brother, sister and cousins.','Grandmother, grandfather, mother, father, aunt, uncle, brother, sister y cousins.'),ptTiles(M7_FAM1,true));
+   }},
+   {id:'fam2',icon:'💍',t:'Family tree: husband, wife and in-laws|Árbol familiar: esposo, esposa y familia política',body:function(c){
+     c.append(note('The family of a married woman: husband, in-laws, son, daughter, niece and nephew.','La familia de una mujer casada: esposo, familia política, hijo, hija, sobrina y sobrino.'),ptTiles(M7_FAM2,true));
+     c.append(h('div',{class:'callout',html:I('<b>-in-law</b> = family by marriage: mother-in-law, father-in-law, brother-in-law, sister-in-law.','<b>-in-law</b> = familia política: suegra, suegro, cuñado, cuñada.')}));
+   }},
+   {id:'famg',icon:'👨‍👩‍👧‍👦',t:'Family groups and who is who|Grupos de la familia y ¿quién es quién?',body:function(c){
+     c.append(h('div',{html:tbl(['Group','Español','Who'],M7_FAMG.map(function(r){return ['<b>'+say_(r[0])+'</b>',r[1],r[2]];}))+
+       '<h3>'+II('Who is who?','¿Quién es quién?')+'</h3>'+
+       tbl(['Sentence','Español'],M7_FAMREL.map(function(r){return [say_(r[0].replace('____',r[1]),r[0].replace('____','<b>'+r[1]+'</b>')),r[2]];}))}));
+   }}
   ]}
 ];
 function modOf(id){return MODULES.filter(function(m){return m.id===id;})[0];}
@@ -3603,7 +3932,8 @@ function modCard(m){
 }
 function renderModules(v){
   v.append(h('h2',null,bi('🧭 Modules','Módulos')),
-    h('p',{class:'muted',html:I('One module per class (1–5), plus Module 6 with the 100 most common words. The General module puts everything together.','Un módulo por clase (1–5), más el Módulo 6 con las 100 palabras más comunes. El módulo General integra todo.')}));
+    h('p',{class:'muted',html:I('One module per class (1–5 and 7), plus Module 6 with the 100 most common words. The General module puts everything together.','Un módulo por clase (1–5 y 7), más el Módulo 6 con las 100 palabras más comunes. El módulo General integra todo.')}));
+  v.append(gifPair('gw'));
   var g=h('div',{class:'grid mgrid',style:'margin-top:12px'});
   MODULES.forEach(function(m){g.append(modCard(m));});
   var gs=genStats(S),totRev=0,totPts=0;
@@ -3611,8 +3941,8 @@ function renderModules(v){
   g.append(h('button',{type:'button',class:'card feat mcard','aria-label':'General module',onclick:function(){go('module:gen');}},
     h('span',{class:'mnum big'},'🧭'),
     h('b',null,biS('General module|Módulo General')),
-    h('span',{class:'chip'},'📅 Nov 2 – Nov 16'),
-    h('span',{class:'d'},biS('Everything in one place: all the material, all 74 flags and every quiz from the five classes.|Todo en un solo lugar: todo el material, las 74 banderas y todas las pruebas de las cinco clases.')),
+    h('span',{class:'chip'},'📅 Nov 2 – Nov 20'),
+    h('span',{class:'d'},biS('Everything in one place: all the material, all 74 flags and every quiz from all the classes.|Todo en un solo lugar: todo el material, las 74 banderas y todas las pruebas de todas las clases.')),
     h('span',{class:'d'},'📌 '+totRev+'/'+totPts+' points reviewed · 🧪 '+(gs.tries?'best '+gs.best+'%':'no exam yet')),
     h('span',{class:'go'},bi('Open module →','Abrir módulo →'))));
   g.append(h('button',{type:'button',class:'card mcard','aria-label':'Dictionary',onclick:function(){go('dict');}},
@@ -3668,7 +3998,7 @@ function renderModule(v,id){
         h('button',{class:'btn w',type:'button',onclick:function(){modExam(m);}},bi('▶ Module exam (15)','Examen del módulo (15)')),
         h('button',{class:'btn o',type:'button',onclick:function(){var e=$('#mpractice');if(e)e.scrollIntoView({behavior:'smooth'});}},bi('🧪 Practice','Practicar')),
         h('button',{class:'btn o',type:'button',onclick:function(){go('dict');}},bi('📖 Dictionary','Diccionario')))),
-    h('div',{class:'heroright'},h('div',{class:'hstats'},
+    h('div',{class:'heroright'},m.id==='m7'?gifPair('gh'):null,h('div',{class:'hstats'},
       h('div',{class:'hs'},h('b',null,String(m.points.length)),bi('Points seen','Puntos vistos')),
       h('div',{class:'hs'},revEl,bi('Reviewed','Repasados')),
       h('div',{class:'hs'},h('b',null,st.tries?st.best+'%':'—'),bi('Best score','Mejor puntaje'))))));
@@ -3696,7 +4026,7 @@ function renderModule(v,id){
 /* ---------- GENERAL MODULE: everything in one place ---------- */
 var TOPIC_MAP=[
  ['Colors','Colores',['M1']],
- ['Verb BE','Verbo BE',['M1','M4','M5']],
+ ['Verb BE','Verbo BE',['M1','M4','M5','M7']],
  ['Present Simple','Presente simple',['M1']],
  ['Grammatical person','Persona gramatical',['M1']],
  ['Alphabet & spelling','Alfabeto y deletreo',['M2','M3','M4','M5']],
@@ -3705,7 +4035,10 @@ var TOPIC_MAP=[
  ['Nationalities & flags','Nacionalidades y banderas',['M2','M4']],
  ['Numbers','Números',['M2','M3']],
  ['Ages','Edades',['M3']],
- ['Possessive adjectives','Adjetivos posesivos',['M3','M4','M5']],
+ ['Possessive adjectives','Adjetivos posesivos',['M3','M4','M5','M7']],
+ ['Possessive pronouns','Pronombres posesivos',['M7']],
+ ['Jobs','Trabajos y profesiones',['M7']],
+ ['Family','La familia',['M7']],
  ['Pets & farm animals','Mascotas y animales de granja',['M3']],
  ['“is called”','“is called”',['M3']],
  ['Everyday things','Objetos cotidianos',['M4']],
@@ -3713,6 +4046,7 @@ var TOPIC_MAP=[
  ['Demonstratives (this / that / these / those)','Demostrativos',['M4','M5']],
  ['Wh- questions','Preguntas Wh-',['M5']],
  ['Listening: names','Listening: nombres',['M4','M5']],
+ ['Listening: voicemail and companies','Listening: mensaje de voz y empresas',['M7']],
  ['Top 100 most common words','Las 100 palabras más usadas',['M6']]
 ];
 function accItem(id,icon,en,es,build,cnt){
@@ -3744,14 +4078,14 @@ function renderGeneral(v){
   v.append(h('section',{class:'hero',style:'margin-top:8px'},
     h('div',null,h('span',{class:'rolepill s'},'🧭 General module',h('span',{class:'es i'},'· Módulo General')),
       h('h1',null,biS('Everything we have seen, in one place|Todo lo visto, en un solo lugar')),
-      h('p',null,biS('All the material and quizzes from every class: alphabet, listening, speaking, all the flags, numbers, vowels, grammar and vocabulary, plus Modules 4 and 5 and the Top 100 words.|Todo el material y las pruebas de todas las clases: alfabeto, listening, pronunciación, todas las banderas, números, vocales, gramática y vocabulario, más los Módulos 4 y 5 y las Top 100 palabras.')),
+      h('p',null,biS('All the material and quizzes from every class: alphabet, listening, speaking, all the flags, numbers, vowels, grammar and vocabulary, plus Modules 4, 5 and 7 and the Top 100 words.|Todo el material y las pruebas de todas las clases: alfabeto, listening, pronunciación, todas las banderas, números, vocales, gramática y vocabulario, más los Módulos 4, 5 y 7 y las Top 100 palabras.')),
       h('div',{class:'cta'},
         h('button',{class:'btn w',type:'button',onclick:function(){genExam(20,'General exam','🧭');}},bi('▶ General exam (20)','Examen general (20)')),
         h('button',{class:'btn o',type:'button',onclick:function(){go('dict');}},bi('📖 Dictionary','Diccionario')),
         h('button',{class:'btn o',type:'button',onclick:function(){openAcc('g_nat');}},bi('🚩 All flags','Todas las banderas')),
         h('button',{class:'btn o',type:'button',onclick:function(){var e=$('#gexams');if(e)e.scrollIntoView({behavior:'smooth'});}},bi('🧪 Exams','Exámenes')))),
     h('div',{class:'heroright'},h('div',{class:'hstats'},
-      h('div',{class:'hs'},h('b',null,'5'),bi('Classes','Clases')),
+      h('div',{class:'hs'},h('b',null,'6'),bi('Classes','Clases')),
       h('div',{class:'hs'},h('b',null,String(allQ)),bi('Quizzes','Pruebas')),
       h('div',{class:'hs'},h('b',null,gs.tries?gs.best+'%':'—'),bi('Best exam','Mejor examen'))))));
 
@@ -3779,7 +4113,7 @@ function renderGeneral(v){
   v.append(h('div',{html:tbl(['Topic','Seen in'],TOPIC_MAP.map(function(r){
     return ['<b>'+r[0]+'</b><span class="es">'+r[1]+'</span>',r[2].map(function(x){return '<span class="chip">'+x+'</span>';}).join(' ')];
   }))}));
-  v.append(h('p',{class:'hint',html:I('M1 = Module 1 (Nov 2) · M2 = Nov 6 · M3 = Nov 9 · M4 = Nov 13 · M5 = Nov 16 · M6 = Top 100 words.','M1 = Módulo 1 (2 nov) · M2 = 6 nov · M3 = 9 nov · M4 = 13 nov · M5 = 16 nov · M6 = Top 100 palabras.')}));
+  v.append(h('p',{class:'hint',html:I('M1 = Module 1 (Nov 2) · M2 = Nov 6 · M3 = Nov 9 · M4 = Nov 13 · M5 = Nov 16 · M6 = Top 100 words · M7 = Nov 20.','M1 = Módulo 1 (2 nov) · M2 = 6 nov · M3 = 9 nov · M4 = 13 nov · M5 = 16 nov · M6 = Top 100 palabras · M7 = 20 nov.')}));
 
   v.append(h('h3',null,bi('📚 All the material and quizzes (from the earlier version)','Todo el material y las pruebas (de la versión anterior)')));
   v.append(note('Open any block to study and practice. The Nationalities block has all 74 flags.','Abre cualquier bloque para estudiar y practicar. El bloque de Nacionalidades tiene las 74 banderas.'));
@@ -3810,14 +4144,20 @@ function renderGeneral(v){
   m6.points.forEach(function(pt){var t=spl(pt.t);acc3.append(accItem('g_m6_'+pt.id,pt.icon,t.en,t.es,function(b){pt.body(b);},m6.icon));});
   acc3.append(accItem('g_m6q','🧪','Top 100 quizzes','Pruebas Top 100',function(b){b.append(quizGrid(M6_POOL,'module:gen'));},String(M6_POOL.length)));
   v.append(acc3);
+  v.append(h('h3',null,bi('🆕 Added in Module 7 (Nov 20)','Agregado en el Módulo 7 (20 nov)')));
+  var acc4=h('div'),m7=modOf('m7');
+  m7.points.forEach(function(pt){var t=spl(pt.t);acc4.append(accItem('g_m7_'+pt.id,pt.icon,t.en,t.es,function(b){pt.body(b);},m7.icon));});
+  acc4.append(accItem('g_m7q','🧪','Module 7 quizzes','Pruebas del Módulo 7',function(b){b.append(quizGrid(M7_POOL,'module:gen'));},String(M7_POOL.length)));
+  v.append(acc4);
 
   v.append(h('h3',{id:'gexams'},bi('🧪 General exams','Exámenes generales')));
   var g=h('div',{class:'grid'});
   g.append(
-    card('gold','🧭','General exam (20)|Examen general (20)','Questions from all 5 classes and the Top 100 words.|Preguntas de las 5 clases y de las Top 100 palabras.','Start →|Empezar',function(){genExam(20,'General exam','🧭');}),
+    card('gold','🧭','General exam (20)|Examen general (20)','Questions from all the classes and the Top 100 words.|Preguntas de todas las clases y de las Top 100 palabras.','Start →|Empezar',function(){genExam(20,'General exam','🧭');}),
     card('feat','🎯','Full general exam (30)|Examen general completo (30)','30 questions from every class.|30 preguntas de todas las clases.','Start →|Empezar',function(){genExam(30,'Full general exam','🎯');}),
     card('','🏃','Marathon (50)|Maratón (50)','50 questions: everything we have seen.|50 preguntas: todo lo visto.','Start →|Empezar',function(){genExam(50,'General marathon','🏃');}),
     card('','🆕','Latest classes (15)|Últimas clases (15)','Only Modules 4 and 5 (Nov 13 and Nov 16).|Solo Módulos 4 y 5 (13 y 16 nov).','Start →|Empezar',function(){genExam(15,'Modules 4 + 5','🆕',poolGen(M4_POOL.concat(M5_POOL)));}),
+    card('','👪','Module 7 · Nov 20 (15)|Módulo 7 · 20 nov (15)','Jobs, family, possessive pronouns and more.|Trabajos, familia, pronombres posesivos y más.','Start →|Empezar',function(){modExam(modOf('m7'));}),
     card('','💬','Top 100 words (15)|Top 100 palabras (15)','Listen, spell, repeat and meaning.|Escucha, escribe, repite y significado.','Start →|Empezar',function(){modExam(modOf('m6'));}),
     card('','🔁','Review mistakes|Repasar errores',S.mistakes.length+' saved question(s).|'+S.mistakes.length+' pregunta(s) guardadas.','Review →|Repasar',reviewMistakes));
   v.append(g);
@@ -3865,6 +4205,10 @@ var DSECS=[
   k:'my · your · his · her · its · our · their|my · your · his · her · its · our · their',
   c:'Possessive adjectives show who something belongs to. They go before the noun and do not change for singular or plural.|Los adjetivos posesivos muestran de quién es algo. Van antes del sustantivo y no cambian por singular o plural.',
   rule:'I → my · you → your · he → his · she → her · it → its · we → our · they → their',ex:'Her fish is called Nemo.'},
+ {id:'ppro',part:'gram',icon:'🔗',tint:'#0d9488',t:'Possessive pronouns|Pronombres posesivos',
+  k:'mine · yours · his · hers · ours · theirs|mine · yours · his · hers · ours · theirs',
+  c:'Possessive pronouns replace the possessive adjective + noun at the end of a sentence: This is my coin → This coin is mine.|Los pronombres posesivos reemplazan al adjetivo posesivo + sustantivo al final de una oración: This is my coin → This coin is mine.',
+  rule:'my → mine · your → yours · his → his · her → hers · our → ours · their → theirs',ex:'This coin is mine.'},
  {id:'dem',part:'gram',icon:'👉',tint:'#f59e0b',t:'this · that · these · those|Demostrativos (cerca o lejos)',
   k:'Close or far, one or many.|Cerca o lejos, uno o varios.',
   c:'Demonstratives point to things. They show the distance (close or far) and the number (one or many). They also work for time: this week is now, that summer was long ago.|Los demostrativos señalan cosas. Muestran la distancia (cerca o lejos) y la cantidad (uno o varios). También sirven para el tiempo: this week es ahora, that summer fue hace mucho.',
@@ -3925,6 +4269,14 @@ var DSECS=[
   k:'Words from the class exercises.|Palabras de los ejercicios de clase.',
   c:'Other words from the class exercises: oil, fruit, jam, giraffe, guitar…|Otras palabras de los ejercicios de clase: oil, fruit, jam, giraffe, guitar…',
   rule:'',ex:'I play the guitar.'},
+ {id:'jobs',part:'voc',icon:'💼',tint:'#7c3aed',t:'Jobs|Trabajos y profesiones',
+  k:'What people do for work.|A qué se dedica la gente.',
+  c:'Jobs and job titles from Unit 2 People. Before a job we say a or an.|Trabajos y cargos de la Unidad 2 Personas. Antes de un trabajo se dice a o an.',
+  rule:'He is a doctor · She is an architect',ex:'She is a nurse.'},
+ {id:'family',part:'voc',icon:'👪',tint:'#e11d48',t:'Family|La familia',
+  k:'Family tree words.|Palabras del árbol familiar.',
+  c:'Words for your family: grandparents, parents, children, siblings and the in-laws (family by marriage).|Palabras para tu familia: abuelos, padres, hijos, hermanos y la familia política.',
+  rule:'',ex:'My mother is a teacher.'},
  {id:'top100',part:'voc',icon:'💬',tint:'#2563eb',t:'Top 100 words|Las 100 palabras más usadas',
   k:'The most common English words, with sound and spelling.|Las palabras más comunes del inglés, con sonido y escritura.',
   c:'The 100 most common English words. Listen, see how each one is spelled, read the meaning and repeat it.|Las 100 palabras más comunes del inglés. Escucha, mira cómo se escribe, lee el significado y repítela.',
@@ -4028,6 +4380,9 @@ function dSecFor(e){
     case 'num':return 'num';
     case 'abc':return e.sym?'punct':'abc';
     case 'top':return 'top100';
+    case 'ppro':return 'ppro';
+    case 'job':return 'jobs';
+    case 'fam':return 'family';
     default:{
       var lw=w.toLowerCase();
       if(x.indexOf('color')>-1)return 'col';
@@ -4133,6 +4488,14 @@ function buildDict(){
   voc('daughter','hija',['M4'],{note:'Pronunciation: sounds like “doter”',noteEs:'Pronunciación: suena como “doter”',art:{k:'emoji',v:'👧'}});
   [['backpack','mochila'],['car','auto'],['mum','mamá'],['meeting','reunión'],['journalist','periodista'],['nurse','enfermero / enfermera'],['singer','cantante'],['student','estudiante'],['football boots','zapatillas de fútbol'],['weekend','fin de semana'],['party','fiesta']].forEach(function(a){voc(a[0],a[1],['M4','M5'],{extra:'words from exercises',art:{k:'emoji',v:WORD_EM[a[0]]}});});
 
+  /* ---- Module 7: possessive pronouns, jobs, family ---- */
+  M7_PPRO.filter(function(r){return r[2];}).forEach(function(r){
+    add('ppro',r[2],r[3],['M7'],{note:r[0]+' → '+r[1]+' → '+r[2],noteEs:'Pronombre posesivo',ex:r[4],exEs:r[5],extra:'possessive pronoun pronombre posesivo',art:{k:'big',v:r[2],sub:r[1]+' → '+r[2]}});
+  });
+  function voc7(cat,en,es,o){var k=en.toLowerCase();if(seen[k]){if(seen[k].mods.indexOf('M7')<0)seen[k].mods.push('M7');return;}add(cat,en,es,['M7'],o);seen[k]=L[L.length-1];}
+  M7_JOBS_ALL.concat(M7_OFFICE).forEach(function(a){voc7('job',jobLab(a),a.es,{extra:'job jobs trabajo profesión '+a.en,art:{k:'emoji',v:a.em},say:a.en});});
+  M7_FAM1.concat(M7_FAM2).forEach(function(a){voc7('fam',a.lab||a.en,a.es,{extra:'family familia',art:{k:'emoji',v:a.em},say:a.en});});
+  ['grandparents','parents','children','siblings'].forEach(function(w,i){voc7('fam',w,['abuelos','padres','hijos','hermanos'][i],{extra:'family familia group',art:{k:'emoji',v:['👵👴','👨‍👩','🧒👧','👦👧'][i]},say:w});});
   /* ---- Top 100 words (Module 6) ---- */
   W100.forEach(function(o){
     add('top',o.w,o.es,['M6'],{note:'Sounds like “'+o.resp+'” · /'+o.ipa+'/ · '+W_TYPES[o.type][0]+' · spelled '+w1Spell(o.w),noteEs:'Suena como “'+o.resp+'” · se escribe '+w1Spell(o.w),
@@ -4878,7 +5241,7 @@ applyTheme();applyEs();renderStats();
   go(ok?'home':'login');
   if(cloudOn())cloudPull().then(function(n){if(n&&cur==='home')go('home');});
 })();
-window.__EP={MODULES:MODULES,M1_POOL:M1_POOL,M2_POOL:M2_POOL,M3_POOL:M3_POOL,M4_POOL:M4_POOL,M5_POOL:M5_POOL,M6_POOL:M6_POOL,W100:W100,W_FILL:W_FILL,QZ:QZ,checkType:checkType,scoreSpeech:scoreSpeech,go:go,genGen:genGen,poolGen:poolGen,buildDict:buildDict,DS:DS,Mic:Mic,hasSR:!!SR,dArt:dArt,getS:function(){return S;},QZ:QZ,checkType:checkType,scoreSpeech:scoreSpeech,normText:normText,numWords:numWords,COUNTRIES:COUNTRIES,SECTIONS:SECTIONS,EXAM_POOL:EXAM_POOL,
+window.__EP={MODULES:MODULES,M1_POOL:M1_POOL,M2_POOL:M2_POOL,M3_POOL:M3_POOL,M4_POOL:M4_POOL,M5_POOL:M5_POOL,M6_POOL:M6_POOL,M7_POOL:M7_POOL,W100:W100,W_FILL:W_FILL,QZ:QZ,checkType:checkType,scoreSpeech:scoreSpeech,go:go,genGen:genGen,poolGen:poolGen,buildDict:buildDict,DS:DS,Mic:Mic,hasSR:!!SR,dArt:dArt,getS:function(){return S;},QZ:QZ,checkType:checkType,scoreSpeech:scoreSpeech,normText:normText,numWords:numWords,COUNTRIES:COUNTRIES,SECTIONS:SECTIONS,EXAM_POOL:EXAM_POOL,
   DB:DB,CFG:CFG,Mic:Mic,PROFILES:PROFILES,BADGES:BADGES,FLAGS:FLAGS,setUser:setUser,go:go,startQuiz:startQuiz,mergeUsers:mergeUsers,mixedGen:mixedGen,lightGen:lightGen,teamCSV:teamCSV,
   getS:function(){return S;},getUser:function(){return USER;},alertsList:alertsList,classStats:classStats,dayStreak:dayStreak};
 })();
